@@ -30,7 +30,7 @@ export const IndividualSizes: Story = {
   args: {
     ...ARGS.stack,
     sizeType: 'static',
-    childSizeX: undefined,
-    childSizeY: undefined,
+    itemSizeX: undefined,
+    itemSizeY: undefined,
   },
 };

@@ -1,3 +1,3 @@
-import type { ChildRatioOptions, ChildSizeOptions } from '../_types';
+import type { ItemRatioOptions, ItemSizeOptions } from '../_types';
 
-export type PinLayoutOptions = ChildSizeOptions & ChildRatioOptions;
+export type PinLayoutOptions = ItemSizeOptions & ItemRatioOptions;

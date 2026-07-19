@@ -2,11 +2,11 @@
   // 変数
   --nws-layout-gapX: 0px;
   --nws-layout-gapY: 0px;
-  --nws-layout-childSizeX: auto;
-  --nws-layout-childSizeY: auto;
-  --nws-layout-childRatio: auto;
-  --nws-layout-childCountX: auto-fit;
-  --nws-layout-childCountY: auto-fit;
+  --nws-layout-itemSizeX: auto;
+  --nws-layout-itemSizeY: auto;
+  --nws-layout-itemRatio: auto;
+  --nws-layout-itemCountX: auto-fit;
+  --nws-layout-itemCountY: auto-fit;
   --nws-layout-templateX: none;
   --nws-layout-templateY: none;
 
@@ -74,182 +74,184 @@
   }
 
   // 子要素の幅調整
-  grid-template-columns: repeat(auto-fit, auto);
-  &.nws-layout-childSizeX {
-    grid-template-columns: repeat(auto-fit, var(--nws-layout-childSizeX));
-    &.nws-layout-childCountX {
+  // 列の指定なし(itemSizeX,itemCountX,tracksXなし)の場合、
+  // auto-repeatに固定サイズ以外は指定できないためスタイルなし
+  &.nws-layout-itemSizeX {
+    grid-template-columns: repeat(auto-fit, var(--nws-layout-itemSizeX));
+    &.nws-layout-itemCountX {
       grid-template-columns: repeat(
-        var(--nws-layout-childCountX),
-        var(--nws-layout-childSizeX)
+        var(--nws-layout-itemCountX),
+        var(--nws-layout-itemSizeX)
       );
     }
   }
-  &.nws-layout-childCountX {
-    grid-template-columns: repeat(var(--nws-layout-childCountX), auto);
+  &.nws-layout-itemCountX {
+    grid-template-columns: repeat(var(--nws-layout-itemCountX), auto);
   }
   &.nws-layout-templateX {
     grid-template-columns: var(--nws-layout-templateX);
   }
   &.nws-layout-adjustX-fit {
     // 子要素の幅調整: 伸ばす & 縮める
-    grid-template-columns: repeat(auto-fit, 1fr);
-    &.nws-layout-childSizeX {
+    // 列の指定なしの場合はauto-repeatで表現できないためスタイルなし
+    &.nws-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(clamp(0px, 100%, var(--nws-layout-childSizeX)), 1fr)
+        minmax(clamp(0px, 100%, var(--nws-layout-itemSizeX)), 1fr)
       );
-      &.nws-layout-childCountX {
+      &.nws-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-childCountX),
+          var(--nws-layout-itemCountX),
           minmax(
             clamp(
               0px,
               calc(
                 (
                     100% - var(--nws-layout-gapX) *
-                      (var(--nws-layout-childCountX) - 1)
+                      (var(--nws-layout-itemCountX) - 1)
                   ) /
-                  var(--nws-layout-childCountX)
+                  var(--nws-layout-itemCountX)
               ),
-              var(--nws-layout-childSizeX)
+              var(--nws-layout-itemSizeX)
             ),
             1fr
           )
         );
       }
     }
-    &.nws-layout-childCountX {
-      grid-template-columns: repeat(var(--nws-layout-childCountX), 1fr);
+    &.nws-layout-itemCountX {
+      grid-template-columns: repeat(var(--nws-layout-itemCountX), 1fr);
     }
   }
   &.nws-layout-adjustX-grow {
     // 子要素の幅調整: 伸ばす
-    grid-template-columns: repeat(auto-fit, 1fr);
-    &.nws-layout-childSizeX {
+    // 列の指定なしの場合はauto-repeatで表現できないためスタイルなし
+    &.nws-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(var(--nws-layout-childSizeX), 1fr)
+        minmax(var(--nws-layout-itemSizeX), 1fr)
       );
-      &.nws-layout-childCountX {
+      &.nws-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-childCountX),
-          minmax(var(--nws-layout-childSizeX), 1fr)
+          var(--nws-layout-itemCountX),
+          minmax(var(--nws-layout-itemSizeX), 1fr)
         );
       }
     }
-    &.nws-layout-childCountX {
-      grid-template-columns: repeat(var(--nws-layout-childCountX), 1fr);
+    &.nws-layout-itemCountX {
+      grid-template-columns: repeat(var(--nws-layout-itemCountX), 1fr);
     }
   }
   &.nws-layout-adjustX-shrink {
     // 子要素の幅調整: 縮める
-    &.nws-layout-childSizeX {
+    &.nws-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(0, var(--nws-layout-childSizeX))
+        minmax(0, var(--nws-layout-itemSizeX))
       );
-      &.nws-layout-childCountX {
+      &.nws-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-childCountX),
-          minmax(0, var(--nws-layout-childSizeX))
+          var(--nws-layout-itemCountX),
+          minmax(0, var(--nws-layout-itemSizeX))
         );
       }
     }
-    &.nws-layout-childCountX {
-      grid-template-columns: repeat(var(--nws-layout-childCountX), auto);
+    &.nws-layout-itemCountX {
+      grid-template-columns: repeat(var(--nws-layout-itemCountX), auto);
     }
   }
 
   // 子要素の高さ調整
-  grid-template-rows: repeat(auto-fit, auto);
-  &.nws-layout-childSizeY {
-    grid-template-rows: repeat(auto-fit, var(--nws-layout-childSizeY));
-    &.nws-layout-childCountY {
+  // 行の指定なし(itemSizeY,itemCountY,tracksYなし)の場合、
+  // auto-repeatに固定サイズ以外は指定できないためスタイルなし
+  &.nws-layout-itemSizeY {
+    grid-template-rows: repeat(auto-fit, var(--nws-layout-itemSizeY));
+    &.nws-layout-itemCountY {
       grid-template-rows: repeat(
-        var(--nws-layout-childCountY),
-        var(--nws-layout-childSizeY)
+        var(--nws-layout-itemCountY),
+        var(--nws-layout-itemSizeY)
       );
     }
   }
-  &.nws-layout-childCountY {
-    grid-template-rows: repeat(var(--nws-layout-childCountY), auto);
+  &.nws-layout-itemCountY {
+    grid-template-rows: repeat(var(--nws-layout-itemCountY), auto);
   }
   &.nws-layout-templateY {
     grid-template-rows: var(--nws-layout-templateY);
   }
   &.nws-layout-adjustY-fit {
     // 子要素の高さ調整: 伸ばす & 縮める
-    grid-template-rows: repeat(auto-fit, 1fr);
-    &.nws-layout-childSizeY {
+    // 行の指定なしの場合はauto-repeatで表現できないためスタイルなし
+    &.nws-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(clamp(0px, 100%, var(--nws-layout-childSizeY)), 1fr)
+        minmax(clamp(0px, 100%, var(--nws-layout-itemSizeY)), 1fr)
       );
-      &.nws-layout-childCountY {
+      &.nws-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-childCountY),
+          var(--nws-layout-itemCountY),
           minmax(
             clamp(
               0px,
               calc(
                 (
                     100% - var(--nws-layout-gapY) *
-                      (var(--nws-layout-childCountY) - 1)
+                      (var(--nws-layout-itemCountY) - 1)
                   ) /
-                  var(--nws-layout-childCountY)
+                  var(--nws-layout-itemCountY)
               ),
-              var(--nws-layout-childSizeY)
+              var(--nws-layout-itemSizeY)
             ),
             1fr
           )
         );
       }
     }
-    &.nws-layout-childCountY {
-      grid-template-rows: repeat(var(--nws-layout-childCountY), 1fr);
+    &.nws-layout-itemCountY {
+      grid-template-rows: repeat(var(--nws-layout-itemCountY), 1fr);
     }
   }
   &.nws-layout-adjustY-grow {
     // 子要素の高さ調整: 伸ばす
-    grid-template-rows: repeat(auto-fit, 1fr);
-    &.nws-layout-childSizeY {
+    // 行の指定なしの場合はauto-repeatで表現できないためスタイルなし
+    &.nws-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(var(--nws-layout-childSizeY), 1fr)
+        minmax(var(--nws-layout-itemSizeY), 1fr)
       );
-      &.nws-layout-childCountY {
+      &.nws-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-childCountY),
-          minmax(var(--nws-layout-childSizeY), 1fr)
+          var(--nws-layout-itemCountY),
+          minmax(var(--nws-layout-itemSizeY), 1fr)
         );
       }
     }
-    &.nws-layout-childCountY {
-      grid-template-rows: repeat(var(--nws-layout-childCountY), 1fr);
+    &.nws-layout-itemCountY {
+      grid-template-rows: repeat(var(--nws-layout-itemCountY), 1fr);
     }
   }
   &.nws-layout-adjustY-shrink {
     // 子要素の高さ調整: 縮める
-    &.nws-layout-childSizeY {
+    &.nws-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(0, var(--nws-layout-childSizeY))
+        minmax(0, var(--nws-layout-itemSizeY))
       );
-      &.nws-layout-childCountY {
+      &.nws-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-childCountY),
-          minmax(0, var(--nws-layout-childSizeY))
+          var(--nws-layout-itemCountY),
+          minmax(0, var(--nws-layout-itemSizeY))
         );
       }
     }
-    &.nws-layout-childCountY {
-      grid-template-rows: repeat(var(--nws-layout-childCountY), auto);
+    &.nws-layout-itemCountY {
+      grid-template-rows: repeat(var(--nws-layout-itemCountY), auto);
     }
   }
 
-  &.nws-layout-childRatio > * {
+  &.nws-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--nws-layout-childRatio);
+    aspect-ratio: var(--nws-layout-itemRatio);
   }
 
   &.nws-layout-gapX {

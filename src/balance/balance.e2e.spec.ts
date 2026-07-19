@@ -8,9 +8,9 @@ const gotoStory = async (page: Page, storyId: string) => {
   await page.waitForSelector('.nws-layout-balance > *');
 };
 
-const CHILD_SIZE = 200;
-const CHILD_COUNT = 3;
-const CHILDREN_SIZE = CHILD_SIZE * CHILD_COUNT;
+const ITEM_SIZE = 200;
+const ITEM_COUNT = 3;
+const ITEMS_SIZE = ITEM_SIZE * ITEM_COUNT;
 const GAP_SIZE = 20;
 
 type Rect = {
@@ -88,71 +88,71 @@ const expectEvenlySpacedY = (
 test.describe('balance - direction:x adjustX', () => {
   test.describe('none', () => {
     test('親幅 > 子合計: 子サイズ維持で均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE + 300, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-none');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.width).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedX(rects);
     });
 
     test('親幅 < 子合計: はみ出す（子サイズ維持）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-none');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.width).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('grow', () => {
     test('親幅 > 子合計: 子サイズを伸ばして均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE + 300, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-grow');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeGreaterThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.width).toBeGreaterThan(ITEM_SIZE));
       expectEvenlySpacedX(rects);
     });
 
-    test('親幅 < 子合計: childSizeのまま均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+    test('親幅 < 子合計: itemSizeのまま均等配置', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-grow');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.width).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedX(rects);
     });
   });
 
   test.describe('shrink', () => {
     test('親幅 > 子合計: 子サイズ維持で均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE + 300, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-shrink');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.width).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedX(rects);
     });
 
     test('親幅 < 子合計: 子サイズを縮めて均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-shrink');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeLessThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.width).toBeLessThan(ITEM_SIZE));
       expectEvenlySpacedX(rects);
     });
   });
 
   test.describe('fit', () => {
     test('親幅 > 子合計: 子サイズを伸ばして均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE + 300, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-fit');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeGreaterThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.width).toBeGreaterThan(ITEM_SIZE));
       expectEvenlySpacedX(rects);
     });
 
     test('親幅 < 子合計: 子サイズを縮めて均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-fit');
       const rects = await getChildRects(page);
-      rects.forEach((r) => expect(r.width).toBeLessThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.width).toBeLessThan(ITEM_SIZE));
       expectEvenlySpacedX(rects);
     });
   });
@@ -163,71 +163,71 @@ test.describe('balance - direction:x adjustX', () => {
 test.describe('balance - direction:y adjustY', () => {
   test.describe('none', () => {
     test('親高さ > 子合計: 子サイズ維持で均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 300 });
       await gotoStory(page, 'direction-y-adjust-y-none');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.height).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedY(rects);
     });
 
     test('親高さ < 子合計: はみ出す（子サイズ維持）', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-none');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.height).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('grow', () => {
     test('親高さ > 子合計: 子サイズを伸ばして均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 300 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeGreaterThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.height).toBeGreaterThan(ITEM_SIZE));
       expectEvenlySpacedY(rects);
     });
 
-    test('親高さ < 子合計: childSizeのまま均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+    test('親高さ < 子合計: itemSizeのまま均等配置', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.height).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedY(rects);
     });
   });
 
   test.describe('shrink', () => {
     test('親高さ > 子合計: 子サイズ維持で均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 300 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeCloseTo(CHILD_SIZE, 0));
+      rects.forEach((r) => expect(r.height).toBeCloseTo(ITEM_SIZE, 0));
       expectEvenlySpacedY(rects);
     });
 
     test('親高さ < 子合計: 子サイズを縮めて均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeLessThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.height).toBeLessThan(ITEM_SIZE));
       expectEvenlySpacedY(rects);
     });
   });
 
   test.describe('fit', () => {
     test('親高さ > 子合計: 子サイズを伸ばして均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 300 });
       await gotoStory(page, 'direction-y-adjust-y-fit');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeGreaterThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.height).toBeGreaterThan(ITEM_SIZE));
       expectEvenlySpacedY(rects);
     });
 
     test('親高さ < 子合計: 子サイズを縮めて均等配置', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-fit');
       const rects = await getChildYRects(page);
-      rects.forEach((r) => expect(r.height).toBeLessThan(CHILD_SIZE));
+      rects.forEach((r) => expect(r.height).toBeLessThan(ITEM_SIZE));
       expectEvenlySpacedY(rects);
     });
   });
@@ -294,17 +294,17 @@ test.describe('balance - direction:y alignX', () => {
 // ===== gap =====
 
 test.describe('balance - gapX', () => {
-  test('childSizeあり: 子要素がchildSizeを維持し余白が均等に配分される', async ({
+  test('itemSizeあり: 子要素がitemSizeを維持し余白が均等に配分される', async ({
     page,
   }) => {
-    await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 800 });
+    await page.setViewportSize({ width: ITEMS_SIZE + 300, height: 800 });
     await gotoStory(page, 'direction-x-gap-x');
     const rects = await getChildRects(page);
-    rects.forEach((r) => expect(r.width).toBeCloseTo(CHILD_SIZE, 0));
+    rects.forEach((r) => expect(r.width).toBeCloseTo(ITEM_SIZE, 0));
     expectEvenlySpacedX(rects);
   });
 
-  test('childSizeなし: 隣接する子要素の横間隔が gapX と一致する', async ({
+  test('itemSizeなし: 隣接する子要素の横間隔が gapX と一致する', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });
@@ -318,17 +318,17 @@ test.describe('balance - gapX', () => {
 });
 
 test.describe('balance - gapY', () => {
-  test('childSizeあり: 子要素がchildSizeを維持し余白が均等に配分される', async ({
+  test('itemSizeあり: 子要素がitemSizeを維持し余白が均等に配分される', async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
+    await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 300 });
     await gotoStory(page, 'direction-y-gap-y');
     const rects = await getChildYRects(page);
-    rects.forEach((r) => expect(r.height).toBeCloseTo(CHILD_SIZE, 0));
+    rects.forEach((r) => expect(r.height).toBeCloseTo(ITEM_SIZE, 0));
     expectEvenlySpacedY(rects);
   });
 
-  test('childSizeなし: 隣接する子要素の縦間隔が gapY と一致する', async ({
+  test('itemSizeなし: 隣接する子要素の縦間隔が gapY と一致する', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });
@@ -341,10 +341,10 @@ test.describe('balance - gapY', () => {
   });
 });
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
-test.describe('balance - childRatio', () => {
-  test('direction:x: childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+test.describe('balance - itemRatio', () => {
+  test('direction:x: itemRatioX=1,itemRatioY=1 のとき子要素が正方形になる', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });

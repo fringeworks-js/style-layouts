@@ -8,9 +8,9 @@ const gotoStory = async (page: Page, storyId: string) => {
   await page.waitForSelector('.nws-layout-stack > *');
 };
 
-const CHILD_SIZE = 200;
-const CHILD_COUNT = 3;
-const CHILDREN_SIZE = CHILD_SIZE * CHILD_COUNT;
+const ITEM_SIZE = 200;
+const ITEM_COUNT = 3;
+const ITEMS_SIZE = ITEM_SIZE * ITEM_COUNT;
 const GAP_SIZE = 20;
 
 const getChildWidths = (page: Page) =>
@@ -54,66 +54,66 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
 
 test.describe('stack - direction:x 主軸(adjustX)', () => {
   test.describe('grow', () => {
-    test('親幅 > childSize: childSizeより伸びる', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅 > itemSize: itemSizeより伸びる', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-grow');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < childSize: childSizeのまま（縮まない）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+    test('親幅 < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-grow');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親幅 > childSize: childSizeのまま（伸びない）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅 > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-shrink');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+    test('親幅 < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-shrink');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親幅 > childSize: childSizeより伸びる', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅 > itemSize: itemSizeより伸びる', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-fit');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+    test('親幅 < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-fit');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('none', () => {
-    test('親幅 > childSize: childSizeのまま（伸びない）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅 > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-none');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < childSize: childSizeのまま（縮まない）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE - 50, height: 800 });
+    test('親幅 < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-x-adjust-x-none');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -133,20 +133,18 @@ test.describe('stack - direction:x 交差軸(adjustY)', () => {
   });
 
   test.describe('shrink', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 800, height: CHILD_SIZE + 200 });
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEM_SIZE + 200 });
       await gotoStory(page, 'direction-x-adjust-y-shrink');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILD_SIZE - 50 });
+    test('親高さ < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEM_SIZE - 50 });
       await gotoStory(page, 'direction-x-adjust-y-shrink');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
@@ -162,11 +160,11 @@ test.describe('stack - direction:x 交差軸(adjustY)', () => {
   });
 
   test.describe('none', () => {
-    test('親高さに関わらずchildSizeのまま', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
+    test('親高さに関わらずitemSizeのまま', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-x-adjust-y-none');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -275,74 +273,66 @@ test.describe('stack - direction:x gapX', () => {
 
 test.describe('stack - direction:y 主軸(adjustY)', () => {
   test.describe('grow', () => {
-    test('親高さ > childSize: childSizeより伸びる', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
+    test('親高さ > itemSize: itemSizeより伸びる', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < childSize: childSizeのまま（縮まない）', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+    test('親高さ < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+    test('親高さ < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親高さ > childSize: childSizeより伸びる', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
+    test('親高さ > itemSize: itemSizeより伸びる', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-fit');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+    test('親高さ < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-fit');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('none', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-none');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < childSize: childSizeのまま（縮まない）', async ({
-      page,
-    }) => {
-      await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
+    test('親高さ < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
+      await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-none');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -362,18 +352,18 @@ test.describe('stack - direction:y 交差軸(adjustX)', () => {
   });
 
   test.describe('shrink', () => {
-    test('親幅 > childSize: childSizeのまま（伸びない）', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅 > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-y-adjust-x-shrink');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < childSize: childSizeより縮む', async ({ page }) => {
-      await page.setViewportSize({ width: CHILD_SIZE - 50, height: 800 });
+    test('親幅 < itemSize: itemSizeより縮む', async ({ page }) => {
+      await page.setViewportSize({ width: ITEM_SIZE - 50, height: 800 });
       await gotoStory(page, 'direction-y-adjust-x-shrink');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
@@ -389,11 +379,11 @@ test.describe('stack - direction:y 交差軸(adjustX)', () => {
   });
 
   test.describe('none', () => {
-    test('親幅に関わらずchildSizeのまま', async ({ page }) => {
-      await page.setViewportSize({ width: CHILDREN_SIZE + 200, height: 800 });
+    test('親幅に関わらずitemSizeのまま', async ({ page }) => {
+      await page.setViewportSize({ width: ITEMS_SIZE + 200, height: 800 });
       await gotoStory(page, 'direction-y-adjust-x-none');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -501,10 +491,10 @@ test.describe('stack - direction:y gapY', () => {
   });
 });
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
-test.describe('stack - childRatio', () => {
-  test('direction:x: childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+test.describe('stack - itemRatio', () => {
+  test('direction:x: itemRatioX=1,itemRatioY=1 のとき子要素が正方形になる', async ({
     page,
   }) => {
     await gotoStory(page, 'direction-x-child-ratio');
@@ -514,7 +504,7 @@ test.describe('stack - childRatio', () => {
     );
   });
 
-  test('direction:y: childRatioX=1,childRatioY=2 のとき子要素の高さが幅の2倍になる', async ({
+  test('direction:y: itemRatioX=1,itemRatioY=2 のとき子要素の高さが幅の2倍になる', async ({
     page,
   }) => {
     await gotoStory(page, 'direction-y-child-ratio');

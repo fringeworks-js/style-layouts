@@ -1,10 +1,10 @@
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 import type { AlignXBase, AlignYBase } from '../constants';
 
@@ -16,8 +16,8 @@ import type { AlignXBase, AlignYBase } from '../constants';
  */
 export type BalanceLayoutOptions = AdjustOptions &
   GapOptions &
-  ChildSizeOptions &
-  ChildRatioOptions &
+  ItemSizeOptions &
+  ItemRatioOptions &
   BalanceDirectionWithAlignOptions;
 
 /**

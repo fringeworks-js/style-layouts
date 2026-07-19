@@ -8,7 +8,7 @@ export default function createRenderer<P extends DebugOptions>(
   return ({
     containerWidth,
     containerHeight,
-    childCount,
+    itemCount,
     posType,
     sizeType,
     overflow,
@@ -17,7 +17,7 @@ export default function createRenderer<P extends DebugOptions>(
     createContainer(layout, params, {
       containerWidth,
       containerHeight,
-      childCount,
+      itemCount,
       posType,
       sizeType,
       overflow,

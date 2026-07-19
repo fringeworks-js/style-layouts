@@ -33,11 +33,8 @@
     "inlineSources": false,
     "removeComments": false,
     "importHelpers": true,
-    "noImplicitAny": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": false,
-    "strictPropertyInitialization": false,
     "preserveSymlinks": false
   },
   "include": ["src", "globals.d.ts"]

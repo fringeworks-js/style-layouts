@@ -29,10 +29,10 @@ export const Tracks: Story = {
   argTypes: ARG_TYPES.matrix,
   args: {
     ...ARGS.matrix,
-    childCountX: undefined,
-    childCountY: undefined,
-    childSizeX: undefined,
-    childSizeY: undefined,
+    itemCountX: undefined,
+    itemCountY: undefined,
+    itemSizeX: undefined,
+    itemSizeY: undefined,
     tracksX: '[200, 50, "1fr", 100]' as any,
     tracksY: '[50, 30, 100]' as any,
   },
@@ -43,7 +43,7 @@ export const IndividualSizes: Story = {
   args: {
     ...ARGS.matrix,
     sizeType: 'static',
-    childSizeX: undefined,
-    childSizeY: undefined,
+    itemSizeX: undefined,
+    itemSizeY: undefined,
   },
 };

@@ -10,46 +10,46 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
-const CHILD_SIZE = '200px';
-const ALIGN_CHILD_SIZE = '100px';
+const ITEM_SIZE = '200px';
+const ALIGN_ITEM_SIZE = '100px';
 const GAP = '10px';
 
 // ===== adjustX =====
 
 export const AdjustXGrowWithCountAndSize: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'grow',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustXShrinkWithCountAndSize: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'shrink',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustXFitWithCountAndSize: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'fit',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustXNoneWithCountAndSize: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'none',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 
@@ -57,38 +57,38 @@ export const AdjustXNoneWithCountAndSize: Story = {
 
 export const AdjustYGrowWithCountAndSize: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'grow',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustYShrinkWithCountAndSize: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'shrink',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustYFitWithCountAndSize: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'fit',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustYNoneWithCountAndSize: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'none',
-    childCount: 3,
+    itemCount: 3,
   },
 };
 
@@ -96,32 +96,32 @@ export const AdjustYNoneWithCountAndSize: Story = {
 
 export const AdjustXGrowWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'grow',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustXShrinkWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'shrink',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustXFitWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: CHILD_SIZE,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ITEM_SIZE,
     adjustX: 'fit',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 
@@ -129,32 +129,32 @@ export const AdjustXFitWithCountAndSizeAndGap: Story = {
 
 export const AdjustYGrowWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'grow',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustYShrinkWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'shrink',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 export const AdjustYFitWithCountAndSizeAndGap: Story = {
   args: {
-    childCountX: 1,
-    childCountY: 3,
-    childSizeY: CHILD_SIZE,
+    itemCountX: 1,
+    itemCountY: 3,
+    itemSizeY: ITEM_SIZE,
     adjustY: 'fit',
     gap: GAP,
-    childCount: 3,
+    itemCount: 3,
   },
 };
 
@@ -162,29 +162,29 @@ export const AdjustYFitWithCountAndSizeAndGap: Story = {
 
 export const AlignXLeft: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignX: 'left',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const AlignXCenter: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignX: 'center',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const AlignXRight: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignX: 'right',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 
@@ -192,44 +192,44 @@ export const AlignXRight: Story = {
 
 export const AlignYTop: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignY: 'top',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childSizeY: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemSizeY: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const AlignYMiddle: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignY: 'middle',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childSizeY: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemSizeY: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const AlignYBottom: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
+    itemCountX: 3,
+    itemCountY: 1,
     alignY: 'bottom',
-    childSizeX: ALIGN_CHILD_SIZE,
-    childSizeY: ALIGN_CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemSizeY: ALIGN_ITEM_SIZE,
+    itemCount: 3,
   },
 };
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
 export const ChildRatio: Story = {
   args: {
-    childCountX: 3,
-    childCountY: 1,
-    childSizeX: ALIGN_CHILD_SIZE,
-    childRatioX: 1,
-    childRatioY: 1,
-    childCount: 3,
+    itemCountX: 3,
+    itemCountY: 1,
+    itemSizeX: ALIGN_ITEM_SIZE,
+    itemRatioX: 1,
+    itemRatioY: 1,
+    itemCount: 3,
   },
 };

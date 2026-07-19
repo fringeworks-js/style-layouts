@@ -1,10 +1,10 @@
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 import type { AlignXBase, AlignYBase } from '../constants';
 
@@ -15,8 +15,8 @@ import type { AlignXBase, AlignYBase } from '../constants';
  * - `direction='y'` 時: `alignX` に `space-between`,`space-around`,`space-evenly` 指定不可
  */
 export type StackLayoutOptions = AdjustOptions &
-  ChildSizeOptions &
-  ChildRatioOptions &
+  ItemSizeOptions &
+  ItemRatioOptions &
   GapOptions &
   StackDirectionWithAlignOptions;
 

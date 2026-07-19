@@ -22,5 +22,5 @@ export const Default: Story = {
 
 export const Standard: Story = {
   argTypes: ARG_TYPES.center,
-  args: { ...ARGS.center, childCount: 6 },
+  args: { ...ARGS.center, itemCount: 6 },
 };

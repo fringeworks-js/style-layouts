@@ -11,11 +11,11 @@ import {
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildCountOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemCountOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
   TracksOptions,
 } from '../../src/core/_types';
 import type { DebugOptions } from './types';
@@ -99,20 +99,20 @@ export const ADJUST_DIRECTION_Y_ARG_TYPES: ArgTypes<AdjustOptions> = {
   },
 };
 
-export const CHILD_SIZE_ARG_TYPES: ArgTypes<ChildSizeOptions> = {
-  childSizeX: {
+export const ITEM_SIZE_ARG_TYPES: ArgTypes<ItemSizeOptions> = {
+  itemSizeX: {
     control: 'text',
   },
-  childSizeY: {
+  itemSizeY: {
     control: 'text',
   },
 };
 
-export const CHILD_RATIO_ARG_TYPES: ArgTypes<ChildRatioOptions> = {
-  childRatioX: {
+export const CHILD_RATIO_ARG_TYPES: ArgTypes<ItemRatioOptions> = {
+  itemRatioX: {
     control: 'text',
   },
-  childRatioY: {
+  itemRatioY: {
     control: 'text',
   },
 };
@@ -129,11 +129,11 @@ export const GAP_ARG_TYPES: ArgTypes<GapOptions> = {
   },
 };
 
-export const CHILD_COUNT_ARG_TYPES: ArgTypes<ChildCountOptions> = {
-  childCountX: {
+export const ITEM_COUNT_ARG_TYPES: ArgTypes<ItemCountOptions> = {
+  itemCountX: {
     control: 'text',
   },
-  childCountY: {
+  itemCountY: {
     control: 'text',
   },
 };
@@ -154,7 +154,7 @@ export const DEBUG_ARG_TYPES: ArgTypes<DebugOptions> = {
   containerHeight: {
     control: 'text',
   },
-  childCount: {
+  itemCount: {
     type: 'number',
   },
   sizeType: {
@@ -177,7 +177,7 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -186,9 +186,9 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
-    ...CHILD_COUNT_ARG_TYPES,
+    ...ITEM_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   tile: {
@@ -196,7 +196,7 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -205,9 +205,9 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
-    ...CHILD_COUNT_ARG_TYPES,
+    ...ITEM_COUNT_ARG_TYPES,
     ...TRACKS_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -215,7 +215,7 @@ export const ARG_TYPES = {
     ...DIRECTION_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -229,19 +229,19 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   layer: {
     ...ALIGN_BASE_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   pin: {
-    ...CHILD_SIZE_ARG_TYPES,
+    ...ITEM_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -267,19 +267,19 @@ export const GAP_OPTIONS: GapOptions = {
   gapY: undefined,
 };
 
-export const CHILD_SIZE_OPTIONS: ChildSizeOptions = {
-  childSizeX: '60' as any,
-  childSizeY: '120' as any,
+export const ITEM_SIZE_OPTIONS: ItemSizeOptions = {
+  itemSizeX: '60' as any,
+  itemSizeY: '120' as any,
 };
 
-export const CHILD_RATIO_OPTIONS: ChildRatioOptions = {
-  childRatioX: undefined,
-  childRatioY: undefined,
+export const CHILD_RATIO_OPTIONS: ItemRatioOptions = {
+  itemRatioX: undefined,
+  itemRatioY: undefined,
 };
 
-export const CHILD_COUNT_OPTIONS: ChildCountOptions = {
-  childCountX: '4' as any,
-  childCountY: '3' as any,
+export const ITEM_COUNT_OPTIONS: ItemCountOptions = {
+  itemCountX: '4' as any,
+  itemCountY: '3' as any,
 };
 
 export const TRACKS_OPTIONS: TracksOptions = {
@@ -290,7 +290,7 @@ export const TRACKS_OPTIONS: TracksOptions = {
 export const DEBUG_PARAMS: DebugOptions = {
   containerWidth: String(CONTAINER_STYLE.width),
   containerHeight: String(CONTAINER_STYLE.height),
-  childCount: 12,
+  itemCount: 12,
   sizeType: 'none',
   posType: 'none',
   overflow: 'hidden',
@@ -302,7 +302,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -311,7 +311,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -320,7 +320,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -329,9 +329,9 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
-    ...CHILD_COUNT_OPTIONS,
+    ...ITEM_COUNT_OPTIONS,
     ...TRACKS_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -339,7 +339,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...DIRECTION_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -353,19 +353,19 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
   layer: {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
   pin: {
-    ...CHILD_SIZE_OPTIONS,
+    ...ITEM_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
     posType: 'static',

@@ -8,12 +8,12 @@ const gotoStory = async (page: Page, storyId: string) => {
   await page.waitForSelector('.nws-layout-matrix > *');
 };
 
-const CHILD_SIZE = 200;
-const CHILD_COUNT = 3;
-const TOTAL_SIZE = CHILD_SIZE * CHILD_COUNT;
+const ITEM_SIZE = 200;
+const ITEM_COUNT = 3;
+const TOTAL_SIZE = ITEM_SIZE * ITEM_COUNT;
 
 const GAP = 10;
-const TOTAL_SIZE_WITH_GAP = CHILD_SIZE * CHILD_COUNT + GAP * (CHILD_COUNT - 1);
+const TOTAL_SIZE_WITH_GAP = ITEM_SIZE * ITEM_COUNT + GAP * (ITEM_COUNT - 1);
 
 type Rect = {
   top: number;
@@ -65,87 +65,87 @@ const getChildHeights = (page: Page) =>
 
 test.describe('matrix - adjustX', () => {
   test.describe('grow', () => {
-    test('親幅 = 子合計: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE, height: 600 });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計: childSizeより伸びる', async ({ page }) => {
+    test('親幅 > 子合計: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE + 300, height: 600 });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < 子合計: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親幅 < 子合計: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE - 300, height: 600 });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親幅 = 子合計: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE, height: 600 });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親幅 > 子合計: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE + 300, height: 600 });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < 子合計: childSizeより縮む', async ({ page }) => {
+    test('親幅 < 子合計: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE - 300, height: 600 });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親幅 = 子合計: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE, height: 600 });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計: childSizeより伸びる', async ({ page }) => {
+    test('親幅 > 子合計: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE + 300, height: 600 });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < 子合計: childSizeより縮む', async ({ page }) => {
+    test('親幅 < 子合計: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE - 300, height: 600 });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('none', () => {
-    test('親幅 > 子合計: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親幅 > 子合計: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE + 300, height: 600 });
       await gotoStory(page, 'adjust-x-none-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < 子合計: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親幅 < 子合計: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE - 300, height: 600 });
       await gotoStory(page, 'adjust-x-none-with-count-and-size');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -154,87 +154,87 @@ test.describe('matrix - adjustX', () => {
 
 test.describe('matrix - adjustY', () => {
   test.describe('grow', () => {
-    test('親高さ = 子合計: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計: childSizeより伸びる', async ({ page }) => {
+    test('親高さ > 子合計: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE + 300 });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < 子合計: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親高さ < 子合計: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE - 300 });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親高さ = 子合計: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親高さ > 子合計: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE + 300 });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < 子合計: childSizeより縮む', async ({ page }) => {
+    test('親高さ < 子合計: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE - 300 });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親高さ = 子合計: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計: childSizeより伸びる', async ({ page }) => {
+    test('親高さ > 子合計: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE + 300 });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < 子合計: childSizeより縮む', async ({ page }) => {
+    test('親高さ < 子合計: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE - 300 });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('none', () => {
-    test('親高さ > 子合計: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親高さ > 子合計: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE + 300 });
       await gotoStory(page, 'adjust-y-none-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < 子合計: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親高さ < 子合計: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE - 300 });
       await gotoStory(page, 'adjust-y-none-with-count-and-size');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 });
@@ -243,24 +243,24 @@ test.describe('matrix - adjustY', () => {
 
 test.describe('matrix - adjustX with gap', () => {
   test.describe('grow', () => {
-    test('親幅 = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE_WITH_GAP, height: 800 });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計 + gap: childSizeより伸びる', async ({ page }) => {
+    test('親幅 > 子合計 + gap: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({
         width: TOTAL_SIZE_WITH_GAP + 300,
         height: 800,
       });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < 子合計 + gap: childSizeのまま（縮まない）', async ({
+    test('親幅 < 子合計 + gap: itemSizeのまま（縮まない）', async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -269,19 +269,19 @@ test.describe('matrix - adjustX with gap', () => {
       });
       await gotoStory(page, 'adjust-x-grow-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親幅 = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE_WITH_GAP, height: 800 });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計 + gap: childSizeのまま（伸びない）', async ({
+    test('親幅 > 子合計 + gap: itemSizeのまま（伸びない）', async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -290,46 +290,46 @@ test.describe('matrix - adjustX with gap', () => {
       });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 < 子合計 + gap: childSizeより縮む', async ({ page }) => {
+    test('親幅 < 子合計 + gap: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({
         width: TOTAL_SIZE_WITH_GAP - 300,
         height: 800,
       });
       await gotoStory(page, 'adjust-x-shrink-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親幅 = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親幅 = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: TOTAL_SIZE_WITH_GAP, height: 800 });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeCloseTo(CHILD_SIZE, 0));
+      widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親幅 > 子合計 + gap: childSizeより伸びる', async ({ page }) => {
+    test('親幅 > 子合計 + gap: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({
         width: TOTAL_SIZE_WITH_GAP + 300,
         height: 800,
       });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeGreaterThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親幅 < 子合計 + gap: childSizeより縮む', async ({ page }) => {
+    test('親幅 < 子合計 + gap: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({
         width: TOTAL_SIZE_WITH_GAP - 300,
         height: 800,
       });
       await gotoStory(page, 'adjust-x-fit-with-count-and-size-and-gap');
       const widths = await getChildWidths(page);
-      widths.forEach((w) => expect(w).toBeLessThan(CHILD_SIZE));
+      widths.forEach((w) => expect(w).toBeLessThan(ITEM_SIZE));
     });
   });
 });
@@ -338,24 +338,24 @@ test.describe('matrix - adjustX with gap', () => {
 
 test.describe('matrix - adjustY with gap', () => {
   test.describe('grow', () => {
-    test('親高さ = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE_WITH_GAP });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計 + gap: childSizeより伸びる', async ({ page }) => {
+    test('親高さ > 子合計 + gap: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({
         width: 800,
         height: TOTAL_SIZE_WITH_GAP + 300,
       });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < 子合計 + gap: childSizeのまま（縮まない）', async ({
+    test('親高さ < 子合計 + gap: itemSizeのまま（縮まない）', async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -364,19 +364,19 @@ test.describe('matrix - adjustY with gap', () => {
       });
       await gotoStory(page, 'adjust-y-grow-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
   });
 
   test.describe('shrink', () => {
-    test('親高さ = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE_WITH_GAP });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計 + gap: childSizeのまま（伸びない）', async ({
+    test('親高さ > 子合計 + gap: itemSizeのまま（伸びない）', async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -385,46 +385,46 @@ test.describe('matrix - adjustY with gap', () => {
       });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ < 子合計 + gap: childSizeより縮む', async ({ page }) => {
+    test('親高さ < 子合計 + gap: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({
         width: 800,
         height: TOTAL_SIZE_WITH_GAP - 300,
       });
       await gotoStory(page, 'adjust-y-shrink-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 
   test.describe('fit', () => {
-    test('親高さ = 子合計 + gap: childSizeのまま', async ({ page }) => {
+    test('親高さ = 子合計 + gap: itemSizeのまま', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: TOTAL_SIZE_WITH_GAP });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeCloseTo(CHILD_SIZE, 0));
+      heights.forEach((h) => expect(h).toBeCloseTo(ITEM_SIZE, 0));
     });
 
-    test('親高さ > 子合計 + gap: childSizeより伸びる', async ({ page }) => {
+    test('親高さ > 子合計 + gap: itemSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({
         width: 800,
         height: TOTAL_SIZE_WITH_GAP + 300,
       });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeGreaterThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeGreaterThan(ITEM_SIZE));
     });
 
-    test('親高さ < 子合計 + gap: childSizeより縮む', async ({ page }) => {
+    test('親高さ < 子合計 + gap: itemSizeより縮む', async ({ page }) => {
       await page.setViewportSize({
         width: 800,
         height: TOTAL_SIZE_WITH_GAP - 300,
       });
       await gotoStory(page, 'adjust-y-fit-with-count-and-size-and-gap');
       const heights = await getChildHeights(page);
-      heights.forEach((h) => expect(h).toBeLessThan(CHILD_SIZE));
+      heights.forEach((h) => expect(h).toBeLessThan(ITEM_SIZE));
     });
   });
 });
@@ -486,10 +486,10 @@ test.describe('matrix - alignY', () => {
   });
 });
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
-test.describe('matrix - childRatio', () => {
-  test('childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+test.describe('matrix - itemRatio', () => {
+  test('itemRatioX=1,itemRatioY=1 のとき子要素が正方形になる', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });

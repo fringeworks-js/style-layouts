@@ -1,7 +1,7 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import { clsLayout, clsLayoutFlow, varLayout } from '../_constants';
-import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
+import applyItemRatio from '../_internal/applyItemRatio';
 import hasValue from '../_internal/hasValue';
 import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
@@ -24,18 +24,20 @@ const flow: CreateLayoutStyle<FlowLayoutOptions> = (options = {}) => {
     adjustX,
     adjustY,
     gap,
-    gapX = gap,
-    gapY = gap,
-    childSizeX,
-    childSizeY,
-    childRatioX,
-    childRatioY,
+    gapX,
+    gapY,
+    itemSizeX,
+    itemSizeY,
+    itemRatioX,
+    itemRatioY,
   } = maybeDefault(
     options,
     {
       direction: 'x',
       alignX: 'left',
       alignY: 'top',
+      adjustX: 'none',
+      adjustY: 'none',
     },
     { overwriteNull: true },
   );
@@ -54,22 +56,22 @@ const flow: CreateLayoutStyle<FlowLayoutOptions> = (options = {}) => {
   applyGap(result, gap, gapX, gapY);
 
   // 子要素の縦横比
-  applyChildRatio(result, childRatioX, childRatioY);
+  applyItemRatio(result, itemRatioX, itemRatioY);
 
   const resultList: LayoutStyle[] = [result];
 
   if (direction === 'x') {
     // 横並びの場合
     // 主軸（横方向）の設定
-    resultList.push(_getFlowMainAxisStyle('x', alignX, adjustX, childSizeX));
+    resultList.push(_getFlowMainAxisStyle('x', alignX, adjustX, itemSizeX));
     // 交差軸（縦方向）の設定
-    resultList.push(_getFlowCrossAxisStyle('y', alignY, childSizeY));
+    resultList.push(_getFlowCrossAxisStyle('y', alignY, itemSizeY));
   } else {
     // 縦並びの場合
     // 交差軸（横方向）の設定
-    resultList.push(_getFlowCrossAxisStyle('x', alignX, childSizeX));
+    resultList.push(_getFlowCrossAxisStyle('x', alignX, itemSizeX));
     // 主軸（縦方向）の設定
-    resultList.push(_getFlowMainAxisStyle('y', alignY, adjustY, childSizeY));
+    resultList.push(_getFlowMainAxisStyle('y', alignY, adjustY, itemSizeY));
   }
 
   return mergeLayoutResults(resultList);
@@ -85,7 +87,7 @@ function _getFlowMainAxisStyle(
   axis: 'x' | 'y',
   align: AlignX | AlignY,
   adjust: Adjust,
-  childSize: number,
+  itemSize: number | null | undefined,
 ): LayoutStyle {
   const result: LayoutStyle = {
     className: mergeClassName(
@@ -93,12 +95,12 @@ function _getFlowMainAxisStyle(
       clsLayout.adjust[axis][adjust],
     ),
   };
-  if (hasValue(childSize)) {
+  if (hasValue(itemSize)) {
     result.className = mergeClassName(
       result.className,
-      clsLayout.childSize[axis],
+      clsLayout.itemSize[axis],
     );
-    result.style = { [varLayout.childSize[axis]]: unit(childSize) };
+    result.style = { [varLayout.itemSize[axis]]: unit(itemSize) };
   }
 
   return result;
@@ -113,17 +115,17 @@ function _getFlowMainAxisStyle(
 function _getFlowCrossAxisStyle(
   axis: 'x' | 'y',
   align: AlignX | AlignY,
-  childSize: number,
+  itemSize: number | null | undefined,
 ): LayoutStyle {
   // none
-  if (hasValue(childSize)) {
+  if (hasValue(itemSize)) {
     return {
       className: mergeClassName(
         clsLayout.align[axis][align],
-        clsLayout.childSize[axis],
+        clsLayout.itemSize[axis],
       ),
       style: {
-        [varLayout.childSize[axis]]: unit(childSize),
+        [varLayout.itemSize[axis]]: unit(itemSize),
       },
     };
   } else {

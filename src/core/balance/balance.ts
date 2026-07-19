@@ -1,8 +1,8 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import { clsLayout, clsLayoutBalance } from '../_constants';
-import applyChildRatio from '../_internal/applyChildRatio';
-import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
+import applyItemRatio from '../_internal/applyItemRatio';
+import applyItemSize from '../_internal/applyItemSize';
 import mergeClassName from '../_internal/mergeClassName';
 import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { BalanceLayoutOptions } from './types';
@@ -24,16 +24,18 @@ const balance: CreateLayoutStyle<BalanceLayoutOptions> = (options = {}) => {
     gap,
     gapX,
     gapY,
-    childSizeX,
-    childSizeY,
-    childRatioX,
-    childRatioY,
+    itemSizeX,
+    itemSizeY,
+    itemRatioX,
+    itemRatioY,
   } = maybeDefault(
     options,
     {
       direction: 'x',
       alignX: 'left',
       alignY: 'top',
+      adjustX: 'none',
+      adjustY: 'none',
     },
     {
       overwriteNull: true,
@@ -55,10 +57,10 @@ const balance: CreateLayoutStyle<BalanceLayoutOptions> = (options = {}) => {
   applyGap(result, gap, gapX, gapY);
 
   // 子要素のサイズ
-  applyChildSize(result, childSizeX, childSizeY);
+  applyItemSize(result, itemSizeX, itemSizeY);
 
   // 子要素の縦横比
-  applyChildRatio(result, childRatioX, childRatioY);
+  applyItemRatio(result, itemRatioX, itemRatioY);
 
   return result;
 };

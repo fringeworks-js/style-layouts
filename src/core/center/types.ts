@@ -1,9 +1,9 @@
 import type {
   AdjustOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 
 /**
@@ -12,5 +12,5 @@ import type {
 export type CenterLayoutOptions = DirectionOptions &
   AdjustOptions &
   GapOptions &
-  ChildSizeOptions &
-  ChildRatioOptions;
+  ItemSizeOptions &
+  ItemRatioOptions;

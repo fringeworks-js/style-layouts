@@ -1,7 +1,7 @@
 import type {
   AdjustOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 import type { AlignXBase, AlignYBase } from '../constants';
 
@@ -9,8 +9,8 @@ import type { AlignXBase, AlignYBase } from '../constants';
  * layerのオプション
  */
 export type LayerLayoutOptions = AdjustOptions &
-  ChildSizeOptions &
-  ChildRatioOptions & {
+  ItemSizeOptions &
+  ItemRatioOptions & {
     alignX?: AlignXBase;
     alignY?: AlignYBase;
   };

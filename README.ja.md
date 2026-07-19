@@ -80,7 +80,7 @@ const { className, style } = stack({
   alignY: 'top',
   adjustX: 'grow',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -99,7 +99,7 @@ const { className, style } = flow({
   alignY: 'top',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -116,7 +116,7 @@ const { className, style } = tile({
   direction: 'x',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -124,7 +124,7 @@ const { className, style } = tile({
 
 列数・行数を指定して子要素を格子状に並べます。
 
-各軸で `childCount` または `tracks` のどちらか一方が必須です（両方は指定不可）。
+各軸で `itemCount` または `tracks` のどちらか一方が必須です（両方は指定不可）。
 
 > **注意:** `tile` と同様に、コンテナのサイズが外部から確定していることを前提としています。
 
@@ -135,15 +135,15 @@ const { className, style } = matrix({
   direction: 'x',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
-  childCountX: 3,
-  childCountY: 2,
+  itemSizeX: 200,
+  itemCountX: 3,
+  itemCountY: 2,
 });
 
 // グリッドトラックを直接指定する場合
 matrix({
   tracksX: ['1fr', '2fr', '1fr'],
-  childCountY: 3,
+  itemCountY: 3,
 });
 ```
 
@@ -159,8 +159,8 @@ const { className, style } = center({
   direction: 'x',
   adjustX: 'shrink',
   gap: 8,
-  childSizeY: 200,
-  childRatioX: 1.6,
+  itemSizeY: 200,
+  itemRatioX: 1.6,
 });
 ```
 
@@ -190,7 +190,7 @@ import { balance } from '@niche-works/style-layouts';
 const { className, style } = balance({
   direction: 'x',
   adjustX: 'grow',
-  childSizeX: 200,
+  itemSizeX: 200,
   gap: 8,
 });
 ```
@@ -207,8 +207,8 @@ import { layer } from '@niche-works/style-layouts';
 const { className, style } = layer({
   alignX: 'center',
   adjustX: 'shrink',
-  childSizeY: 200,
-  childRatioX: 1.6,
+  itemSizeY: 200,
+  itemRatioX: 1.6,
 });
 ```
 
@@ -220,8 +220,8 @@ const { className, style } = layer({
 import { pin } from '@niche-works/style-layouts';
 
 const { className, style } = pin({
-  childSizeX: 100,
-  childSizeY: 80,
+  itemSizeX: 100,
+  itemSizeY: 80,
 });
 ```
 
@@ -229,45 +229,45 @@ const { className, style } = pin({
 
 ### レイアウト別対応表
 
-| オプション    | stack | flow | tile | matrix | center | pack | balance | layer | pin |
-| ------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
-| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `childCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksX`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksY`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| オプション   | stack | flow | tile | matrix | center | pack | balance | layer | pin |
+| ------------ | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
+| `direction`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `alignX`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `alignY`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `adjustX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `adjustY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `gap`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapX`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapY`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `itemSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `itemCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksX`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksY`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
 
 ### オプション一覧
 
-| オプション     | 型                       | 説明                                             |
-| -------------- | ------------------------ | ------------------------------------------------ |
-| `direction?`   | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                    |
-| `alignX?`      | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)             |
-| `alignY?`      | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)              |
-| `adjustX?`     | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`) |
-| `adjustY?`     | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`) |
-| `gap?`         | `number`                 | 子要素間の余白 (px,横縦共通)                     |
-| `gapX?`        | `number`                 | 子要素間の余白 (px,横方向)                       |
-| `gapY?`        | `number`                 | 子要素間の余白 (px,縦方向)                       |
-| `childSizeX?`  | `number`                 | 子要素の幅 (px)                                  |
-| `childSizeY?`  | `number`                 | 子要素の高さ (px)                                |
-| `childRatioX?` | `number`                 | 子要素の幅の比                                   |
-| `childRatioY?` | `number`                 | 子要素の高さの比                                 |
-| `childCountX?` | `number`                 | 子要素の横方向の数                               |
-| `childCountY?` | `number`                 | 子要素の縦方向の数                               |
-| `tracksX?`     | `(string \| number)[]`   | 子要素の横方向の個々のサイズ                     |
-| `tracksY?`     | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ                     |
+| オプション    | 型                       | 説明                                             |
+| ------------- | ------------------------ | ------------------------------------------------ |
+| `direction?`  | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                    |
+| `alignX?`     | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)             |
+| `alignY?`     | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)              |
+| `adjustX?`    | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`) |
+| `adjustY?`    | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`) |
+| `gap?`        | `number`                 | 子要素間の余白 (px,横縦共通)                     |
+| `gapX?`       | `number`                 | 子要素間の余白 (px,横方向)                       |
+| `gapY?`       | `number`                 | 子要素間の余白 (px,縦方向)                       |
+| `itemSizeX?`  | `number`                 | 子要素の幅 (px)                                  |
+| `itemSizeY?`  | `number`                 | 子要素の高さ (px)                                |
+| `itemRatioX?` | `number`                 | 子要素の幅の比                                   |
+| `itemRatioY?` | `number`                 | 子要素の高さの比                                 |
+| `itemCountX?` | `number`                 | 子要素の横方向の数                               |
+| `itemCountY?` | `number`                 | 子要素の縦方向の数                               |
+| `tracksX?`    | `(string \| number)[]`   | 子要素の横方向の個々のサイズ                     |
+| `tracksY?`    | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ                     |
 
 ### `AlignX` の値
 

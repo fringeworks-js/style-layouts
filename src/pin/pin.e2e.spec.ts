@@ -39,14 +39,14 @@ test.describe('pin - 位置指定', () => {
   });
 });
 
-// ===== childSize =====
+// ===== itemSize =====
 
-test.describe('pin - childSize', () => {
-  test('childSizeX/childSizeYが指定された場合に子要素のサイズが一致する', async ({
+test.describe('pin - itemSize', () => {
+  test('itemSizeX/itemSizeYが指定された場合に子要素のサイズが一致する', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });
-    await gotoStory(page, 'with-child-size');
+    await gotoStory(page, 'with-item-size');
     const rects = await getChildRects(page);
 
     rects.forEach((r) => {
@@ -55,11 +55,11 @@ test.describe('pin - childSize', () => {
     });
   });
 
-  test('childSizeX/childSizeYありで指定のtop/leftに配置される', async ({
+  test('itemSizeX/itemSizeYありで指定のtop/leftに配置される', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });
-    await gotoStory(page, 'with-child-size');
+    await gotoStory(page, 'with-item-size');
     const rects = await getChildRects(page);
 
     expect(rects[0].left).toBeCloseTo(0, 0);
@@ -71,10 +71,10 @@ test.describe('pin - childSize', () => {
   });
 });
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
-test.describe('pin - childRatio', () => {
-  test('childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+test.describe('pin - itemRatio', () => {
+  test('itemRatioX=1,itemRatioY=1 のとき子要素が正方形になる', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });

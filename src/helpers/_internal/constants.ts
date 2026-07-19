@@ -1,11 +1,11 @@
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildCountOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemCountOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
   TracksOptions,
 } from '../../core/_types';
 
@@ -25,17 +25,17 @@ export const GAP_OPTIONS_KEYS: (keyof GapOptions)[] = [
   'gapX',
   'gapY',
 ] as const;
-export const CHILD_SIZE_OPTIONS_KEYS: (keyof ChildSizeOptions)[] = [
-  'childSizeX',
-  'childSizeY',
+export const ITEM_SIZE_OPTIONS_KEYS: (keyof ItemSizeOptions)[] = [
+  'itemSizeX',
+  'itemSizeY',
 ] as const;
-export const CHILD_RATIO_OPTIONS_KEYS: (keyof ChildRatioOptions)[] = [
-  'childRatioX',
-  'childRatioY',
+export const CHILD_RATIO_OPTIONS_KEYS: (keyof ItemRatioOptions)[] = [
+  'itemRatioX',
+  'itemRatioY',
 ] as const;
-export const CHILD_COUNT_OPTIONS_KEYS: (keyof ChildCountOptions)[] = [
-  'childCountX',
-  'childCountY',
+export const ITEM_COUNT_OPTIONS_KEYS: (keyof ItemCountOptions)[] = [
+  'itemCountX',
+  'itemCountY',
 ] as const;
 export const TRACKS_OPTIONS_KEYS: (keyof TracksOptions)[] = [
   'tracksX',

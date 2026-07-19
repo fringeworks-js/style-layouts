@@ -1,10 +1,10 @@
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 import type { AdjustBase } from '../constants';
 
@@ -16,8 +16,8 @@ import type { AdjustBase } from '../constants';
  */
 export type FlowLayoutOptions = AlignOptions &
   GapOptions &
-  ChildSizeOptions &
-  ChildRatioOptions &
+  ItemSizeOptions &
+  ItemRatioOptions &
   FlowDirectionWithAdjustOptions;
 
 /**

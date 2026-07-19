@@ -2,9 +2,9 @@
   // 変数
   --nws-layout-gapX: 0px;
   --nws-layout-gapY: 0px;
-  --nws-layout-childSizeX: auto;
-  --nws-layout-childSizeY: auto;
-  --nws-layout-childRatio: auto;
+  --nws-layout-itemSizeX: auto;
+  --nws-layout-itemSizeY: auto;
+  --nws-layout-itemRatio: auto;
 
   // tileのスタイル
   display: grid;
@@ -19,8 +19,8 @@
 
     // 子要素の幅調整
     grid-template-columns: repeat(auto-fit, minmax(max-content, 100%));
-    &.nws-layout-childSizeX {
-      grid-template-columns: repeat(auto-fit, var(--nws-layout-childSizeX));
+    &.nws-layout-itemSizeX {
+      grid-template-columns: repeat(auto-fit, var(--nws-layout-itemSizeX));
     }
     // 子要素の幅調整: adjustX-* 共通のデフォルト
     &.nws-layout-adjustX-fit,
@@ -33,28 +33,28 @@
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
-      &.nws-layout-childSizeX {
+      &.nws-layout-itemSizeX {
         grid-template-columns: repeat(
           auto-fit,
-          minmax(clamp(0px, 100%, var(--nws-layout-childSizeX)), 1fr)
+          minmax(clamp(0px, 100%, var(--nws-layout-itemSizeX)), 1fr)
         );
       }
     }
     &.nws-layout-adjustX-grow {
       // 子要素の幅調整: 伸ばす
-      &.nws-layout-childSizeX {
+      &.nws-layout-itemSizeX {
         grid-template-columns: repeat(
           auto-fit,
-          minmax(var(--nws-layout-childSizeX), 1fr)
+          minmax(var(--nws-layout-itemSizeX), 1fr)
         );
       }
     }
     &.nws-layout-adjustX-shrink {
       // 子要素の幅調整: 縮める
-      &.nws-layout-childSizeX {
+      &.nws-layout-itemSizeX {
         grid-template-columns: repeat(
           auto-fit,
-          minmax(0, var(--nws-layout-childSizeX))
+          minmax(0, var(--nws-layout-itemSizeX))
         );
       }
     }
@@ -77,10 +77,10 @@
         max-height: 100%;
         height: 100%;
       }
-      &.nws-layout-childSizeY {
-        grid-auto-rows: minmax(var(--nws-layout-childSizeY), 100%);
+      &.nws-layout-itemSizeY {
+        grid-auto-rows: minmax(var(--nws-layout-itemSizeY), 100%);
         & > * {
-          min-height: var(--nws-layout-childSizeY);
+          min-height: var(--nws-layout-itemSizeY);
         }
       }
     }
@@ -91,10 +91,10 @@
         min-height: 100%;
         height: 100%;
       }
-      &.nws-layout-childSizeY {
-        grid-auto-rows: minmax(0, var(--nws-layout-childSizeY));
+      &.nws-layout-itemSizeY {
+        grid-auto-rows: minmax(0, var(--nws-layout-itemSizeY));
         & > * {
-          max-height: var(--nws-layout-childSizeY);
+          max-height: var(--nws-layout-itemSizeY);
         }
       }
     }
@@ -121,22 +121,22 @@
     &.nws-layout-adjustX-grow {
       // 子要素の幅調整: 伸ばす
       grid-auto-columns: minmax(auto, 100%);
-      &.nws-layout-childSizeX {
-        grid-auto-columns: minmax(var(--nws-layout-childSizeX), 100%);
+      &.nws-layout-itemSizeX {
+        grid-auto-columns: minmax(var(--nws-layout-itemSizeX), 100%);
       }
     }
     &.nws-layout-adjustX-shrink {
       // 子要素の幅調整: 縮める
       grid-auto-columns: minmax(0, auto);
-      &.nws-layout-childSizeX {
-        grid-auto-columns: minmax(0, var(--nws-layout-childSizeX));
+      &.nws-layout-itemSizeX {
+        grid-auto-columns: minmax(0, var(--nws-layout-itemSizeX));
       }
     }
 
     // 子要素の高さ調整
     grid-template-rows: repeat(auto-fit, minmax(max-content, 100%));
-    &.nws-layout-childSizeY {
-      grid-template-rows: repeat(auto-fit, var(--nws-layout-childSizeY));
+    &.nws-layout-itemSizeY {
+      grid-template-rows: repeat(auto-fit, var(--nws-layout-itemSizeY));
     }
     // 子要素の高さ調整: adjustY-* 共通のデフォルト
     &.nws-layout-adjustY-fit,
@@ -151,10 +151,10 @@
       & > * {
         height: auto;
       }
-      &.nws-layout-childSizeY {
+      &.nws-layout-itemSizeY {
         grid-template-rows: repeat(
           auto-fit,
-          minmax(clamp(0px, 100%, var(--nws-layout-childSizeY)), 1fr)
+          minmax(clamp(0px, 100%, var(--nws-layout-itemSizeY)), 1fr)
         );
       }
     }
@@ -164,13 +164,13 @@
         max-height: 100%;
         height: 100%;
       }
-      &.nws-layout-childSizeY {
+      &.nws-layout-itemSizeY {
         grid-template-rows: repeat(
           auto-fit,
-          minmax(var(--nws-layout-childSizeY), 1fr)
+          minmax(var(--nws-layout-itemSizeY), 1fr)
         );
         & > * {
-          min-height: var(--nws-layout-childSizeY);
+          min-height: var(--nws-layout-itemSizeY);
         }
       }
     }
@@ -180,13 +180,13 @@
         min-height: 100%;
         height: 100%;
       }
-      &.nws-layout-childSizeY {
+      &.nws-layout-itemSizeY {
         grid-template-rows: repeat(
           auto-fit,
-          minmax(0, var(--nws-layout-childSizeY))
+          minmax(0, var(--nws-layout-itemSizeY))
         );
         & > * {
-          max-height: var(--nws-layout-childSizeY);
+          max-height: var(--nws-layout-itemSizeY);
         }
       }
     }
@@ -242,19 +242,19 @@
     align-content: space-evenly;
   }
 
-  &.nws-layout-childSizeX > * {
+  &.nws-layout-itemSizeX > * {
     // 子要素の幅
-    width: var(--nws-layout-childSizeX);
+    width: var(--nws-layout-itemSizeX);
   }
 
-  &.nws-layout-childSizeY > * {
+  &.nws-layout-itemSizeY > * {
     // 子要素の高さ
-    height: var(--nws-layout-childSizeY);
+    height: var(--nws-layout-itemSizeY);
   }
 
-  &.nws-layout-childRatio > * {
+  &.nws-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--nws-layout-childRatio);
+    aspect-ratio: var(--nws-layout-itemRatio);
   }
 
   &.nws-layout-gapX {

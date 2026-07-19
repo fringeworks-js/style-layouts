@@ -2,9 +2,9 @@
   // 変数
   --nws-layout-gapX: 0px;
   --nws-layout-gapY: 0px;
-  --nws-layout-childSizeX: auto;
-  --nws-layout-childSizeY: auto;
-  --nws-layout-childRatio: auto;
+  --nws-layout-itemSizeX: auto;
+  --nws-layout-itemSizeY: auto;
+  --nws-layout-itemRatio: auto;
 
   // flow用のスタイル
   display: flex;
@@ -77,9 +77,9 @@
       min-height: 0;
     }
 
-    &.nws-layout-childSizeX > * {
+    &.nws-layout-itemSizeX > * {
       // 子要素の幅
-      flex-basis: var(--nws-layout-childSizeX);
+      flex-basis: var(--nws-layout-itemSizeX);
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
@@ -91,8 +91,8 @@
         flex-shrink: 1;
         flex-basis: auto;
       }
-      &.nws-layout-childSizeX > * {
-        flex-basis: var(--nws-layout-childSizeX);
+      &.nws-layout-itemSizeX > * {
+        flex-basis: var(--nws-layout-itemSizeX);
       }
     }
     &.nws-layout-adjustX-grow > * {
@@ -104,14 +104,14 @@
       flex-shrink: 1;
     }
 
-    &.nws-layout-childSizeY > * {
+    &.nws-layout-itemSizeY > * {
       // 子要素の高さ
-      height: var(--nws-layout-childSizeY);
+      height: var(--nws-layout-itemSizeY);
     }
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
     // 子要素の高さ調整: 伸ばす & 縮める (.nws-layout-adjustY-fit)
     // 子要素の高さ調整: 伸ばす (.nws-layout-adjustY-grow)
-    // 子要素の高さ調整: 縮める (.ws-layout-adjustY-shrink)
+    // 子要素の高さ調整: 縮める (.nws-layout-adjustY-shrink)
   }
 
   &.nws-layout-direction-y {
@@ -181,18 +181,18 @@
       min-height: 0;
     }
 
-    &.nws-layout-childSizeX > * {
+    &.nws-layout-itemSizeX > * {
       // 子要素の幅
-      width: var(--nws-layout-childSizeX);
+      width: var(--nws-layout-itemSizeX);
     }
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
     // 子要素の幅調整: 伸ばす & 縮める (.nws-layout-adjustX-fit)
     // 子要素の幅調整: 伸ばす (.nws-layout-adjustX-grow)
     // 子要素の幅調整: 縮める (.ws-layout-adjustX-shrink)
 
-    &.nws-layout-childSizeY > * {
+    &.nws-layout-itemSizeY > * {
       // 子要素の高さ
-      flex-basis: var(--nws-layout-childSizeY);
+      flex-basis: var(--nws-layout-itemSizeY);
     }
     &.nws-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める
@@ -204,8 +204,8 @@
         flex-shrink: 1;
         flex-basis: auto;
       }
-      &.nws-layout-childSizeY > * {
-        flex-basis: var(--nws-layout-childSizeY);
+      &.nws-layout-itemSizeY > * {
+        flex-basis: var(--nws-layout-itemSizeY);
       }
     }
     &.nws-layout-adjustY-grow > * {
@@ -218,9 +218,9 @@
     }
   }
 
-  &.nws-layout-childRatio > * {
+  &.nws-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--nws-layout-childRatio);
+    aspect-ratio: var(--nws-layout-itemRatio);
   }
 
   // 子要素の間隔

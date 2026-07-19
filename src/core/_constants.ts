@@ -1,3 +1,5 @@
+import type { Adjust, AlignX, AlignY, Direction } from './constants';
+
 /**
  * レイアウト種別: stack
  */
@@ -166,27 +168,27 @@ export const clsLayoutGapY = 'nws-layout-gapY';
 /**
  * 子要素の幅
  */
-export const clsLayoutChildSizeX = 'nws-layout-childSizeX';
+export const clsLayoutItemSizeX = 'nws-layout-itemSizeX';
 
 /**
  * 子要素の高さ
  */
-export const clsLayoutChildSizeY = 'nws-layout-childSizeY';
+export const clsLayoutItemSizeY = 'nws-layout-itemSizeY';
 
 /**
  * 子要素の縦横比
  */
-export const clsLayoutChildRatio = 'nws-layout-childRatio';
+export const clsLayoutItemRatio = 'nws-layout-itemRatio';
 
 /**
  * 子要素の横方向の数
  */
-export const clsLayoutChildCountX = 'nws-layout-childCountX';
+export const clsLayoutItemCountX = 'nws-layout-itemCountX';
 
 /**
  * 子要素の縦方向の数
  */
-export const clsLayoutChildCountY = 'nws-layout-childCountY';
+export const clsLayoutItemCountY = 'nws-layout-itemCountY';
 
 /**
  * 横方向のテンプレート
@@ -214,31 +216,31 @@ export const varLayoutGapY = '--nws-layout-gapY';
  * 変数\
  * 子要素の幅
  */
-export const varLayoutChildSizeX = '--nws-layout-childSizeX';
+export const varLayoutItemSizeX = '--nws-layout-itemSizeX';
 
 /**
  * 変数\
  * 子要素の高さ
  */
-export const varLayoutChildSizeY = '--nws-layout-childSizeY';
+export const varLayoutItemSizeY = '--nws-layout-itemSizeY';
 
 /**
  * 変数\
  * 子要素の縦横比
  */
-export const varLayoutChildRatio = '--nws-layout-childRatio';
+export const varLayoutItemRatio = '--nws-layout-itemRatio';
 
 /**
  * 変数\
  * 子要素の横方向の数
  */
-export const varLayoutChildCountX = '--nws-layout-childCountX';
+export const varLayoutItemCountX = '--nws-layout-itemCountX';
 
 /**
  * 変数\
  * 子要素の縦方向の数
  */
-export const varLayoutChildCountY = '--nws-layout-childCountY';
+export const varLayoutItemCountY = '--nws-layout-itemCountY';
 
 /**
  * 変数\
@@ -255,7 +257,13 @@ export const varLayoutTemplateY = '--nws-layout-templateY';
 /**
  * axis毎のクラス
  */
-export const clsLayout = {
+export const clsLayout: {
+  direction: Record<Direction, string>;
+  align: Record<Direction, Partial<Record<AlignX | AlignY, string>>>;
+  adjust: Record<Direction, Record<Adjust, string>>;
+  itemSize: Record<Direction, string>;
+  template: Record<Direction, string>;
+} = {
   direction: {
     x: clsLayoutDirectionX,
     y: clsLayoutDirectionY,
@@ -292,23 +300,23 @@ export const clsLayout = {
       shrink: clsLayoutAdjustYShrink,
     },
   },
-  childSize: {
-    x: clsLayoutChildSizeX,
-    y: clsLayoutChildSizeY,
+  itemSize: {
+    x: clsLayoutItemSizeX,
+    y: clsLayoutItemSizeY,
   },
   template: {
     x: clsLayoutTemplateX,
     y: clsLayoutTemplateY,
   },
-} as const;
+};
 
 /**
  * axis毎の変数
  */
 export const varLayout = {
-  childSize: {
-    x: varLayoutChildSizeX,
-    y: varLayoutChildSizeY,
+  itemSize: {
+    x: varLayoutItemSizeX,
+    y: varLayoutItemSizeY,
   },
   template: {
     x: varLayoutTemplateX,
@@ -318,4 +326,4 @@ export const varLayout = {
     x: varLayoutGapX,
     y: varLayoutGapY,
   },
-};
+} as const;

@@ -4,14 +4,14 @@ import assignStyle from './assignStyle';
 
 export default function createTestRenderer(layout: StyleLayout<any>) {
   return ({
-    childCount = 3,
+    itemCount = 3,
     childPositions,
     ...params
-  }: Record<string, unknown> & { childCount?: number }) => {
-    const colors = chroma.scale(['d9ed92', '184e77']).colors(childCount);
+  }: Record<string, unknown> & { itemCount?: number }) => {
+    const colors = chroma.scale(['d9ed92', '184e77']).colors(itemCount);
     const positions: { left: string; top: string }[] =
       (childPositions as any) ??
-      Array.from({ length: childCount }).map((_, index) => ({
+      Array.from({ length: itemCount }).map((_, index) => ({
         left: `${80 * index}px`,
         top: `${120 * index}px`,
       }));
@@ -25,7 +25,7 @@ export default function createTestRenderer(layout: StyleLayout<any>) {
     if (className) container.className = className;
     if (style) assignStyle(container, style);
 
-    for (let i = 0; i < childCount; i++) {
+    for (let i = 0; i < itemCount; i++) {
       const child = document.createElement('div');
       child.textContent = String(i + 1);
       child.style.backgroundColor = colors[i];

@@ -1,10 +1,10 @@
 import type {
   AdjustOptions,
   AlignOptions,
-  ChildRatioOptions,
-  ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  ItemRatioOptions,
+  ItemSizeOptions,
 } from '../_types';
 
 /**
@@ -15,5 +15,5 @@ export type TileLayoutOptions = DirectionOptions &
   AlignOptions &
   AdjustOptions &
   GapOptions &
-  ChildSizeOptions &
-  ChildRatioOptions;
+  ItemSizeOptions &
+  ItemRatioOptions;

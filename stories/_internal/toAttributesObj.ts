@@ -8,12 +8,12 @@ const NUMBER_PROPS = [
   'gap',
   'gapX',
   'gapY',
-  'childSizeX',
-  'childSizeY',
-  'childRatioX',
-  'childRatioY',
-  'childCountX',
-  'childCountY',
+  'itemSizeX',
+  'itemSizeY',
+  'itemRatioX',
+  'itemRatioY',
+  'itemCountX',
+  'itemCountY',
 ];
 
 // JSON.parseを行うargs

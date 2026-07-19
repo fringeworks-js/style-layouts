@@ -26,12 +26,14 @@ export default function applyGap(
   if (hasValue(gapX)) {
     // 横方向のスペーシング
     result.className = mergeClassName(result.className, clsLayoutGapX);
+    result.style ??= {};
     result.style[varLayoutGapX] = unit(gapX);
   }
   gapY = gapY ?? gap;
   if (hasValue(gapY)) {
     // 縦方向のスペーシング
     result.className = mergeClassName(result.className, clsLayoutGapY);
+    result.style ??= {};
     result.style[varLayoutGapY] = unit(gapY);
   }
 }

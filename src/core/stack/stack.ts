@@ -1,7 +1,7 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import { clsLayout, clsLayoutStack, varLayout } from '../_constants';
-import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
+import applyItemRatio from '../_internal/applyItemRatio';
 import hasValue from '../_internal/hasValue';
 import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
@@ -23,18 +23,20 @@ const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
     adjustX,
     adjustY,
     gap,
-    gapX = gap,
-    gapY = gap,
-    childSizeX,
-    childSizeY,
-    childRatioX,
-    childRatioY,
+    gapX,
+    gapY,
+    itemSizeX,
+    itemSizeY,
+    itemRatioX,
+    itemRatioY,
   } = maybeDefault(
     options,
     {
       direction: 'x',
       alignX: 'left',
       alignY: 'top',
+      adjustX: 'none',
+      adjustY: 'none',
     },
     { overwriteNull: true },
   );
@@ -54,22 +56,22 @@ const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
   applyGap(result, gap, gapX, gapY);
 
   // 子要素の縦横比
-  applyChildRatio(result, childRatioX, childRatioY);
+  applyItemRatio(result, itemRatioX, itemRatioY);
 
   const resultList: LayoutStyle[] = [result];
 
   if (direction === 'x') {
     // 横並びの場合
     // 主軸(横方向)の設定
-    resultList.push(_getStackMainAxisStyle('x', alignX, adjustX, childSizeX));
+    resultList.push(_getStackMainAxisStyle('x', alignX, adjustX, itemSizeX));
     // 交差軸(縦方向)の設定
-    resultList.push(_getStackClossAxisStyle('y', alignY, adjustY, childSizeY));
+    resultList.push(_getStackClossAxisStyle('y', alignY, adjustY, itemSizeY));
   } else {
     // 縦並びの場合
     // 主軸(縦方向)の設定
-    resultList.push(_getStackClossAxisStyle('x', alignX, adjustX, childSizeX));
+    resultList.push(_getStackMainAxisStyle('y', alignY, adjustY, itemSizeY));
     // 交差軸(横方向)の設定
-    resultList.push(_getStackMainAxisStyle('y', alignY, adjustY, childSizeY));
+    resultList.push(_getStackClossAxisStyle('x', alignX, adjustX, itemSizeX));
   }
 
   // 全てのクラス&スタイルを統合
@@ -82,14 +84,14 @@ export default stack;
  * @param axis 横 or 縦
  * @param align 位置
  * @param adjust 子要素のサイズの調整
- * @param childSize 子要素のサイズ
+ * @param itemSize 子要素のサイズ
  * @returns スタイル
  */
 function _getStackMainAxisStyle(
   axis: Direction,
   align: AlignY | AlignX,
   adjust: Adjust,
-  childSize: number,
+  itemSize: number | null | undefined,
 ): LayoutStyle {
   const result: LayoutStyle = {
     className: mergeClassName(
@@ -97,13 +99,13 @@ function _getStackMainAxisStyle(
       clsLayout.adjust[axis][adjust],
     ),
   };
-  if (hasValue(childSize)) {
+  if (hasValue(itemSize)) {
     // 高さ or 幅の指定あり
     result.className = mergeClassName(
       result.className,
-      clsLayout.childSize[axis],
+      clsLayout.itemSize[axis],
     );
-    result.style = { [varLayout.childSize[axis]]: unit(childSize) };
+    result.style = { [varLayout.itemSize[axis]]: unit(itemSize) };
   }
 
   return result;
@@ -114,25 +116,23 @@ function _getStackMainAxisStyle(
  * @param axis 横 or 縦
  * @param align 位置
  * @param adjust 子要素のサイズの調整
- * @param childSize 子要素のサイズ
+ * @param itemSize 子要素のサイズ
  * @returns スタイル
  */
 function _getStackClossAxisStyle(
   axis: Direction,
   align: AlignY | AlignX,
   adjust: Adjust,
-  childSize: number,
+  itemSize: number | null | undefined,
 ): LayoutStyle {
   if (adjust === 'fit') {
     // fit
+    // サイズはCSS側で100%に固定するため、itemSizeは適用しない
     return {
       className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],
       ),
-      style: {
-        [varLayout.childSize[axis]]: `min(0, 100%)`,
-      },
     };
   } else if (adjust === 'grow') {
     // grow
@@ -143,13 +143,13 @@ function _getStackClossAxisStyle(
       ),
       style: {},
     };
-    if (hasValue(childSize)) {
+    if (hasValue(itemSize)) {
       // 高さ or 幅の指定あり
       result.className = mergeClassName(
         result.className,
-        clsLayout.childSize[axis],
+        clsLayout.itemSize[axis],
       );
-      result.style[varLayout.childSize[axis]] = unit(childSize);
+      result.style = { [varLayout.itemSize[axis]]: unit(itemSize) };
     }
     return result;
   } else if (adjust === 'shrink') {
@@ -161,28 +161,28 @@ function _getStackClossAxisStyle(
       ),
       style: {},
     };
-    if (hasValue(childSize)) {
+    if (hasValue(itemSize)) {
       // 高さ or 幅の指定あり
       result.className = mergeClassName(
         result.className,
-        clsLayout.childSize[axis],
+        clsLayout.itemSize[axis],
       );
       result.style = {
-        [varLayout.childSize[axis]]: `min(${unit(childSize)}, 100%)`,
+        [varLayout.itemSize[axis]]: `min(${unit(itemSize)}, 100%)`,
       };
     }
     return result;
   } else {
     // none
-    if (hasValue(childSize)) {
+    if (hasValue(itemSize)) {
       // 指定のサイズ
       return {
         className: mergeClassName(
           clsLayout.align[axis][align],
-          clsLayout.childSize[axis],
+          clsLayout.itemSize[axis],
         ),
         style: {
-          [varLayout.childSize[axis]]: unit(childSize),
+          [varLayout.itemSize[axis]]: unit(itemSize),
         },
       };
     } else {

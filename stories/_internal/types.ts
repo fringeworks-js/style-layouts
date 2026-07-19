@@ -12,7 +12,7 @@ export type DebugOptions = {
   /**
    * 子要素の数
    */
-  childCount?: number;
+  itemCount?: number;
 
   /**
    * 子要素の幅・高さの決め方

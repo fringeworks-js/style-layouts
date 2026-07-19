@@ -8,7 +8,7 @@ const gotoStory = async (page: Page, storyId: string) => {
   await page.waitForSelector('.nws-layout-layer > *');
 };
 
-const CHILD_SIZE = 200;
+const ITEM_SIZE = 200;
 
 const getChildRect = (page: Page) =>
   page
@@ -135,43 +135,43 @@ test.describe('layer - alignY', () => {
 
 test.describe('layer - adjustX', () => {
   test.describe('grow', () => {
-    test('親幅 > childSize: 親幅まで広がる', async ({ page }) => {
+    test('親幅 > itemSize: 親幅まで広がる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-x-grow');
       const child = await getChildRect(page);
       const container = await getContainerRect(page);
-      expect(child.width).toBeGreaterThanOrEqual(CHILD_SIZE);
+      expect(child.width).toBeGreaterThanOrEqual(ITEM_SIZE);
       expect(child.width).toBeCloseTo(container.width, 0);
     });
 
-    test('親幅 < childSize: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親幅 < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: 100, height: 600 });
       await gotoStory(page, 'adjust-x-grow');
       const child = await getChildRect(page);
-      expect(child.width).toBeCloseTo(CHILD_SIZE, 0);
+      expect(child.width).toBeCloseTo(ITEM_SIZE, 0);
     });
   });
 
   test.describe('shrink', () => {
-    test('親幅 > childSize: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親幅 > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-x-shrink');
       const child = await getChildRect(page);
-      expect(child.width).toBeCloseTo(CHILD_SIZE, 0);
+      expect(child.width).toBeCloseTo(ITEM_SIZE, 0);
     });
 
-    test('親幅 < childSize: 親幅に合わせて縮む', async ({ page }) => {
+    test('親幅 < itemSize: 親幅に合わせて縮む', async ({ page }) => {
       await page.setViewportSize({ width: 100, height: 600 });
       await gotoStory(page, 'adjust-x-shrink');
       const child = await getChildRect(page);
       const container = await getContainerRect(page);
-      expect(child.width).toBeLessThan(CHILD_SIZE);
+      expect(child.width).toBeLessThan(ITEM_SIZE);
       expect(child.width).toBeCloseTo(container.width, 0);
     });
   });
 
   test.describe('fit', () => {
-    test('親幅 > childSize: 親幅まで広がる', async ({ page }) => {
+    test('親幅 > itemSize: 親幅まで広がる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-x-fit');
       const child = await getChildRect(page);
@@ -179,7 +179,7 @@ test.describe('layer - adjustX', () => {
       expect(child.width).toBeCloseTo(container.width, 0);
     });
 
-    test('親幅 < childSize: 親幅に合わせて縮む', async ({ page }) => {
+    test('親幅 < itemSize: 親幅に合わせて縮む', async ({ page }) => {
       await page.setViewportSize({ width: 100, height: 600 });
       await gotoStory(page, 'adjust-x-fit');
       const child = await getChildRect(page);
@@ -193,47 +193,43 @@ test.describe('layer - adjustX', () => {
 
 test.describe('layer - adjustY', () => {
   test.describe('grow', () => {
-    test('親高さ > childSize: 親高さまで広がる', async ({ page }) => {
+    test('親高さ > itemSize: 親高さまで広がる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-y-grow');
       const child = await getChildRect(page);
       const container = await getContainerRect(page);
-      expect(child.height).toBeGreaterThanOrEqual(CHILD_SIZE);
+      expect(child.height).toBeGreaterThanOrEqual(ITEM_SIZE);
       expect(child.height).toBeCloseTo(container.height, 0);
     });
 
-    test('親高さ < childSize: childSizeのまま（縮まない）', async ({
-      page,
-    }) => {
+    test('親高さ < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 100 });
       await gotoStory(page, 'adjust-y-grow');
       const child = await getChildRect(page);
-      expect(child.height).toBeCloseTo(CHILD_SIZE, 0);
+      expect(child.height).toBeCloseTo(ITEM_SIZE, 0);
     });
   });
 
   test.describe('shrink', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
-      page,
-    }) => {
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-y-shrink');
       const child = await getChildRect(page);
-      expect(child.height).toBeCloseTo(CHILD_SIZE, 0);
+      expect(child.height).toBeCloseTo(ITEM_SIZE, 0);
     });
 
-    test('親高さ < childSize: 親高さに合わせて縮む', async ({ page }) => {
+    test('親高さ < itemSize: 親高さに合わせて縮む', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 100 });
       await gotoStory(page, 'adjust-y-shrink');
       const child = await getChildRect(page);
       const container = await getContainerRect(page);
-      expect(child.height).toBeLessThan(CHILD_SIZE);
+      expect(child.height).toBeLessThan(ITEM_SIZE);
       expect(child.height).toBeCloseTo(container.height, 0);
     });
   });
 
   test.describe('fit', () => {
-    test('親高さ > childSize: 親高さまで広がる', async ({ page }) => {
+    test('親高さ > itemSize: 親高さまで広がる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-y-fit');
       const child = await getChildRect(page);
@@ -241,7 +237,7 @@ test.describe('layer - adjustY', () => {
       expect(child.height).toBeCloseTo(container.height, 0);
     });
 
-    test('親高さ < childSize: 親高さに合わせて縮む', async ({ page }) => {
+    test('親高さ < itemSize: 親高さに合わせて縮む', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: 100 });
       await gotoStory(page, 'adjust-y-fit');
       const child = await getChildRect(page);
@@ -251,10 +247,10 @@ test.describe('layer - adjustY', () => {
   });
 });
 
-// ===== childRatio =====
+// ===== itemRatio =====
 
-test.describe('layer - childRatio', () => {
-  test('childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+test.describe('layer - itemRatio', () => {
+  test('itemRatioX=1,itemRatioY=1 のとき子要素が正方形になる', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 800, height: 600 });

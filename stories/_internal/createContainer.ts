@@ -21,14 +21,14 @@ export default function createContainer(
   const {
     containerWidth = CONTAINER_STYLE.width,
     containerHeight = CONTAINER_STYLE.height,
-    childCount = 12,
+    itemCount = 12,
     sizeType = 'none',
     posType = 'none',
     overflow = 'hidden',
   } = toAttributesObj(debugOptions);
-  const colors = chroma.scale(['#a9c6cf', '#ed8a0f']).colors(childCount);
+  const colors = chroma.scale(['#a9c6cf', '#ed8a0f']).colors(itemCount);
   const sizeStyles = (() => {
-    const list = Array.from({ length: childCount });
+    const list = Array.from({ length: itemCount });
     if (sizeType === 'rand') {
       return list.map(() => ({
         height: _random(100),
@@ -44,7 +44,7 @@ export default function createContainer(
     }
   })();
   const positionStyles = (() => {
-    const list = Array.from({ length: childCount });
+    const list = Array.from({ length: itemCount });
     if (posType === 'rand') {
       return list.map(() => ({
         top: _random(CONTAINER_STYLE.height),

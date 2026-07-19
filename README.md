@@ -80,7 +80,7 @@ const { className, style } = stack({
   alignY: 'top',
   adjustX: 'grow',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -99,7 +99,7 @@ const { className, style } = flow({
   alignY: 'top',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -116,7 +116,7 @@ const { className, style } = tile({
   direction: 'x',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
+  itemSizeX: 200,
 });
 ```
 
@@ -124,7 +124,7 @@ const { className, style } = tile({
 
 Arranges child elements in a grid with explicit column and row counts.
 
-Either `childCount` or `tracks` is required per axis (not both).
+Either `itemCount` or `tracks` is required per axis (not both).
 
 > **Note:** Like `tile`, this layout assumes the container size is determined externally.
 
@@ -135,15 +135,15 @@ const { className, style } = matrix({
   direction: 'x',
   adjustX: 'fit',
   gap: 8,
-  childSizeX: 200,
-  childCountX: 3,
-  childCountY: 2,
+  itemSizeX: 200,
+  itemCountX: 3,
+  itemCountY: 2,
 });
 
 // Using explicit track templates
 matrix({
   tracksX: ['1fr', '2fr', '1fr'],
-  childCountY: 3,
+  itemCountY: 3,
 });
 ```
 
@@ -159,8 +159,8 @@ const { className, style } = center({
   direction: 'x',
   adjustX: 'shrink',
   gap: 8,
-  childSizeY: 200,
-  childRatioX: 1.6,
+  itemSizeY: 200,
+  itemRatioX: 1.6,
 });
 ```
 
@@ -190,7 +190,7 @@ import { balance } from '@niche-works/style-layouts';
 const { className, style } = balance({
   direction: 'x',
   adjustX: 'grow',
-  childSizeX: 200,
+  itemSizeX: 200,
   gap: 8,
 });
 ```
@@ -207,8 +207,8 @@ import { layer } from '@niche-works/style-layouts';
 const { className, style } = layer({
   alignX: 'center',
   adjustX: 'shrink',
-  childSizeY: 200,
-  childRatioX: 1.6,
+  itemSizeY: 200,
+  itemRatioX: 1.6,
 });
 ```
 
@@ -220,8 +220,8 @@ Positions child elements at specified coordinates. Each child element should hav
 import { pin } from '@niche-works/style-layouts';
 
 const { className, style } = pin({
-  childSizeX: 100,
-  childSizeY: 80,
+  itemSizeX: 100,
+  itemSizeY: 80,
 });
 ```
 
@@ -229,45 +229,45 @@ const { className, style } = pin({
 
 ### Options by Layout
 
-| Option        | stack | flow | tile | matrix | center | pack | balance | layer | pin |
-| ------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
-| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `childCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `childCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksX`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksY`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| Option       | stack | flow | tile | matrix | center | pack | balance | layer | pin |
+| ------------ | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
+| `direction`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `alignX`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `alignY`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `adjustX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `adjustY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `gap`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapX`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapY`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `itemSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `itemCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksX`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksY`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
 
 ### Options Reference
 
-| Option         | Type                       | Description                                                |
-| -------------- | -------------------------- | ---------------------------------------------------------- |
-| `direction?`   | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                       |
-| `alignX?`      | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)       |
-| `alignY?`      | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)          |
-| `adjustX?`     | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`) |
-| `adjustY?`     | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)   |
-| `gap?`         | `number`                   | Gap between children in px (both axes)                     |
-| `gapX?`        | `number`                   | Gap between children in px (horizontal)                    |
-| `gapY?`        | `number`                   | Gap between children in px (vertical)                      |
-| `childSizeX?`  | `number`                   | Width of child elements in px                              |
-| `childSizeY?`  | `number`                   | Height of child elements in px                             |
-| `childRatioX?` | `number`                   | Horizontal ratio of child elements                         |
-| `childRatioY?` | `number`                   | Vertical ratio of child elements                           |
-| `childCountX?` | `number`                   | Number of children in horizontal direction                 |
-| `childCountY?` | `number`                   | Number of children in vertical direction                   |
-| `tracksX?`     | `(string \| number)[]`     | Individual sizes of children (horizontal)                  |
-| `tracksY?`     | `(string \| number)[]`     | Individual sizes of children (vertical)                    |
+| Option        | Type                       | Description                                                |
+| ------------- | -------------------------- | ---------------------------------------------------------- |
+| `direction?`  | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                       |
+| `alignX?`     | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)       |
+| `alignY?`     | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)          |
+| `adjustX?`    | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`) |
+| `adjustY?`    | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)   |
+| `gap?`        | `number`                   | Gap between children in px (both axes)                     |
+| `gapX?`       | `number`                   | Gap between children in px (horizontal)                    |
+| `gapY?`       | `number`                   | Gap between children in px (vertical)                      |
+| `itemSizeX?`  | `number`                   | Width of child elements in px                              |
+| `itemSizeY?`  | `number`                   | Height of child elements in px                             |
+| `itemRatioX?` | `number`                   | Horizontal ratio of child elements                         |
+| `itemRatioY?` | `number`                   | Vertical ratio of child elements                           |
+| `itemCountX?` | `number`                   | Number of children in horizontal direction                 |
+| `itemCountY?` | `number`                   | Number of children in vertical direction                   |
+| `tracksX?`    | `(string \| number)[]`     | Individual sizes of children (horizontal)                  |
+| `tracksY?`    | `(string \| number)[]`     | Individual sizes of children (vertical)                    |
 
 ### `AlignX` Values
 

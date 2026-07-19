@@ -1,7 +1,7 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import { clsLayout, clsLayoutLayer } from '../_constants';
-import applyChildRatio from '../_internal/applyChildRatio';
-import applyChildSize from '../_internal/applyChildSize';
+import applyItemRatio from '../_internal/applyItemRatio';
+import applyItemSize from '../_internal/applyItemSize';
 import mergeClassName from '../_internal/mergeClassName';
 import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { LayerLayoutOptions } from './types';
@@ -19,15 +19,17 @@ const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
     alignY,
     adjustX,
     adjustY,
-    childSizeX,
-    childSizeY,
-    childRatioX,
-    childRatioY,
+    itemSizeX,
+    itemSizeY,
+    itemRatioX,
+    itemRatioY,
   } = maybeDefault(
     options,
     {
       alignX: 'left',
       alignY: 'top',
+      adjustX: 'none',
+      adjustY: 'none',
     },
     { overwriteNull: true },
   );
@@ -44,10 +46,10 @@ const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
   };
 
   // 子要素のサイズ
-  applyChildSize(result, childSizeX, childSizeY);
+  applyItemSize(result, itemSizeX, itemSizeY);
 
   // 子要素のアスペクト比
-  applyChildRatio(result, childRatioX, childRatioY);
+  applyItemRatio(result, itemRatioX, itemRatioY);
 
   return result;
 };

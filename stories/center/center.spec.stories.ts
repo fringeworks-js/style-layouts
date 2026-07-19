@@ -10,16 +10,16 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
-const CHILD_SIZE = '200px';
+const ITEM_SIZE = '200px';
 const GAP_SIZE = 20;
 
 // ===== センタリング（デフォルト） =====
 
 export const DirectionXCentering: Story = {
-  args: { direction: 'x', childSizeX: CHILD_SIZE, childCount: 3 },
+  args: { direction: 'x', itemSizeX: ITEM_SIZE, itemCount: 3 },
 };
 export const DirectionYCentering: Story = {
-  args: { direction: 'y', childSizeY: CHILD_SIZE, childCount: 3 },
+  args: { direction: 'y', itemSizeY: ITEM_SIZE, itemCount: 3 },
 };
 
 // ===== direction:x / 主軸(adjustX) =====
@@ -28,57 +28,57 @@ export const DirectionXAdjustXGrow: Story = {
   args: {
     direction: 'x',
     adjustX: 'grow',
-    childSizeX: CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionXAdjustXShrink: Story = {
   args: {
     direction: 'x',
     adjustX: 'shrink',
-    childSizeX: CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionXAdjustXFit: Story = {
   args: {
     direction: 'x',
     adjustX: 'fit',
-    childSizeX: CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionXAdjustXNone: Story = {
   args: {
     direction: 'x',
     adjustX: 'none',
-    childSizeX: CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 
 // ===== direction:x / 交差軸(adjustY) =====
 
 export const DirectionXAdjustYGrow: Story = {
-  args: { direction: 'x', adjustY: 'grow', childCount: 3 },
+  args: { direction: 'x', adjustY: 'grow', itemCount: 3 },
 };
 export const DirectionXAdjustYShrink: Story = {
   args: {
     direction: 'x',
     adjustY: 'shrink',
-    childSizeY: CHILD_SIZE,
-    childCount: 3,
+    itemSizeY: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionXAdjustYFit: Story = {
-  args: { direction: 'x', adjustY: 'fit', childCount: 3 },
+  args: { direction: 'x', adjustY: 'fit', itemCount: 3 },
 };
 export const DirectionXAdjustYNone: Story = {
   args: {
     direction: 'x',
     adjustY: 'none',
-    childSizeY: CHILD_SIZE,
-    childCount: 3,
+    itemSizeY: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 
@@ -88,16 +88,16 @@ export const DirectionYAdjustYGrow: Story = {
   args: {
     direction: 'y',
     adjustY: 'grow',
-    childSizeY: CHILD_SIZE,
-    childCount: 3,
+    itemSizeY: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionYAdjustYShrink: Story = {
   args: {
     direction: 'y',
     adjustY: 'shrink',
-    childSizeY: CHILD_SIZE,
-    childCount: 3,
+    itemSizeY: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 
@@ -107,15 +107,15 @@ export const DirectionXGapX: Story = {
   args: {
     direction: 'x',
     gapX: GAP_SIZE,
-    childSizeX: CHILD_SIZE,
-    childCount: 3,
+    itemSizeX: ITEM_SIZE,
+    itemCount: 3,
   },
 };
 export const DirectionYGapY: Story = {
   args: {
     direction: 'y',
     gapY: GAP_SIZE,
-    childSizeY: CHILD_SIZE,
-    childCount: 3,
+    itemSizeY: ITEM_SIZE,
+    itemCount: 3,
   },
 };

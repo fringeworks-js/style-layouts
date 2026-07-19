@@ -31,14 +31,14 @@ export type AlignOptions = {
 export type AdjustOptions = {
   /**
    * 子要素の幅の調整
-   * childSizeXを指定した場合に有効
+   * itemSizeXを指定した場合に有効
    * デフォルトは`none`
    */
   adjustX?: Adjust | null;
 
   /**
    * 子要素の高さの調整
-   * childSizeYを指定した場合に有効
+   * itemSizeYを指定した場合に有効
    * デフォルトは`none`
    */
   adjustY?: Adjust | null;
@@ -67,46 +67,46 @@ export type GapOptions = {
 /**
  * 子要素のサイズ
  */
-export type ChildSizeOptions = {
+export type ItemSizeOptions = {
   /**
    * 子要素の幅
    */
-  childSizeX?: number | null;
+  itemSizeX?: number | null;
 
   /**
    * 子要素の高さ
    */
-  childSizeY?: number | null;
+  itemSizeY?: number | null;
 };
 
 /**
  * 子要素のサイズの縦横比
  */
-export type ChildRatioOptions = {
+export type ItemRatioOptions = {
   /**
    * 子要素の縦横比(横)
    */
-  childRatioX?: number;
+  itemRatioX?: number | null;
 
   /**
    * 子要素の縦横比(縦)
    */
-  childRatioY?: number;
+  itemRatioY?: number | null;
 };
 
 /**
  * 子要素の数
  */
-export type ChildCountOptions = {
+export type ItemCountOptions = {
   /**
    * 横方向の要素数
    */
-  childCountX?: number | null;
+  itemCountX?: number | null;
 
   /**
    * 縦方向の要素数
    */
-  childCountY?: number | null;
+  itemCountY?: number | null;
 };
 
 /**
@@ -115,13 +115,13 @@ export type ChildCountOptions = {
 export type TracksOptions = {
   /**
    * 横方向の設定
-   * このプロパティが設定されている場合、childCountX,childSizeXは無効
+   * このプロパティが設定されている場合、itemCountX,itemSizeXは無効
    */
   tracksX?: (string | number)[] | null;
 
   /**
    * 縦方向の設定
-   * このプロパティが設定されている場合、childCountY,childSizeYは無効
+   * このプロパティが設定されている場合、itemCountY,itemSizeYは無効
    */
   tracksY?: (string | number)[] | null;
 };

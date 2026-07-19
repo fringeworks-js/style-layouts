@@ -12,7 +12,7 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    childCount: 3,
+    itemCount: 3,
     childPositions: [
       { left: '0px', top: '0px' },
       { left: '100px', top: '50px' },
@@ -21,11 +21,11 @@ export const Default: Story = {
   },
 };
 
-export const WithChildSize: Story = {
+export const WithItemSize: Story = {
   args: {
-    childSizeX: '100px',
-    childSizeY: '80px',
-    childCount: 3,
+    itemSizeX: '100px',
+    itemSizeY: '80px',
+    itemCount: 3,
     childPositions: [
       { left: '0px', top: '0px' },
       { left: '150px', top: '100px' },
@@ -36,10 +36,10 @@ export const WithChildSize: Story = {
 
 export const WithChildRatio: Story = {
   args: {
-    childSizeX: '100px',
-    childRatioX: 1,
-    childRatioY: 1,
-    childCount: 3,
+    itemSizeX: '100px',
+    itemRatioX: 1,
+    itemRatioY: 1,
+    itemCount: 3,
     childPositions: [
       { left: '0px', top: '0px' },
       { left: '150px', top: '0px' },
