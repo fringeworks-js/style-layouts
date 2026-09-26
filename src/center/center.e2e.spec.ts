@@ -5,7 +5,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.nws-layout-center > *');
+  await page.waitForSelector('.lx-layout-center > *');
 };
 
 const ITEM_SIZE = 200;
@@ -14,16 +14,16 @@ const ITEMS_SIZE = ITEM_SIZE * ITEM_COUNT;
 
 const getChildWidths = (page: Page) =>
   page
-    .locator('.nws-layout-center > *')
+    .locator('.lx-layout-center > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
 
 const getChildHeights = (page: Page) =>
   page
-    .locator('.nws-layout-center > *')
+    .locator('.lx-layout-center > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height));
 
 const getChildXRects = (page: Page) =>
-  page.locator('.nws-layout-center > *').evaluateAll((els) =>
+  page.locator('.lx-layout-center > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { left: rect.left, right: rect.right, width: rect.width };
@@ -31,7 +31,7 @@ const getChildXRects = (page: Page) =>
   );
 
 const getChildYRects = (page: Page) =>
-  page.locator('.nws-layout-center > *').evaluateAll((els) =>
+  page.locator('.lx-layout-center > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { top: rect.top, bottom: rect.bottom, height: rect.height };
@@ -39,7 +39,7 @@ const getChildYRects = (page: Page) =>
   );
 
 const getContainerRect = (page: Page) =>
-  page.locator('.nws-layout-center').evaluate((el) => {
+  page.locator('.lx-layout-center').evaluate((el) => {
     const rect = el.getBoundingClientRect();
     return {
       left: rect.left,
@@ -169,9 +169,7 @@ test.describe('center - direction:x 交差軸(adjustY)', () => {
       heights.forEach((h) => expect(h).toBeLessThanOrEqual(ITEM_SIZE));
     });
 
-    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({
-      page,
-    }) => {
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-x-adjust-y-shrink');
       const heights = await getChildHeights(page);
@@ -237,9 +235,7 @@ test.describe('center - direction:y 主軸(adjustY)', () => {
       heights.forEach((h) => expect(h).toBeGreaterThanOrEqual(ITEM_SIZE));
     });
 
-    test('親高さ < itemSize: itemSizeのまま（縮まない）', async ({
-      page,
-    }) => {
+    test('親高さ < itemSize: itemSizeのまま（縮まない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: ITEMS_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const heights = await getChildHeights(page);
@@ -248,9 +244,7 @@ test.describe('center - direction:y 主軸(adjustY)', () => {
   });
 
   test.describe('shrink', () => {
-    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({
-      page,
-    }) => {
+    test('親高さ > itemSize: itemSizeのまま（伸びない）', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: ITEMS_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const heights = await getChildHeights(page);

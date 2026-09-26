@@ -1,8 +1,8 @@
-.nws-layout-pack {
+.lx-layout-pack {
   // 変数
-  --nws-layout-gapX: 0px;
-  --nws-layout-gapY: 0px;
-  --nws-layout-itemRatio: auto;
+  --lx-layout-gapX: 0px;
+  --lx-layout-gapY: 0px;
+  --lx-layout-itemRatio: auto;
 
   // pack用のスタイル
   display: flex;
@@ -14,7 +14,7 @@
     flex-shrink: 1;
   }
 
-  &.nws-layout-direction-x {
+  &.lx-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
     & > * {
@@ -24,7 +24,7 @@
     }
   }
 
-  &.nws-layout-direction-y {
+  &.lx-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
     & > * {
@@ -35,13 +35,13 @@
   }
 
   // 子要素の間隔
-  &.nws-layout-gapX {
+  &.lx-layout-gapX {
     // 横方向の間隔
-    column-gap: var(--nws-layout-gapX);
+    column-gap: var(--lx-layout-gapX);
   }
 
-  &.nws-layout-gapY {
+  &.lx-layout-gapY {
     // 縦方向の間隔
-    row-gap: var(--nws-layout-gapY);
+    row-gap: var(--lx-layout-gapY);
   }
 }

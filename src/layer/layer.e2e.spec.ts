@@ -5,14 +5,14 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.nws-layout-layer > *');
+  await page.waitForSelector('.lx-layout-layer > *');
 };
 
 const ITEM_SIZE = 200;
 
 const getChildRect = (page: Page) =>
   page
-    .locator('.nws-layout-layer > *')
+    .locator('.lx-layout-layer > *')
     .first()
     .evaluate((el) => {
       const rect = el.getBoundingClientRect();
@@ -27,7 +27,7 @@ const getChildRect = (page: Page) =>
     });
 
 const getChildRects = (page: Page) =>
-  page.locator('.nws-layout-layer > *').evaluateAll((els) =>
+  page.locator('.lx-layout-layer > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return {
@@ -42,7 +42,7 @@ const getChildRects = (page: Page) =>
   );
 
 const getContainerRect = (page: Page) =>
-  page.locator('.nws-layout-layer').evaluate((el) => {
+  page.locator('.lx-layout-layer').evaluate((el) => {
     const rect = el.getBoundingClientRect();
     return {
       left: rect.left,

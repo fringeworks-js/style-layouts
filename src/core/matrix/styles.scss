@@ -1,74 +1,74 @@
-.nws-layout-matrix {
+.lx-layout-matrix {
   // 変数
-  --nws-layout-gapX: 0px;
-  --nws-layout-gapY: 0px;
-  --nws-layout-itemSizeX: auto;
-  --nws-layout-itemSizeY: auto;
-  --nws-layout-itemRatio: auto;
-  --nws-layout-itemCountX: auto-fit;
-  --nws-layout-itemCountY: auto-fit;
-  --nws-layout-templateX: none;
-  --nws-layout-templateY: none;
+  --lx-layout-gapX: 0px;
+  --lx-layout-gapY: 0px;
+  --lx-layout-itemSizeX: auto;
+  --lx-layout-itemSizeY: auto;
+  --lx-layout-itemRatio: auto;
+  --lx-layout-itemCountX: auto-fit;
+  --lx-layout-itemCountY: auto-fit;
+  --lx-layout-templateX: none;
+  --lx-layout-templateY: none;
 
   // matrix用のスタイル
   display: grid;
 
-  &.nws-layout-direction-x {
+  &.lx-layout-direction-x {
     // 子要素を並べる向き・横並び
     grid-auto-flow: row;
   }
 
-  &.nws-layout-direction-y {
+  &.lx-layout-direction-y {
     // 子要素を並べる向き・縦並び
     grid-auto-flow: column;
   }
 
-  &.nws-layout-alignX-left {
+  &.lx-layout-alignX-left {
     // 横位置: 左
     justify-content: flex-start;
   }
-  &.nws-layout-alignX-center {
+  &.lx-layout-alignX-center {
     // 横位置: 中央
     justify-content: center;
   }
-  &.nws-layout-alignX-right {
+  &.lx-layout-alignX-right {
     // 横位置: 右
     justify-content: flex-end;
   }
-  &.nws-layout-alignX-spaceBetween {
+  &.lx-layout-alignX-spaceBetween {
     // 横位置: 両端揃え
     justify-content: space-between;
   }
-  &.nws-layout-alignX-spaceAround {
+  &.lx-layout-alignX-spaceAround {
     // 横位置: 両端余白あり均等
     justify-content: space-around;
   }
-  &.nws-layout-alignX-spaceEvenly {
+  &.lx-layout-alignX-spaceEvenly {
     // 横位置: 完全均等
     justify-content: space-evenly;
   }
 
-  &.nws-layout-alignY-top {
+  &.lx-layout-alignY-top {
     // 縦位置: 上
     align-content: flex-start;
   }
-  &.nws-layout-alignY-middle {
+  &.lx-layout-alignY-middle {
     // 縦位置: 中央
     align-content: center;
   }
-  &.nws-layout-alignY-bottom {
+  &.lx-layout-alignY-bottom {
     // 縦位置: 下
     align-content: flex-end;
   }
-  &.nws-layout-alignY-spaceBetween {
+  &.lx-layout-alignY-spaceBetween {
     // 縦位置: 両端揃え
     align-content: space-between;
   }
-  &.nws-layout-alignY-spaceAround {
+  &.lx-layout-alignY-spaceAround {
     // 縦位置: 両端余白あり均等
     align-content: space-around;
   }
-  &.nws-layout-alignY-spaceEvenly {
+  &.lx-layout-alignY-spaceEvenly {
     // 縦位置: 完全均等
     align-content: space-evenly;
   }
@@ -76,191 +76,191 @@
   // 子要素の幅調整
   // 列の指定なし(itemSizeX,itemCountX,tracksXなし)の場合、
   // auto-repeatに固定サイズ以外は指定できないためスタイルなし
-  &.nws-layout-itemSizeX {
-    grid-template-columns: repeat(auto-fit, var(--nws-layout-itemSizeX));
-    &.nws-layout-itemCountX {
+  &.lx-layout-itemSizeX {
+    grid-template-columns: repeat(auto-fit, var(--lx-layout-itemSizeX));
+    &.lx-layout-itemCountX {
       grid-template-columns: repeat(
-        var(--nws-layout-itemCountX),
-        var(--nws-layout-itemSizeX)
+        var(--lx-layout-itemCountX),
+        var(--lx-layout-itemSizeX)
       );
     }
   }
-  &.nws-layout-itemCountX {
-    grid-template-columns: repeat(var(--nws-layout-itemCountX), auto);
+  &.lx-layout-itemCountX {
+    grid-template-columns: repeat(var(--lx-layout-itemCountX), auto);
   }
-  &.nws-layout-templateX {
-    grid-template-columns: var(--nws-layout-templateX);
+  &.lx-layout-templateX {
+    grid-template-columns: var(--lx-layout-templateX);
   }
-  &.nws-layout-adjustX-fit {
+  &.lx-layout-adjustX-fit {
     // 子要素の幅調整: 伸ばす & 縮める
     // 列の指定なしの場合はauto-repeatで表現できないためスタイルなし
-    &.nws-layout-itemSizeX {
+    &.lx-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(clamp(0px, 100%, var(--nws-layout-itemSizeX)), 1fr)
+        minmax(clamp(0px, 100%, var(--lx-layout-itemSizeX)), 1fr)
       );
-      &.nws-layout-itemCountX {
+      &.lx-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-itemCountX),
+          var(--lx-layout-itemCountX),
           minmax(
             clamp(
               0px,
               calc(
                 (
-                    100% - var(--nws-layout-gapX) *
-                      (var(--nws-layout-itemCountX) - 1)
+                    100% - var(--lx-layout-gapX) *
+                      (var(--lx-layout-itemCountX) - 1)
                   ) /
-                  var(--nws-layout-itemCountX)
+                  var(--lx-layout-itemCountX)
               ),
-              var(--nws-layout-itemSizeX)
+              var(--lx-layout-itemSizeX)
             ),
             1fr
           )
         );
       }
     }
-    &.nws-layout-itemCountX {
-      grid-template-columns: repeat(var(--nws-layout-itemCountX), 1fr);
+    &.lx-layout-itemCountX {
+      grid-template-columns: repeat(var(--lx-layout-itemCountX), 1fr);
     }
   }
-  &.nws-layout-adjustX-grow {
+  &.lx-layout-adjustX-grow {
     // 子要素の幅調整: 伸ばす
     // 列の指定なしの場合はauto-repeatで表現できないためスタイルなし
-    &.nws-layout-itemSizeX {
+    &.lx-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(var(--nws-layout-itemSizeX), 1fr)
+        minmax(var(--lx-layout-itemSizeX), 1fr)
       );
-      &.nws-layout-itemCountX {
+      &.lx-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-itemCountX),
-          minmax(var(--nws-layout-itemSizeX), 1fr)
+          var(--lx-layout-itemCountX),
+          minmax(var(--lx-layout-itemSizeX), 1fr)
         );
       }
     }
-    &.nws-layout-itemCountX {
-      grid-template-columns: repeat(var(--nws-layout-itemCountX), 1fr);
+    &.lx-layout-itemCountX {
+      grid-template-columns: repeat(var(--lx-layout-itemCountX), 1fr);
     }
   }
-  &.nws-layout-adjustX-shrink {
+  &.lx-layout-adjustX-shrink {
     // 子要素の幅調整: 縮める
-    &.nws-layout-itemSizeX {
+    &.lx-layout-itemSizeX {
       grid-template-columns: repeat(
         auto-fit,
-        minmax(0, var(--nws-layout-itemSizeX))
+        minmax(0, var(--lx-layout-itemSizeX))
       );
-      &.nws-layout-itemCountX {
+      &.lx-layout-itemCountX {
         grid-template-columns: repeat(
-          var(--nws-layout-itemCountX),
-          minmax(0, var(--nws-layout-itemSizeX))
+          var(--lx-layout-itemCountX),
+          minmax(0, var(--lx-layout-itemSizeX))
         );
       }
     }
-    &.nws-layout-itemCountX {
-      grid-template-columns: repeat(var(--nws-layout-itemCountX), auto);
+    &.lx-layout-itemCountX {
+      grid-template-columns: repeat(var(--lx-layout-itemCountX), auto);
     }
   }
 
   // 子要素の高さ調整
   // 行の指定なし(itemSizeY,itemCountY,tracksYなし)の場合、
   // auto-repeatに固定サイズ以外は指定できないためスタイルなし
-  &.nws-layout-itemSizeY {
-    grid-template-rows: repeat(auto-fit, var(--nws-layout-itemSizeY));
-    &.nws-layout-itemCountY {
+  &.lx-layout-itemSizeY {
+    grid-template-rows: repeat(auto-fit, var(--lx-layout-itemSizeY));
+    &.lx-layout-itemCountY {
       grid-template-rows: repeat(
-        var(--nws-layout-itemCountY),
-        var(--nws-layout-itemSizeY)
+        var(--lx-layout-itemCountY),
+        var(--lx-layout-itemSizeY)
       );
     }
   }
-  &.nws-layout-itemCountY {
-    grid-template-rows: repeat(var(--nws-layout-itemCountY), auto);
+  &.lx-layout-itemCountY {
+    grid-template-rows: repeat(var(--lx-layout-itemCountY), auto);
   }
-  &.nws-layout-templateY {
-    grid-template-rows: var(--nws-layout-templateY);
+  &.lx-layout-templateY {
+    grid-template-rows: var(--lx-layout-templateY);
   }
-  &.nws-layout-adjustY-fit {
+  &.lx-layout-adjustY-fit {
     // 子要素の高さ調整: 伸ばす & 縮める
     // 行の指定なしの場合はauto-repeatで表現できないためスタイルなし
-    &.nws-layout-itemSizeY {
+    &.lx-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(clamp(0px, 100%, var(--nws-layout-itemSizeY)), 1fr)
+        minmax(clamp(0px, 100%, var(--lx-layout-itemSizeY)), 1fr)
       );
-      &.nws-layout-itemCountY {
+      &.lx-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-itemCountY),
+          var(--lx-layout-itemCountY),
           minmax(
             clamp(
               0px,
               calc(
                 (
-                    100% - var(--nws-layout-gapY) *
-                      (var(--nws-layout-itemCountY) - 1)
+                    100% - var(--lx-layout-gapY) *
+                      (var(--lx-layout-itemCountY) - 1)
                   ) /
-                  var(--nws-layout-itemCountY)
+                  var(--lx-layout-itemCountY)
               ),
-              var(--nws-layout-itemSizeY)
+              var(--lx-layout-itemSizeY)
             ),
             1fr
           )
         );
       }
     }
-    &.nws-layout-itemCountY {
-      grid-template-rows: repeat(var(--nws-layout-itemCountY), 1fr);
+    &.lx-layout-itemCountY {
+      grid-template-rows: repeat(var(--lx-layout-itemCountY), 1fr);
     }
   }
-  &.nws-layout-adjustY-grow {
+  &.lx-layout-adjustY-grow {
     // 子要素の高さ調整: 伸ばす
     // 行の指定なしの場合はauto-repeatで表現できないためスタイルなし
-    &.nws-layout-itemSizeY {
+    &.lx-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(var(--nws-layout-itemSizeY), 1fr)
+        minmax(var(--lx-layout-itemSizeY), 1fr)
       );
-      &.nws-layout-itemCountY {
+      &.lx-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-itemCountY),
-          minmax(var(--nws-layout-itemSizeY), 1fr)
+          var(--lx-layout-itemCountY),
+          minmax(var(--lx-layout-itemSizeY), 1fr)
         );
       }
     }
-    &.nws-layout-itemCountY {
-      grid-template-rows: repeat(var(--nws-layout-itemCountY), 1fr);
+    &.lx-layout-itemCountY {
+      grid-template-rows: repeat(var(--lx-layout-itemCountY), 1fr);
     }
   }
-  &.nws-layout-adjustY-shrink {
+  &.lx-layout-adjustY-shrink {
     // 子要素の高さ調整: 縮める
-    &.nws-layout-itemSizeY {
+    &.lx-layout-itemSizeY {
       grid-template-rows: repeat(
         auto-fit,
-        minmax(0, var(--nws-layout-itemSizeY))
+        minmax(0, var(--lx-layout-itemSizeY))
       );
-      &.nws-layout-itemCountY {
+      &.lx-layout-itemCountY {
         grid-template-rows: repeat(
-          var(--nws-layout-itemCountY),
-          minmax(0, var(--nws-layout-itemSizeY))
+          var(--lx-layout-itemCountY),
+          minmax(0, var(--lx-layout-itemSizeY))
         );
       }
     }
-    &.nws-layout-itemCountY {
-      grid-template-rows: repeat(var(--nws-layout-itemCountY), auto);
+    &.lx-layout-itemCountY {
+      grid-template-rows: repeat(var(--lx-layout-itemCountY), auto);
     }
   }
 
-  &.nws-layout-itemRatio > * {
+  &.lx-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--nws-layout-itemRatio);
+    aspect-ratio: var(--lx-layout-itemRatio);
   }
 
-  &.nws-layout-gapX {
+  &.lx-layout-gapX {
     // 横方向の間隔
-    column-gap: var(--nws-layout-gapX);
+    column-gap: var(--lx-layout-gapX);
   }
 
-  &.nws-layout-gapY {
+  &.lx-layout-gapY {
     // 縦方向の間隔
-    row-gap: var(--nws-layout-gapY);
+    row-gap: var(--lx-layout-gapY);
   }
 }

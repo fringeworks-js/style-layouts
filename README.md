@@ -33,12 +33,12 @@ const { className, style } = stack({
   gap: 16,
 });
 
-// className: "nws-layout-stack nws-layout-direction-x ..."
-// style: { "--nws-layout-gapX": "16px", ... }
+// className: "lx-layout-stack lx-layout-direction-x ..."
+// style: { "--lx-layout-gapX": "16px", ... }
 ```
 
 ```html
-<div class="nws-layout-stack ..." style="--nws-layout-gapX: 16px; ...">
+<div class="lx-layout-stack ..." style="--lx-layout-gapX: 16px; ...">
   <div>Item 1</div>
   <div>Item 2</div>
 </div>

@@ -3,256 +3,256 @@ import type { Adjust, AlignX, AlignY, Direction } from './constants';
 /**
  * レイアウト種別: stack
  */
-export const clsLayoutStack = 'nws-layout-stack';
+export const clsLayoutStack = 'lx-layout-stack';
 
 /**
  * レイアウト種別: flow
  */
-export const clsLayoutFlow = 'nws-layout-flow';
+export const clsLayoutFlow = 'lx-layout-flow';
 
 /**
  * レイアウト種別: tile
  */
-export const clsLayoutTile = 'nws-layout-tile';
+export const clsLayoutTile = 'lx-layout-tile';
 
 /**
  * レイアウト種別: matrix
  */
-export const clsLayoutMatrix = 'nws-layout-matrix';
+export const clsLayoutMatrix = 'lx-layout-matrix';
 
 /**
  * レイアウト種別: center
  */
-export const clsLayoutCenter = 'nws-layout-center';
+export const clsLayoutCenter = 'lx-layout-center';
 
 /**
  * レイアウト種別: pack
  */
-export const clsLayoutPack = 'nws-layout-pack';
+export const clsLayoutPack = 'lx-layout-pack';
 
 /**
  * レイアウト種別: balance
  */
-export const clsLayoutBalance = 'nws-layout-balance';
+export const clsLayoutBalance = 'lx-layout-balance';
 
 /**
  * レイアウト種別: layer
  */
-export const clsLayoutLayer = 'nws-layout-layer';
+export const clsLayoutLayer = 'lx-layout-layer';
 
 /**
  * レイアウト種別: pin
  */
-export const clsLayoutPin = 'nws-layout-pin';
+export const clsLayoutPin = 'lx-layout-pin';
 
 /**
  * 整列: 横方向
  */
-export const clsLayoutDirectionX = 'nws-layout-direction-x';
+export const clsLayoutDirectionX = 'lx-layout-direction-x';
 
 /**
  * 整列: 縦方向
  */
-export const clsLayoutDirectionY = 'nws-layout-direction-y';
+export const clsLayoutDirectionY = 'lx-layout-direction-y';
 
 /**
  * 横位置: 左
  */
-export const clsLayoutAlignXLeft = 'nws-layout-alignX-left';
+export const clsLayoutAlignXLeft = 'lx-layout-alignX-left';
 
 /**
  * 横位置: 中央
  */
-export const clsLayoutAlignXCenter = 'nws-layout-alignX-center';
+export const clsLayoutAlignXCenter = 'lx-layout-alignX-center';
 
 /**
  * 横位置: 右
  */
-export const clsLayoutAlignXRight = 'nws-layout-alignX-right';
+export const clsLayoutAlignXRight = 'lx-layout-alignX-right';
 
 /**
  * 横位置: 両端揃え
  */
-export const clsLayoutAlignXSpaceBetween = 'nws-layout-alignX-spaceBetween';
+export const clsLayoutAlignXSpaceBetween = 'lx-layout-alignX-spaceBetween';
 
 /**
  * 横位置: 両端余白あり均等
  */
-export const clsLayoutAlignXSpaceAround = 'nws-layout-alignX-spaceAround';
+export const clsLayoutAlignXSpaceAround = 'lx-layout-alignX-spaceAround';
 
 /**
  * 横位置: 完全均等
  */
-export const clsLayoutAlignXSpaceEvenly = 'nws-layout-alignX-spaceEvenly';
+export const clsLayoutAlignXSpaceEvenly = 'lx-layout-alignX-spaceEvenly';
 
 /**
  * 縦位置: 上
  */
-export const clsLayoutAlignYTop = 'nws-layout-alignY-top';
+export const clsLayoutAlignYTop = 'lx-layout-alignY-top';
 
 /**
  * 縦位置: 中央
  */
-export const clsLayoutAlignYMiddle = 'nws-layout-alignY-middle';
+export const clsLayoutAlignYMiddle = 'lx-layout-alignY-middle';
 
 /**
  * 縦位置: 下
  */
-export const clsLayoutAlignYBottom = 'nws-layout-alignY-bottom';
+export const clsLayoutAlignYBottom = 'lx-layout-alignY-bottom';
 
 /**
  * 縦位置: 両端揃え
  */
-export const clsLayoutAlignYSpaceBetween = 'nws-layout-alignY-spaceBetween';
+export const clsLayoutAlignYSpaceBetween = 'lx-layout-alignY-spaceBetween';
 
 /**
  * 縦位置: 両端余白あり均等
  */
-export const clsLayoutAlignYSpaceAround = 'nws-layout-alignY-spaceAround';
+export const clsLayoutAlignYSpaceAround = 'lx-layout-alignY-spaceAround';
 
 /**
  * 縦位置: 完全均等
  */
-export const clsLayoutAlignYSpaceEvenly = 'nws-layout-alignY-spaceEvenly';
+export const clsLayoutAlignYSpaceEvenly = 'lx-layout-alignY-spaceEvenly';
 
 /**
  * 子要素の幅調整: なし
  */
-export const clsLayoutAdjustXNone = 'nws-layout-adjustX-none';
+export const clsLayoutAdjustXNone = 'lx-layout-adjustX-none';
 
 /**
  * 子要素の幅調整: 伸ばす & 縮める
  */
-export const clsLayoutAdjustXFit = 'nws-layout-adjustX-fit';
+export const clsLayoutAdjustXFit = 'lx-layout-adjustX-fit';
 
 /**
  * 子要素の幅調整: 伸ばす
  */
-export const clsLayoutAdjustXExpand = 'nws-layout-adjustX-grow';
+export const clsLayoutAdjustXExpand = 'lx-layout-adjustX-grow';
 
 /**
  * 子要素の幅調整: 縮める
  */
-export const clsLayoutAdjustXShrink = 'nws-layout-adjustX-shrink';
+export const clsLayoutAdjustXShrink = 'lx-layout-adjustX-shrink';
 
 /**
  * 子要素の高さ調整: なし
  */
-export const clsLayoutAdjustYNone = 'nws-layout-adjustY-none';
+export const clsLayoutAdjustYNone = 'lx-layout-adjustY-none';
 
 /**
  * 子要素の高さ調整: 伸ばす & 縮める
  */
-export const clsLayoutAdjustYFit = 'nws-layout-adjustY-fit';
+export const clsLayoutAdjustYFit = 'lx-layout-adjustY-fit';
 
 /**
  * 子要素の高さ調整: 伸ばす
  */
-export const clsLayoutAdjustYExpand = 'nws-layout-adjustY-grow';
+export const clsLayoutAdjustYExpand = 'lx-layout-adjustY-grow';
 
 /**
  * 子要素の高さ調整: 縮める
  */
-export const clsLayoutAdjustYShrink = 'nws-layout-adjustY-shrink';
+export const clsLayoutAdjustYShrink = 'lx-layout-adjustY-shrink';
 
 /**
  * 間隔: 横方向
  */
-export const clsLayoutGapX = 'nws-layout-gapX';
+export const clsLayoutGapX = 'lx-layout-gapX';
 
 /**
  * 間隔: 縦方向
  */
-export const clsLayoutGapY = 'nws-layout-gapY';
+export const clsLayoutGapY = 'lx-layout-gapY';
 
 /**
  * 子要素の幅
  */
-export const clsLayoutItemSizeX = 'nws-layout-itemSizeX';
+export const clsLayoutItemSizeX = 'lx-layout-itemSizeX';
 
 /**
  * 子要素の高さ
  */
-export const clsLayoutItemSizeY = 'nws-layout-itemSizeY';
+export const clsLayoutItemSizeY = 'lx-layout-itemSizeY';
 
 /**
  * 子要素の縦横比
  */
-export const clsLayoutItemRatio = 'nws-layout-itemRatio';
+export const clsLayoutItemRatio = 'lx-layout-itemRatio';
 
 /**
  * 子要素の横方向の数
  */
-export const clsLayoutItemCountX = 'nws-layout-itemCountX';
+export const clsLayoutItemCountX = 'lx-layout-itemCountX';
 
 /**
  * 子要素の縦方向の数
  */
-export const clsLayoutItemCountY = 'nws-layout-itemCountY';
+export const clsLayoutItemCountY = 'lx-layout-itemCountY';
 
 /**
  * 横方向のテンプレート
  */
-export const clsLayoutTemplateX = 'nws-layout-templateX';
+export const clsLayoutTemplateX = 'lx-layout-templateX';
 
 /**
  * 縦方向のテンプレート
  */
-export const clsLayoutTemplateY = 'nws-layout-templateY';
+export const clsLayoutTemplateY = 'lx-layout-templateY';
 
 /**
  * 変数\
  * 間隔: 横方向
  */
-export const varLayoutGapX = '--nws-layout-gapX';
+export const varLayoutGapX = '--lx-layout-gapX';
 
 /**
  * 変数\
  * 間隔: 縦方向
  */
-export const varLayoutGapY = '--nws-layout-gapY';
+export const varLayoutGapY = '--lx-layout-gapY';
 
 /**
  * 変数\
  * 子要素の幅
  */
-export const varLayoutItemSizeX = '--nws-layout-itemSizeX';
+export const varLayoutItemSizeX = '--lx-layout-itemSizeX';
 
 /**
  * 変数\
  * 子要素の高さ
  */
-export const varLayoutItemSizeY = '--nws-layout-itemSizeY';
+export const varLayoutItemSizeY = '--lx-layout-itemSizeY';
 
 /**
  * 変数\
  * 子要素の縦横比
  */
-export const varLayoutItemRatio = '--nws-layout-itemRatio';
+export const varLayoutItemRatio = '--lx-layout-itemRatio';
 
 /**
  * 変数\
  * 子要素の横方向の数
  */
-export const varLayoutItemCountX = '--nws-layout-itemCountX';
+export const varLayoutItemCountX = '--lx-layout-itemCountX';
 
 /**
  * 変数\
  * 子要素の縦方向の数
  */
-export const varLayoutItemCountY = '--nws-layout-itemCountY';
+export const varLayoutItemCountY = '--lx-layout-itemCountY';
 
 /**
  * 変数\
  * 横方向のテンプレート
  */
-export const varLayoutTemplateX = '--nws-layout-templateX';
+export const varLayoutTemplateX = '--lx-layout-templateX';
 
 /**
  * 変数\
  * 縦方向のテンプレート
  */
-export const varLayoutTemplateY = '--nws-layout-templateY';
+export const varLayoutTemplateY = '--lx-layout-templateY';
 
 /**
  * axis毎のクラス

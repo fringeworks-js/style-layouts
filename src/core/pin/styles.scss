@@ -1,8 +1,8 @@
-.nws-layout-pin {
+.lx-layout-pin {
   // 変数
-  --nws-layout-itemSizeX: auto;
-  --nws-layout-itemSizeY: auto;
-  --nws-layout-itemRatio: auto;
+  --lx-layout-itemSizeX: auto;
+  --lx-layout-itemSizeY: auto;
+  --lx-layout-itemRatio: auto;
 
   // pin用のスタイル
   display: block;
@@ -12,18 +12,18 @@
     position: absolute;
   }
 
-  &.nws-layout-itemSizeX > * {
+  &.lx-layout-itemSizeX > * {
     // 子要素の幅
-    width: var(--nws-layout-itemSizeX);
+    width: var(--lx-layout-itemSizeX);
   }
 
-  &.nws-layout-itemSizeY > * {
+  &.lx-layout-itemSizeY > * {
     // 子要素の高さ
-    height: var(--nws-layout-itemSizeY);
+    height: var(--lx-layout-itemSizeY);
   }
 
-  &.nws-layout-itemRatio > * {
+  &.lx-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--nws-layout-itemRatio);
+    aspect-ratio: var(--lx-layout-itemRatio);
   }
 }
