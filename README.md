@@ -46,23 +46,23 @@ const { className, style } = stack({
 
 ### CSS
 
-The default import automatically includes the CSS.
+The layout functions do not import any CSS, so they work as-is in SSR and React Server Components. Import the CSS separately.
 
 ```ts
 import { stack } from '@niche-works/style-layouts';
-```
-
-If you want to manage CSS and functions separately, use the modules under the `core` directory.
-
-```ts
-import { stack } from '@niche-works/style-layouts/core';
 
 // Import all layouts at once
-import '@niche-works/style-layouts/core/styles.css';
+import '@niche-works/style-layouts/styles.css';
 
 // Or import only what you need
-import '@niche-works/style-layouts/core/stack.css';
-import '@niche-works/style-layouts/core/tile.css';
+import '@niche-works/style-layouts/stack.css';
+import '@niche-works/style-layouts/tile.css';
+```
+
+If you want the CSS to be loaded automatically, use the modules under `with-css`. This requires a bundler that can handle CSS imports.
+
+```ts
+import { stack } from '@niche-works/style-layouts/with-css';
 ```
 
 ## Layout Types

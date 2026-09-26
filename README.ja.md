@@ -46,23 +46,23 @@ const { className, style } = stack({
 
 ### CSSの読み込み
 
-デフォルトのインポートではCSSが自動的に読み込まれます。
+レイアウト関数はCSSをインポートしないため、SSRやReact Server Componentsでもそのまま使用できます。CSSは別途インポートしてください。
 
 ```ts
 import { stack } from '@niche-works/style-layouts';
-```
-
-CSSと関数を個別に管理したい場合は `core` ディレクトリ配下のモジュールを使用してください。
-
-```ts
-import { stack } from '@niche-works/style-layouts/core';
 
 // 全レイアウトをまとめてインポート
-import '@niche-works/style-layouts/core/styles.css';
+import '@niche-works/style-layouts/styles.css';
 
 // 必要なレイアウトのみインポート
-import '@niche-works/style-layouts/core/stack.css';
-import '@niche-works/style-layouts/core/tile.css';
+import '@niche-works/style-layouts/stack.css';
+import '@niche-works/style-layouts/tile.css';
+```
+
+CSSを自動的に読み込みたい場合は `with-css` 配下のモジュールを使用してください。CSSのインポートを扱えるバンドラーが必要です。
+
+```ts
+import { stack } from '@niche-works/style-layouts/with-css';
 ```
 
 ## レイアウト種別

@@ -1,5 +1,5 @@
 import type { LooseDictionary } from '@niche-works/types';
-import unit from '../../src/core/_internal/unit';
+import unit from '../../src/_internal/unit';
 
 // 文字列→数値への変換を行うargs
 const NUMBER_PROPS = [

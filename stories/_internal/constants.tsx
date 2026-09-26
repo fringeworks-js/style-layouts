@@ -17,7 +17,7 @@ import type {
   ItemRatioOptions,
   ItemSizeOptions,
   TracksOptions,
-} from '../../src/core/_types';
+} from '../../src/_types';
 import type { DebugOptions } from './types';
 
 export const CONTAINER_STYLE = {

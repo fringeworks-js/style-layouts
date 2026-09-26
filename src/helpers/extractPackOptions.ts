@@ -1,4 +1,4 @@
-import type { PackLayoutOptions } from '../core/pack/types';
+import type { PackLayoutOptions } from '../pack/types';
 import {
   DIRECTION_OPTIONS_KEYS,
   GAP_OPTIONS_KEYS,

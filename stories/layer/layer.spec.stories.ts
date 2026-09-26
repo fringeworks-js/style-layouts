@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import layer from '../../src/layer';
+import layer from '../../src/with-css/layer';
 import createTestRenderer from '../_internal/createTestRenderer';
 
 const meta = {

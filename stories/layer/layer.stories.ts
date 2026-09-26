@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { LayerLayoutOptions } from '../../src/layer';
-import layer from '../../src/layer';
+import type { LayerLayoutOptions } from '../../src/with-css/layer';
+import layer from '../../src/with-css/layer';
 import { ARGS, ARG_TYPES } from '../_internal/constants';
 import createRenderer from '../_internal/createRenderer';
 import type { DebugOptions } from '../_internal/types';

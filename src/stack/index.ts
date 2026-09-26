@@ -1,5 +1,2 @@
-import stack from '../core/stack';
-import '../core/stack/styles.scss';
-
-export type * from '../core/stack';
-export default stack;
+export { default } from './stack';
+export type * from './types';

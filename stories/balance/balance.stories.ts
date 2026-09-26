@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { BalanceLayoutOptions } from '../../src/balance';
-import balance from '../../src/balance';
+import type { BalanceLayoutOptions } from '../../src/with-css/balance';
+import balance from '../../src/with-css/balance';
 import { ARGS, ARG_TYPES } from '../_internal/constants';
 import createRenderer from '../_internal/createRenderer';
 import type { DebugOptions } from '../_internal/types';

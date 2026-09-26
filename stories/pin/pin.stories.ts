@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { PinLayoutOptions } from '../../src/pin';
-import pin from '../../src/pin';
+import type { PinLayoutOptions } from '../../src/with-css/pin';
+import pin from '../../src/with-css/pin';
 import { ARGS, ARG_TYPES } from '../_internal/constants';
 import createRenderer from '../_internal/createRenderer';
 import type { DebugOptions } from '../_internal/types';

@@ -7,7 +7,7 @@ import type {
   ItemRatioOptions,
   ItemSizeOptions,
   TracksOptions,
-} from '../../core/_types';
+} from '../../_types';
 
 export const DIRECTION_OPTIONS_KEYS: (keyof DirectionOptions)[] = [
   'direction',
@@ -29,7 +29,7 @@ export const ITEM_SIZE_OPTIONS_KEYS: (keyof ItemSizeOptions)[] = [
   'itemSizeX',
   'itemSizeY',
 ] as const;
-export const CHILD_RATIO_OPTIONS_KEYS: (keyof ItemRatioOptions)[] = [
+export const ITEM_RATIO_OPTIONS_KEYS: (keyof ItemRatioOptions)[] = [
   'itemRatioX',
   'itemRatioY',
 ] as const;

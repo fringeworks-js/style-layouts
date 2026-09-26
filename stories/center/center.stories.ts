@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { CenterLayoutOptions } from '../../src/center';
-import center from '../../src/center';
+import type { CenterLayoutOptions } from '../../src/with-css/center';
+import center from '../../src/with-css/center';
 import { ARGS, ARG_TYPES } from '../_internal/constants';
 import createRenderer from '../_internal/createRenderer';
 import type { DebugOptions } from '../_internal/types';

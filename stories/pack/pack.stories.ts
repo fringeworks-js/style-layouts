@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { PackLayoutOptions } from '../../src/pack';
-import pack from '../../src/pack';
+import type { PackLayoutOptions } from '../../src/with-css/pack';
+import pack from '../../src/with-css/pack';
 import { ARGS, ARG_TYPES } from '../_internal/constants';
 import createRenderer from '../_internal/createRenderer';
 import type { DebugOptions } from '../_internal/types';

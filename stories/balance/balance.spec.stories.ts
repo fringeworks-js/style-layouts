@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import balance from '../../src/balance';
+import balance from '../../src/with-css/balance';
 import createTestRenderer from '../_internal/createTestRenderer';
 
 const meta = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import pin from '../../src/pin';
+import pin from '../../src/with-css/pin';
 import createTestRenderer from '../_internal/createTestRenderer';
 
 const meta = {
