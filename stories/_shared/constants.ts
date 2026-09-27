@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ArgTypes } from '@storybook/web-components-vite';
+import type { ArgTypes } from '../_internal/adapter';
 import {
   Adjust,
   AlignX,
@@ -7,18 +6,20 @@ import {
   AlignY,
   AlignYBase,
   Direction,
-} from '../../src/constants';
+} from '../_internal/adapter';
 import type {
-  AdjustOptions,
-  AlignOptions,
-  DirectionOptions,
-  GapOptions,
-  ItemCountOptions,
-  ItemRatioOptions,
-  ItemSizeOptions,
-  TracksOptions,
-} from '../../src/_types';
-import type { DebugOptions } from './types';
+  AdjustArgs,
+  AlignArgs,
+  DebugArgs,
+  DirectionArgs,
+  GapArgs,
+  ItemCountArgs,
+  ItemRatioArgs,
+  ItemSizeArgs,
+  LayoutName,
+  StoryArgs,
+  TracksArgs,
+} from './types';
 
 export const CONTAINER_STYLE = {
   width: 600,
@@ -37,14 +38,14 @@ export const ALAGN_Y_ARG_OPTIONS = Object.values(AlignY);
 
 export const ADJUST_ARG_OPTIONS = Object.values(Adjust);
 
-export const DIRECTION_ARG_TYPES: ArgTypes<DirectionOptions> = {
+export const DIRECTION_ARG_TYPES: ArgTypes<DirectionArgs> = {
   direction: {
     control: 'select',
     options: DIRECTION_ARG_OPTIONS,
   },
 };
 
-export const ALIGN_BASE_ARG_TYPES: ArgTypes<AlignOptions> = {
+export const ALIGN_BASE_ARG_TYPES: ArgTypes<AlignArgs> = {
   alignX: {
     control: 'select',
     options: ALAGN_X_BASE_ARG_OPTIONS,
@@ -55,7 +56,7 @@ export const ALIGN_BASE_ARG_TYPES: ArgTypes<AlignOptions> = {
   },
 };
 
-export const ALIGN_ARG_TYPES: ArgTypes<AlignOptions> = {
+export const ALIGN_ARG_TYPES: ArgTypes<AlignArgs> = {
   alignX: {
     control: 'select',
     options: ALAGN_X_ARG_OPTIONS,
@@ -66,7 +67,7 @@ export const ALIGN_ARG_TYPES: ArgTypes<AlignOptions> = {
   },
 };
 
-export const ADJUST_ARG_TYPES: ArgTypes<AdjustOptions> = {
+export const ADJUST_ARG_TYPES: ArgTypes<AdjustArgs> = {
   adjustX: {
     control: 'select',
     options: ADJUST_ARG_OPTIONS,
@@ -77,7 +78,7 @@ export const ADJUST_ARG_TYPES: ArgTypes<AdjustOptions> = {
   },
 };
 
-export const ADJUST_DIRECTION_X_ARG_TYPES: ArgTypes<AdjustOptions> = {
+export const ADJUST_DIRECTION_X_ARG_TYPES: ArgTypes<AdjustArgs> = {
   adjustX: {
     control: 'select',
     options: ADJUST_ARG_OPTIONS,
@@ -88,7 +89,7 @@ export const ADJUST_DIRECTION_X_ARG_TYPES: ArgTypes<AdjustOptions> = {
   },
 };
 
-export const ADJUST_DIRECTION_Y_ARG_TYPES: ArgTypes<AdjustOptions> = {
+export const ADJUST_DIRECTION_Y_ARG_TYPES: ArgTypes<AdjustArgs> = {
   adjustX: {
     control: 'select',
     options: ['none'],
@@ -99,7 +100,7 @@ export const ADJUST_DIRECTION_Y_ARG_TYPES: ArgTypes<AdjustOptions> = {
   },
 };
 
-export const ITEM_SIZE_ARG_TYPES: ArgTypes<ItemSizeOptions> = {
+export const ITEM_SIZE_ARG_TYPES: ArgTypes<ItemSizeArgs> = {
   itemSizeX: {
     control: 'text',
   },
@@ -108,7 +109,7 @@ export const ITEM_SIZE_ARG_TYPES: ArgTypes<ItemSizeOptions> = {
   },
 };
 
-export const CHILD_RATIO_ARG_TYPES: ArgTypes<ItemRatioOptions> = {
+export const ITEM_RATIO_ARG_TYPES: ArgTypes<ItemRatioArgs> = {
   itemRatioX: {
     control: 'text',
   },
@@ -117,7 +118,7 @@ export const CHILD_RATIO_ARG_TYPES: ArgTypes<ItemRatioOptions> = {
   },
 };
 
-export const GAP_ARG_TYPES: ArgTypes<GapOptions> = {
+export const GAP_ARG_TYPES: ArgTypes<GapArgs> = {
   gap: {
     control: 'text',
   },
@@ -129,7 +130,7 @@ export const GAP_ARG_TYPES: ArgTypes<GapOptions> = {
   },
 };
 
-export const ITEM_COUNT_ARG_TYPES: ArgTypes<ItemCountOptions> = {
+export const ITEM_COUNT_ARG_TYPES: ArgTypes<ItemCountArgs> = {
   itemCountX: {
     control: 'text',
   },
@@ -138,7 +139,7 @@ export const ITEM_COUNT_ARG_TYPES: ArgTypes<ItemCountOptions> = {
   },
 };
 
-export const TRACKS_ARG_TYPES: ArgTypes<TracksOptions> = {
+export const TRACKS_ARG_TYPES: ArgTypes<TracksArgs> = {
   tracksX: {
     control: 'text',
   },
@@ -147,7 +148,7 @@ export const TRACKS_ARG_TYPES: ArgTypes<TracksOptions> = {
   },
 };
 
-export const DEBUG_ARG_TYPES: ArgTypes<DebugOptions> = {
+export const DEBUG_ARG_TYPES: ArgTypes<DebugArgs> = {
   containerWidth: {
     control: 'text',
   },
@@ -165,20 +166,23 @@ export const DEBUG_ARG_TYPES: ArgTypes<DebugOptions> = {
     control: 'select',
     options: ['none', 'rand', 'static'],
   },
+  seed: {
+    control: 'number',
+  },
   overflow: {
     control: 'select',
     options: ['visible', 'hidden', 'clip', 'scroll', 'auto', 'none'],
   },
 };
 
-export const ARG_TYPES = {
+export const ARG_TYPES: Record<LayoutName, ArgTypes<StoryArgs>> = {
   stack: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   flow: {
@@ -187,7 +191,7 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...ITEM_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -197,7 +201,7 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   matrix: {
@@ -206,7 +210,7 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...ITEM_COUNT_ARG_TYPES,
     ...TRACKS_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
@@ -216,7 +220,7 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   pack: {
@@ -230,73 +234,74 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   layer: {
     ...ALIGN_BASE_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   pin: {
     ...ITEM_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
+    ...ITEM_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
-} as const;
+};
 
-export const DIRECTION_OPTIONS: DirectionOptions = {
+export const DIRECTION_OPTIONS: DirectionArgs = {
   direction: 'x',
 };
 
-export const ALIGN_OPTIONS: AlignOptions = {
+export const ALIGN_OPTIONS: AlignArgs = {
   alignX: 'left',
   alignY: 'top',
 };
 
-export const ADJUST_OPTIONS: AdjustOptions = {
+export const ADJUST_OPTIONS: AdjustArgs = {
   adjustX: 'none',
   adjustY: 'none',
 };
 
-export const GAP_OPTIONS: GapOptions = {
-  gap: '8' as any,
+export const GAP_OPTIONS: GapArgs = {
+  gap: '8',
   gapX: undefined,
   gapY: undefined,
 };
 
-export const ITEM_SIZE_OPTIONS: ItemSizeOptions = {
-  itemSizeX: '60' as any,
-  itemSizeY: '120' as any,
+export const ITEM_SIZE_OPTIONS: ItemSizeArgs = {
+  itemSizeX: '60',
+  itemSizeY: '120',
 };
 
-export const CHILD_RATIO_OPTIONS: ItemRatioOptions = {
+export const CHILD_RATIO_OPTIONS: ItemRatioArgs = {
   itemRatioX: undefined,
   itemRatioY: undefined,
 };
 
-export const ITEM_COUNT_OPTIONS: ItemCountOptions = {
-  itemCountX: '4' as any,
-  itemCountY: '3' as any,
+export const ITEM_COUNT_OPTIONS: ItemCountArgs = {
+  itemCountX: '4',
+  itemCountY: '3',
 };
 
-export const TRACKS_OPTIONS: TracksOptions = {
+export const TRACKS_OPTIONS: TracksArgs = {
   tracksX: undefined,
   tracksY: undefined,
 };
 
-export const DEBUG_PARAMS: DebugOptions = {
+export const DEBUG_PARAMS: DebugArgs = {
   containerWidth: String(CONTAINER_STYLE.width),
   containerHeight: String(CONTAINER_STYLE.height),
   itemCount: 12,
   sizeType: 'none',
   posType: 'none',
+  seed: 1,
   overflow: 'hidden',
 };
 
-export const ARGS: Record<string, Record<string, any>> = {
+export const ARGS: Record<LayoutName, StoryArgs> = {
   stack: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
@@ -371,11 +376,3 @@ export const ARGS: Record<string, Record<string, any>> = {
     posType: 'static',
   },
 };
-
-export const ENABLED_ARGS: Record<string, Record<string, any>> = {};
-for (const layout in ARGS) {
-  ENABLED_ARGS[layout] = {};
-  for (const arg in ARGS[layout]) {
-    ENABLED_ARGS[layout][arg] = true;
-  }
-}

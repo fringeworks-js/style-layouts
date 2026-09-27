@@ -1,36 +1,22 @@
-import chroma from 'chroma-js';
-import type { StyleLayout } from '../../src/types';
+import createTestModel from '../_shared/createTestModel';
+import type { LayoutName, TestStoryArgs } from '../_shared/types';
 import assignStyle from './assignStyle';
+import LAYOUTS from './layouts';
 
-export default function createTestRenderer(layout: StyleLayout<any>) {
-  return ({
-    itemCount = 3,
-    childPositions,
-    ...params
-  }: Record<string, unknown> & { itemCount?: number }) => {
-    const colors = chroma.scale(['d9ed92', '184e77']).colors(itemCount);
-    const positions: { left: string; top: string }[] =
-      (childPositions as any) ??
-      Array.from({ length: itemCount }).map((_, index) => ({
-        left: `${80 * index}px`,
-        top: `${120 * index}px`,
-      }));
-    const { className, style } = layout(params);
+export default function createTestRenderer(name: LayoutName) {
+  const layout = LAYOUTS[name];
+  return (args: TestStoryArgs) => {
+    const { options, containerStyle, items } = createTestModel(args);
+    const { className, style } = layout(options);
 
     const container = document.createElement('div');
-    container.style.width = '100%';
-    container.style.height = '100%';
-    container.style.boxSizing = 'border-box';
-    container.style.backgroundColor = 'rgba(128, 128, 128, 0.1)';
     if (className) container.className = className;
-    if (style) assignStyle(container, style);
+    assignStyle(container, { ...containerStyle, ...style });
 
-    for (let i = 0; i < itemCount; i++) {
+    for (const { label, style } of items) {
       const child = document.createElement('div');
-      child.textContent = String(i + 1);
-      child.style.backgroundColor = colors[i];
-      child.style.left = positions[i].left;
-      child.style.top = positions[i].top;
+      child.textContent = label;
+      assignStyle(child, style);
       container.appendChild(child);
     }
 

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import pin from '../../src/with-css/pin';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createTestRenderer from '../_internal/createTestRenderer';
+import type { TestStoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'spec/pin',
-  render: createTestRenderer(pin),
-} satisfies Meta;
+  render: createTestRenderer('pin'),
+} satisfies Meta<TestStoryArgs>;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<TestStoryArgs>;
 
 export const Default: Story = {
   args: {

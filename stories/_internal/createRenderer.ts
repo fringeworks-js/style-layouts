@@ -1,25 +1,10 @@
-import type { StyleLayout } from '../../src/types';
+import createContainerModel from '../_shared/createContainerModel';
+import type { LayoutName, StoryArgs } from '../_shared/types';
 import createContainer from './createContainer';
-import type { DebugOptions } from './types';
+import LAYOUTS from './layouts';
 
-export default function createRenderer<P extends DebugOptions>(
-  layout: StyleLayout<any>,
-) {
-  return ({
-    containerWidth,
-    containerHeight,
-    itemCount,
-    posType,
-    sizeType,
-    overflow,
-    ...params
-  }: P) =>
-    createContainer(layout, params, {
-      containerWidth,
-      containerHeight,
-      itemCount,
-      posType,
-      sizeType,
-      overflow,
-    });
+export default function createRenderer(name: LayoutName) {
+  const layout = LAYOUTS[name];
+  return (args: StoryArgs) =>
+    createContainer(layout, createContainerModel(args));
 }

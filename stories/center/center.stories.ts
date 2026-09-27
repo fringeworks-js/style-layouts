@@ -1,26 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { CenterLayoutOptions } from '../../src/with-css/center';
-import center from '../../src/with-css/center';
-import { ARGS, ARG_TYPES } from '../_internal/constants';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createRenderer from '../_internal/createRenderer';
-import type { DebugOptions } from '../_internal/types';
-
-type LayoutOptions = CenterLayoutOptions & DebugOptions;
+import { ARG_TYPES, ARGS } from '../_shared/constants';
+import type { StoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'center',
-  render: createRenderer(center),
-} satisfies Meta<LayoutOptions>;
+  render: createRenderer('center'),
+} satisfies Meta<StoryArgs>;
 
 export default meta;
-type Story = StoryObj<LayoutOptions>;
+type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {
   argTypes: ARG_TYPES.center,
-  args: { sizeType: 'static', posType: 'static' },
+  args: { sizeType: 'static', posType: 'static', itemCount: 3 },
 };
 
 export const Standard: Story = {
   argTypes: ARG_TYPES.center,
-  args: { ...ARGS.center, itemCount: 6 },
+  args: { ...ARGS.center, itemCount: 3 },
 };

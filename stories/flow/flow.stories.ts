@@ -1,19 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { FlowLayoutOptions } from '../../src/with-css/flow';
-import flow from '../../src/with-css/flow';
-import { ARG_TYPES, ARGS } from '../_internal/constants';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createRenderer from '../_internal/createRenderer';
-import type { DebugOptions } from '../_internal/types';
-
-type LayoutOptions = FlowLayoutOptions & DebugOptions;
+import { ARG_TYPES, ARGS } from '../_shared/constants';
+import type { StoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'flow',
-  render: createRenderer(flow),
-} satisfies Meta<LayoutOptions>;
+  render: createRenderer('flow'),
+} satisfies Meta<StoryArgs>;
 
 export default meta;
-type Story = StoryObj<LayoutOptions>;
+type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {
   argTypes: ARG_TYPES.flow,

@@ -1,19 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { MatrixLayoutOptions } from '../../src/with-css/matrix';
-import matrix from '../../src/with-css/matrix';
-import { ARGS, ARG_TYPES } from '../_internal/constants';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createRenderer from '../_internal/createRenderer';
-import type { DebugOptions } from '../_internal/types';
-
-type LayoutOptions = MatrixLayoutOptions & DebugOptions;
+import { ARG_TYPES, ARGS } from '../_shared/constants';
+import type { StoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'matrix',
-  render: createRenderer(matrix),
-} satisfies Meta<LayoutOptions>;
+  render: createRenderer('matrix'),
+} satisfies Meta<StoryArgs>;
 
 export default meta;
-type Story = StoryObj<LayoutOptions>;
+type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {
   argTypes: ARG_TYPES.matrix,
@@ -33,8 +29,8 @@ export const Tracks: Story = {
     itemCountY: undefined,
     itemSizeX: undefined,
     itemSizeY: undefined,
-    tracksX: '[200, 50, "1fr", 100]' as any,
-    tracksY: '[50, 30, 100]' as any,
+    tracksX: '[200, 50, "1fr", 100]',
+    tracksY: '[50, 30, 100]',
   },
 };
 

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import center from '../../src/with-css/center';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createTestRenderer from '../_internal/createTestRenderer';
+import type { TestStoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'spec/center',
-  render: createTestRenderer(center),
-} satisfies Meta;
+  render: createTestRenderer('center'),
+} satisfies Meta<TestStoryArgs>;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<TestStoryArgs>;
 
 const ITEM_SIZE = '200px';
 const GAP_SIZE = 20;

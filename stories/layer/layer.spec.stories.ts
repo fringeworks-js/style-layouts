@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import layer from '../../src/with-css/layer';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createTestRenderer from '../_internal/createTestRenderer';
+import type { TestStoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'spec/layer',
-  render: createTestRenderer(layer),
-} satisfies Meta;
+  render: createTestRenderer('layer'),
+} satisfies Meta<TestStoryArgs>;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<TestStoryArgs>;
 
 const ITEM_SIZE = '200px';
 const ITEM_SIZE_SMALL = '100px';

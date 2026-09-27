@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import tile from '../../src/with-css/tile';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createTestRenderer from '../_internal/createTestRenderer';
+import type { TestStoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'spec/tile',
-  render: createTestRenderer(tile),
-} satisfies Meta;
+  render: createTestRenderer('tile'),
+} satisfies Meta<TestStoryArgs>;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<TestStoryArgs>;
 
 const ITEM_SIZE = '200px';
 const ALIGN_ITEM_SIZE = '100px';

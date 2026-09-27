@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import balance from '../../src/with-css/balance';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createTestRenderer from '../_internal/createTestRenderer';
+import type { TestStoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'spec/balance',
-  render: createTestRenderer(balance),
-} satisfies Meta;
+  render: createTestRenderer('balance'),
+} satisfies Meta<TestStoryArgs>;
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<TestStoryArgs>;
 
 const ITEM_SIZE = '200px';
 const ALIGN_ITEM_SIZE = '100px';

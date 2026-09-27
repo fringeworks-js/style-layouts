@@ -1,19 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TileLayoutOptions } from '../../src/with-css/tile';
-import tile from '../../src/with-css/tile';
-import { ARGS, ARG_TYPES } from '../_internal/constants';
+import type { Meta, StoryObj } from '../_internal/adapter';
 import createRenderer from '../_internal/createRenderer';
-import type { DebugOptions } from '../_internal/types';
-
-type LayoutOptions = TileLayoutOptions & DebugOptions;
+import { ARG_TYPES, ARGS } from '../_shared/constants';
+import type { StoryArgs } from '../_shared/types';
 
 const meta = {
   title: 'tile',
-  render: createRenderer(tile),
-} satisfies Meta<LayoutOptions>;
+  render: createRenderer('tile'),
+} satisfies Meta<StoryArgs>;
 
 export default meta;
-type Story = StoryObj<LayoutOptions>;
+type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {
   argTypes: ARG_TYPES.tile,

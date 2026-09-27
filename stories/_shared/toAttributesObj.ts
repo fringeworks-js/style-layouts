@@ -1,5 +1,5 @@
-import type { LooseDictionary } from '@niche-works/types';
-import unit from '../../src/_internal/unit';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type LooseDictionary = Record<string, any>;
 
 // 文字列→数値への変換を行うargs
 const NUMBER_PROPS = [
@@ -77,7 +77,7 @@ function _isNumericString(value: any) {
 function _fromJson(value: any) {
   try {
     return value ? JSON.parse(value) : undefined;
-  } catch (e) {
+  } catch {
     return undefined;
   }
 }
@@ -86,8 +86,12 @@ function _putUnit<O extends LooseDictionary>(obj: O) {
   const result: LooseDictionary = { ...obj };
   for (const up of UNIT_PROPS) {
     if (up in result) {
-      result[up] = unit(result[up]);
+      result[up] = _unit(result[up]);
     }
   }
   return result as O;
+}
+
+function _unit(value: any) {
+  return typeof value === 'number' ? `${value}px` : value;
 }
