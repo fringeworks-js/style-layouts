@@ -5,7 +5,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.lx-layout-balance > *');
+  await page.waitForSelector('.frg-layout-balance > *');
 };
 
 const ITEM_SIZE = 200;
@@ -41,7 +41,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
       width: r.width,
       height: r.height,
     });
-    const container = document.querySelector('.lx-layout-balance')!;
+    const container = document.querySelector('.frg-layout-balance')!;
     const children = Array.from(container.querySelectorAll(':scope > *'));
     return {
       container: toPlain(container.getBoundingClientRect()),
@@ -50,7 +50,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
   });
 
 const getChildRects = (page: Page) =>
-  page.locator('.lx-layout-balance > *').evaluateAll((els) =>
+  page.locator('.frg-layout-balance > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { left: rect.left, right: rect.right, width: rect.width };
@@ -58,7 +58,7 @@ const getChildRects = (page: Page) =>
   );
 
 const getChildYRects = (page: Page) =>
-  page.locator('.lx-layout-balance > *').evaluateAll((els) =>
+  page.locator('.frg-layout-balance > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { top: rect.top, bottom: rect.bottom, height: rect.height };

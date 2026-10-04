@@ -1,70 +1,70 @@
-.lx-layout-flow {
+.frg-layout-flow {
   // 変数
-  --lx-layout-gapX: 0px;
-  --lx-layout-gapY: 0px;
-  --lx-layout-itemSizeX: auto;
-  --lx-layout-itemSizeY: auto;
-  --lx-layout-itemRatio: auto;
+  --frg-layout-gapX: 0px;
+  --frg-layout-gapY: 0px;
+  --frg-layout-itemSizeX: auto;
+  --frg-layout-itemSizeY: auto;
+  --frg-layout-itemRatio: auto;
 
   // flow用のスタイル
   display: flex;
   flex-wrap: wrap;
 
-  &.lx-layout-direction-x {
+  &.frg-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
 
     // 横位置(主軸)
-    &.lx-layout-alignX-left {
+    &.frg-layout-alignX-left {
       // 横位置: 左
       justify-content: flex-start;
     }
-    &.lx-layout-alignX-center {
+    &.frg-layout-alignX-center {
       // 横位置: 中央
       justify-content: center;
     }
-    &.lx-layout-alignX-right {
+    &.frg-layout-alignX-right {
       // 横位置: 右
       justify-content: flex-end;
     }
-    &.lx-layout-alignX-spaceBetween {
+    &.frg-layout-alignX-spaceBetween {
       // 横位置: 両端揃え
       justify-content: space-between;
     }
-    &.lx-layout-alignX-spaceAround {
+    &.frg-layout-alignX-spaceAround {
       // 横位置: 両端余白あり均等
       justify-content: space-around;
     }
-    &.lx-layout-alignX-spaceEvenly {
+    &.frg-layout-alignX-spaceEvenly {
       // 横位置: 完全均等
       justify-content: space-evenly;
     }
 
     // 縦位置(交差軸)
-    &.lx-layout-alignY-top {
+    &.frg-layout-alignY-top {
       // 縦位置: 上
       align-items: flex-start;
       align-content: flex-start;
     }
-    &.lx-layout-alignY-middle {
+    &.frg-layout-alignY-middle {
       // 縦位置: 中央
       align-items: center;
       align-content: center;
     }
-    &.lx-layout-alignY-bottom {
+    &.frg-layout-alignY-bottom {
       // 縦位置: 下
       align-items: flex-end;
       align-content: flex-end;
     }
-    &.lx-layout-alignY-spaceBetween {
+    &.frg-layout-alignY-spaceBetween {
       // 縦位置: 両端揃え
       align-content: space-between;
     }
-    &.lx-layout-alignY-spaceAround {
+    &.frg-layout-alignY-spaceAround {
       // 縦位置: 両端余白あり均等
       align-content: space-around;
     }
-    &.lx-layout-alignY-spaceEvenly {
+    &.frg-layout-alignY-spaceEvenly {
       // 縦位置: 完全均等
       align-content: space-evenly;
     }
@@ -77,11 +77,11 @@
       min-height: 0;
     }
 
-    &.lx-layout-itemSizeX > * {
+    &.frg-layout-itemSizeX > * {
       // 子要素の幅
-      flex-basis: var(--lx-layout-itemSizeX);
+      flex-basis: var(--frg-layout-itemSizeX);
     }
-    &.lx-layout-adjustX-fit {
+    &.frg-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
       justify-content: flex-start;
       // 子要素
@@ -91,84 +91,84 @@
         flex-shrink: 1;
         flex-basis: auto;
       }
-      &.lx-layout-itemSizeX > * {
-        flex-basis: var(--lx-layout-itemSizeX);
+      &.frg-layout-itemSizeX > * {
+        flex-basis: var(--frg-layout-itemSizeX);
       }
     }
-    &.lx-layout-adjustX-grow > * {
+    &.frg-layout-adjustX-grow > * {
       // 子要素の幅調整: 伸ばす
       flex-grow: 1;
     }
-    &.lx-layout-adjustX-shrink > * {
+    &.frg-layout-adjustX-shrink > * {
       // 子要素の幅調整: 縮める
       flex-shrink: 1;
     }
 
-    &.lx-layout-itemSizeY > * {
+    &.frg-layout-itemSizeY > * {
       // 子要素の高さ
-      height: var(--lx-layout-itemSizeY);
+      height: var(--frg-layout-itemSizeY);
     }
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
-    // 子要素の高さ調整: 伸ばす & 縮める (.lx-layout-adjustY-fit)
-    // 子要素の高さ調整: 伸ばす (.lx-layout-adjustY-grow)
-    // 子要素の高さ調整: 縮める (.lx-layout-adjustY-shrink)
+    // 子要素の高さ調整: 伸ばす & 縮める (.frg-layout-adjustY-fit)
+    // 子要素の高さ調整: 伸ばす (.frg-layout-adjustY-grow)
+    // 子要素の高さ調整: 縮める (.frg-layout-adjustY-shrink)
   }
 
-  &.lx-layout-direction-y {
+  &.frg-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
 
     // 横位置(交差軸)
-    &.lx-layout-alignX-left {
+    &.frg-layout-alignX-left {
       // 横位置: 左
       align-items: flex-start;
       align-content: flex-start;
     }
-    &.lx-layout-alignX-center {
+    &.frg-layout-alignX-center {
       // 横位置: 中央
       align-items: center;
       align-content: center;
     }
-    &.lx-layout-alignX-right {
+    &.frg-layout-alignX-right {
       // 横位置: 右
       align-items: flex-end;
       align-content: flex-end;
     }
-    &.lx-layout-alignX-spaceBetween {
+    &.frg-layout-alignX-spaceBetween {
       // 横位置: 両端揃え
       align-content: space-between;
     }
-    &.lx-layout-alignX-spaceAround {
+    &.frg-layout-alignX-spaceAround {
       // 横位置: 両端余白あり均等
       align-content: space-around;
     }
-    &.lx-layout-alignX-spaceEvenly {
+    &.frg-layout-alignX-spaceEvenly {
       // 横位置: 完全均等
       align-content: space-evenly;
     }
 
     // 縦位置(主軸)
-    &.lx-layout-alignY-top {
+    &.frg-layout-alignY-top {
       // 縦位置: 上
       justify-content: flex-start;
     }
-    &.lx-layout-alignY-middle {
+    &.frg-layout-alignY-middle {
       // 縦位置: 中央
       justify-content: center;
     }
-    &.lx-layout-alignY-bottom {
+    &.frg-layout-alignY-bottom {
       // 縦位置: 下
       justify-content: flex-end;
     }
-    &.lx-layout-alignY-spaceBetween {
+    &.frg-layout-alignY-spaceBetween {
       // 縦位置: 両端揃え
       justify-content: space-between;
     }
-    &.lx-layout-alignY-spaceAround {
+    &.frg-layout-alignY-spaceAround {
       // 縦位置: 両端余白あり均等
       justify-content: space-around;
     }
-    &.lx-layout-alignY-spaceEvenly {
+    &.frg-layout-alignY-spaceEvenly {
       // 縦位置: 完全均等
       justify-content: space-evenly;
     }
@@ -181,20 +181,20 @@
       min-height: 0;
     }
 
-    &.lx-layout-itemSizeX > * {
+    &.frg-layout-itemSizeX > * {
       // 子要素の幅
-      width: var(--lx-layout-itemSizeX);
+      width: var(--frg-layout-itemSizeX);
     }
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
-    // 子要素の幅調整: 伸ばす & 縮める (.lx-layout-adjustX-fit)
-    // 子要素の幅調整: 伸ばす (.lx-layout-adjustX-grow)
+    // 子要素の幅調整: 伸ばす & 縮める (.frg-layout-adjustX-fit)
+    // 子要素の幅調整: 伸ばす (.frg-layout-adjustX-grow)
     // 子要素の幅調整: 縮める (.ws-layout-adjustX-shrink)
 
-    &.lx-layout-itemSizeY > * {
+    &.frg-layout-itemSizeY > * {
       // 子要素の高さ
-      flex-basis: var(--lx-layout-itemSizeY);
+      flex-basis: var(--frg-layout-itemSizeY);
     }
-    &.lx-layout-adjustY-fit {
+    &.frg-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める
       justify-content: flex-start;
       // 子要素
@@ -204,33 +204,33 @@
         flex-shrink: 1;
         flex-basis: auto;
       }
-      &.lx-layout-itemSizeY > * {
-        flex-basis: var(--lx-layout-itemSizeY);
+      &.frg-layout-itemSizeY > * {
+        flex-basis: var(--frg-layout-itemSizeY);
       }
     }
-    &.lx-layout-adjustY-grow > * {
+    &.frg-layout-adjustY-grow > * {
       // 子要素の高さ調整: 伸ばす
       flex-grow: 1;
     }
-    &.lx-layout-adjustY-shrink > * {
+    &.frg-layout-adjustY-shrink > * {
       // 子要素の高さ調整: 縮める
       flex-shrink: 1;
     }
   }
 
-  &.lx-layout-itemRatio > * {
+  &.frg-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--lx-layout-itemRatio);
+    aspect-ratio: var(--frg-layout-itemRatio);
   }
 
   // 子要素の間隔
-  &.lx-layout-gapX {
+  &.frg-layout-gapX {
     // 横方向の間隔
-    column-gap: var(--lx-layout-gapX);
+    column-gap: var(--frg-layout-gapX);
   }
 
-  &.lx-layout-gapY {
+  &.frg-layout-gapY {
     // 縦方向の間隔
-    row-gap: var(--lx-layout-gapY);
+    row-gap: var(--frg-layout-gapY);
   }
 }

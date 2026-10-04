@@ -5,7 +5,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.lx-layout-pack > *');
+  await page.waitForSelector('.frg-layout-pack > *');
 };
 
 const GAP_SIZE = 20;
@@ -38,7 +38,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
       width: r.width,
       height: r.height,
     });
-    const container = document.querySelector('.lx-layout-pack')!;
+    const container = document.querySelector('.frg-layout-pack')!;
     const children = Array.from(container.querySelectorAll(':scope > *'));
     return {
       container: toPlain(container.getBoundingClientRect()),
@@ -47,7 +47,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
   });
 
 const getChildRects = (page: Page) =>
-  page.locator('.lx-layout-pack > *').evaluateAll((els) =>
+  page.locator('.frg-layout-pack > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { width: rect.width, height: rect.height };
@@ -55,7 +55,7 @@ const getChildRects = (page: Page) =>
   );
 
 const getContainerRect = (page: Page) =>
-  page.locator('.lx-layout-pack').evaluate((el) => {
+  page.locator('.frg-layout-pack').evaluate((el) => {
     const rect = el.getBoundingClientRect();
     return { width: rect.width, height: rect.height };
   });

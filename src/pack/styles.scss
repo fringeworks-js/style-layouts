@@ -1,8 +1,8 @@
-.lx-layout-pack {
+.frg-layout-pack {
   // 変数
-  --lx-layout-gapX: 0px;
-  --lx-layout-gapY: 0px;
-  --lx-layout-itemRatio: auto;
+  --frg-layout-gapX: 0px;
+  --frg-layout-gapY: 0px;
+  --frg-layout-itemRatio: auto;
 
   // pack用のスタイル
   display: flex;
@@ -14,7 +14,7 @@
     flex-shrink: 1;
   }
 
-  &.lx-layout-direction-x {
+  &.frg-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
     & > * {
@@ -24,7 +24,7 @@
     }
   }
 
-  &.lx-layout-direction-y {
+  &.frg-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
     & > * {
@@ -35,13 +35,13 @@
   }
 
   // 子要素の間隔
-  &.lx-layout-gapX {
+  &.frg-layout-gapX {
     // 横方向の間隔
-    column-gap: var(--lx-layout-gapX);
+    column-gap: var(--frg-layout-gapX);
   }
 
-  &.lx-layout-gapY {
+  &.frg-layout-gapY {
     // 縦方向の間隔
-    row-gap: var(--lx-layout-gapY);
+    row-gap: var(--frg-layout-gapY);
   }
 }

@@ -5,7 +5,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.lx-layout-tile > *');
+  await page.waitForSelector('.frg-layout-tile > *');
 };
 
 const ITEM_SIZE = 200;
@@ -39,7 +39,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
       width: r.width,
       height: r.height,
     });
-    const container = document.querySelector('.lx-layout-tile')!;
+    const container = document.querySelector('.frg-layout-tile')!;
     const children = Array.from(container.querySelectorAll(':scope > *'));
     return {
       container: toPlain(container.getBoundingClientRect()),
@@ -49,12 +49,12 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
 
 const getChildWidths = (page: Page) =>
   page
-    .locator('.lx-layout-tile > *')
+    .locator('.frg-layout-tile > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
 
 const getChildHeights = (page: Page) =>
   page
-    .locator('.lx-layout-tile > *')
+    .locator('.frg-layout-tile > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height));
 
 // ===== adjustX =====
