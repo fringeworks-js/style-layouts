@@ -1,6 +1,6 @@
-# @niche-works/style-layouts
+# @fringeworks/style-layouts
 
-`@niche-works/style-layouts` は、CSSによる子要素のレイアウト制御に特化したニッチなライブラリです。\
+`@fringeworks/style-layouts` は、CSSによる子要素のレイアウト制御に特化したニッチなライブラリです。\
 オプションに応じたクラス名とCSS変数をオブジェクトとして返します。フレームワーク非依存でSSRにも対応しています。
 
 **[English README is available here](./README.md)**
@@ -14,9 +14,9 @@
 ## インストール
 
 ```bash
-npm install @niche-works/style-layouts
+npm install @fringeworks/style-layouts
 # または
-pnpm add @niche-works/style-layouts
+pnpm add @fringeworks/style-layouts
 ```
 
 ## 使い方
@@ -24,7 +24,7 @@ pnpm add @niche-works/style-layouts
 各レイアウト関数は `{ className, style }` オブジェクトを返します。コンテナ要素に適用してください。
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 const { className, style } = stack({
   direction: 'x',
@@ -49,20 +49,20 @@ const { className, style } = stack({
 レイアウト関数はCSSをインポートしないため、SSRやReact Server Componentsでもそのまま使用できます。CSSは別途インポートしてください。
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 // 全レイアウトをまとめてインポート
-import '@niche-works/style-layouts/styles.css';
+import '@fringeworks/style-layouts/styles.css';
 
 // 必要なレイアウトのみインポート
-import '@niche-works/style-layouts/stack.css';
-import '@niche-works/style-layouts/tile.css';
+import '@fringeworks/style-layouts/stack.css';
+import '@fringeworks/style-layouts/tile.css';
 ```
 
 CSSを自動的に読み込みたい場合は `with-css` 配下のモジュールを使用してください。CSSのインポートを扱えるバンドラーが必要です。
 
 ```ts
-import { stack } from '@niche-works/style-layouts/with-css';
+import { stack } from '@fringeworks/style-layouts/with-css';
 ```
 
 ## レイアウト種別
@@ -72,7 +72,7 @@ import { stack } from '@niche-works/style-layouts/with-css';
 子要素を縦または横方向に一列に並べます。
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 const { className, style } = stack({
   direction: 'x',
@@ -91,7 +91,7 @@ const { className, style } = stack({
 > 交差軸方向の `adjustX` / `adjustY` に `grow`、`shrink`、`fit` は指定できません。
 
 ```ts
-import { flow } from '@niche-works/style-layouts';
+import { flow } from '@fringeworks/style-layouts';
 
 const { className, style } = flow({
   direction: 'x',
@@ -110,7 +110,7 @@ const { className, style } = flow({
 > **注意:** このレイアウトはコンテナのサイズが外部から確定していることを前提としています。`width: max-content` など、子要素によってサイズが決まる親要素では、パーセンテージ値が意図通りに動作しない場合があります。
 
 ```ts
-import { tile } from '@niche-works/style-layouts';
+import { tile } from '@fringeworks/style-layouts';
 
 const { className, style } = tile({
   direction: 'x',
@@ -129,7 +129,7 @@ const { className, style } = tile({
 > **注意:** `tile` と同様に、コンテナのサイズが外部から確定していることを前提としています。
 
 ```ts
-import { matrix } from '@niche-works/style-layouts';
+import { matrix } from '@fringeworks/style-layouts';
 
 const { className, style } = matrix({
   direction: 'x',
@@ -153,7 +153,7 @@ matrix({
 親要素が子要素より小さくなった場合でも、先頭の子要素が親要素の外にはみ出さずに表示されます。
 
 ```ts
-import { center } from '@niche-works/style-layouts';
+import { center } from '@fringeworks/style-layouts';
 
 const { className, style } = center({
   direction: 'x',
@@ -169,7 +169,7 @@ const { className, style } = center({
 子要素を親要素のサイズに合わせて均等にサイズ調整し並べます。
 
 ```ts
-import { pack } from '@niche-works/style-layouts';
+import { pack } from '@fringeworks/style-layouts';
 
 const { className, style } = pack({
   direction: 'x',
@@ -185,7 +185,7 @@ const { className, style } = pack({
 - `adjust` あり: 子要素のサイズを調整してコンテナを満たします
 
 ```ts
-import { balance } from '@niche-works/style-layouts';
+import { balance } from '@fringeworks/style-layouts';
 
 const { className, style } = balance({
   direction: 'x',
@@ -202,7 +202,7 @@ const { className, style } = balance({
 > `alignX` / `alignY` に `space-between`、`space-around`、`space-evenly` は指定できません。
 
 ```ts
-import { layer } from '@niche-works/style-layouts';
+import { layer } from '@fringeworks/style-layouts';
 
 const { className, style } = layer({
   alignX: 'center',
@@ -217,7 +217,7 @@ const { className, style } = layer({
 子要素を指定の座標に配置します。子要素は `top` / `left` / `bottom` / `right` スタイルで位置を指定してください。
 
 ```ts
-import { pin } from '@niche-works/style-layouts';
+import { pin } from '@fringeworks/style-layouts';
 
 const { className, style } = pin({
   itemSizeX: 100,

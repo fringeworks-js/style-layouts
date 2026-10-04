@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: './e2e',
   testMatch: '**/*.e2e.spec.ts',
   webServer: {
-    command: `pnpm storybook dev -p ${PORT}`,
+    command: `pnpm exec storybook dev -p ${PORT} --ci --no-open`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: true,
   },

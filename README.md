@@ -1,6 +1,6 @@
-# @niche-works/style-layouts
+# @fringeworks/style-layouts
 
-`@niche-works/style-layouts` is a niche library specialized in controlling child element layout with CSS.
+`@fringeworks/style-layouts` is a niche library specialized in controlling child element layout with CSS.
 It returns class names and CSS custom properties as an object based on the given options. Framework-agnostic and SSR-compatible.
 
 **[日本語のREADMEはこちら](./README.ja.md)**
@@ -14,9 +14,9 @@ It returns class names and CSS custom properties as an object based on the given
 ## Installation
 
 ```bash
-npm install @niche-works/style-layouts
+npm install @fringeworks/style-layouts
 # or
-pnpm add @niche-works/style-layouts
+pnpm add @fringeworks/style-layouts
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ pnpm add @niche-works/style-layouts
 Each layout function returns a `{ className, style }` object. Apply them to a container element.
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 const { className, style } = stack({
   direction: 'x',
@@ -49,20 +49,20 @@ const { className, style } = stack({
 The layout functions do not import any CSS, so they work as-is in SSR and React Server Components. Import the CSS separately.
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 // Import all layouts at once
-import '@niche-works/style-layouts/styles.css';
+import '@fringeworks/style-layouts/styles.css';
 
 // Or import only what you need
-import '@niche-works/style-layouts/stack.css';
-import '@niche-works/style-layouts/tile.css';
+import '@fringeworks/style-layouts/stack.css';
+import '@fringeworks/style-layouts/tile.css';
 ```
 
 If you want the CSS to be loaded automatically, use the modules under `with-css`. This requires a bundler that can handle CSS imports.
 
 ```ts
-import { stack } from '@niche-works/style-layouts/with-css';
+import { stack } from '@fringeworks/style-layouts/with-css';
 ```
 
 ## Layout Types
@@ -72,7 +72,7 @@ import { stack } from '@niche-works/style-layouts/with-css';
 Arranges child elements in a single row or column.
 
 ```ts
-import { stack } from '@niche-works/style-layouts';
+import { stack } from '@fringeworks/style-layouts';
 
 const { className, style } = stack({
   direction: 'x',
@@ -91,7 +91,7 @@ Like `stack`, but wraps child elements when they exceed the container size.
 > `grow`, `shrink`, and `fit` cannot be specified for `adjustX` / `adjustY` on the cross axis.
 
 ```ts
-import { flow } from '@niche-works/style-layouts';
+import { flow } from '@fringeworks/style-layouts';
 
 const { className, style } = flow({
   direction: 'x',
@@ -110,7 +110,7 @@ Arranges child elements in a grid based on child element size. The number of col
 > **Note:** This layout assumes the container size is determined externally. Containers sized by their own content (e.g. `width: max-content`) may cause unexpected behavior with percentage-based values.
 
 ```ts
-import { tile } from '@niche-works/style-layouts';
+import { tile } from '@fringeworks/style-layouts';
 
 const { className, style } = tile({
   direction: 'x',
@@ -129,7 +129,7 @@ Either `itemCount` or `tracks` is required per axis (not both).
 > **Note:** Like `tile`, this layout assumes the container size is determined externally.
 
 ```ts
-import { matrix } from '@niche-works/style-layouts';
+import { matrix } from '@fringeworks/style-layouts';
 
 const { className, style } = matrix({
   direction: 'x',
@@ -153,7 +153,7 @@ Places child elements at the center of the container.
 Even when the container becomes smaller than the child elements, the first child element remains visible within the container without overflow.
 
 ```ts
-import { center } from '@niche-works/style-layouts';
+import { center } from '@fringeworks/style-layouts';
 
 const { className, style } = center({
   direction: 'x',
@@ -169,7 +169,7 @@ const { className, style } = center({
 Sizes child elements equally to fill the container.
 
 ```ts
-import { pack } from '@niche-works/style-layouts';
+import { pack } from '@fringeworks/style-layouts';
 
 const { className, style } = pack({
   direction: 'x',
@@ -185,7 +185,7 @@ Arranges child elements evenly in a single row or column.
 - With `adjust`: adjusts child size to fill the container evenly
 
 ```ts
-import { balance } from '@niche-works/style-layouts';
+import { balance } from '@fringeworks/style-layouts';
 
 const { className, style } = balance({
   direction: 'x',
@@ -202,7 +202,7 @@ Stacks child elements on top of each other at the same position.
 > `space-between`, `space-around`, and `space-evenly` cannot be specified for `alignX` / `alignY`.
 
 ```ts
-import { layer } from '@niche-works/style-layouts';
+import { layer } from '@fringeworks/style-layouts';
 
 const { className, style } = layer({
   alignX: 'center',
@@ -217,7 +217,7 @@ const { className, style } = layer({
 Positions child elements at specified coordinates. Each child element should have its position set via `top` / `left` / `bottom` / `right` styles.
 
 ```ts
-import { pin } from '@niche-works/style-layouts';
+import { pin } from '@fringeworks/style-layouts';
 
 const { className, style } = pin({
   itemSizeX: 100,

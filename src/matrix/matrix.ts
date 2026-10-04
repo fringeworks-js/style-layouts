@@ -1,4 +1,4 @@
-import maybeDefault from '@niche-works/utils/object/maybeDefault';
+import maybeDefault from '@fringeworks/utils/object/maybeDefault';
 import { clsLayout, clsLayoutMatrix, varLayout } from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemCount from '../_internal/applyItemCount';

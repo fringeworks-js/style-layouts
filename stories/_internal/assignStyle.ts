@@ -1,4 +1,4 @@
-import type { LooseDictionary } from '@niche-works/types';
+import type { LooseDictionary } from '@fringeworks/types';
 
 export default function assignStyle(
   element: HTMLElement,
