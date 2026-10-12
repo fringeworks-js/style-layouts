@@ -204,5 +204,5 @@ function _extractPx(itemSize: string | number): number | null {
     return itemSize;
   }
   const match = itemSize.trim().match(/^([\d.]+)px$/);
-  return match ? parseFloat(match[1]) : null;
+  return match ? parseFloat(match[1]!) : null;
 }

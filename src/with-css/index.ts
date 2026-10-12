@@ -1,3 +1,4 @@
+export type * from '../types';
 export type * from './balance';
 export { default as balance } from './balance';
 export type * from './center';
@@ -16,4 +17,3 @@ export type * from './stack';
 export { default as stack } from './stack';
 export type * from './tile';
 export { default as tile } from './tile';
-export type * from '../types';
