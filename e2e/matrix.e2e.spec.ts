@@ -498,3 +498,42 @@ test.describe('matrix - itemRatio', () => {
     children.forEach((c) => expect(c.height / c.width).toBeCloseTo(1, 1));
   });
 });
+
+// ===== tracks =====
+
+test.describe('matrix - tracks（px の比率で伸縮する）', () => {
+  // tracks: [100, 300], gap: 10
+  const cases = [
+    // [ストーリー, 親のサイズ, 期待するトラックのサイズ]
+    ['tracks-x-fit', 810, [200, 600]],
+    ['tracks-x-fit', 210, [50, 150]],
+    ['tracks-x-grow', 810, [200, 600]],
+    ['tracks-x-grow', 210, [100, 300]],
+    ['tracks-x-shrink', 810, [100, 300]],
+    ['tracks-x-shrink', 210, [50, 150]],
+  ] as const;
+  for (const [story, size, expected] of cases) {
+    test(`${story}: 親幅 ${size}px → ${expected.join(' / ')}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: size, height: 600 });
+      await gotoStory(page, story);
+      const { children } = await getRects(page);
+      expect(children.map((c) => Math.round(c.width))).toEqual(expected);
+    });
+  }
+
+  for (const [size, expected] of [
+    [410, [100, 300]],
+    [210, [50, 150]],
+  ] as const) {
+    test(`tracks-y-fit: 親高さ ${size}px → ${expected.join(' / ')}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 800, height: size });
+      await gotoStory(page, 'tracks-y-fit');
+      const { children } = await getRects(page);
+      expect(children.map((c) => Math.round(c.height))).toEqual(expected);
+    });
+  }
+});

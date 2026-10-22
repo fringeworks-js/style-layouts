@@ -1,5 +1,4 @@
-import matrix from '../../matrix';
 import '../../matrix/styles.scss';
 
-export type * from '../../matrix';
-export default matrix;
+export * from '../../matrix';
+export { default } from '../../matrix';

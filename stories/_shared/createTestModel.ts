@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import type { StyleObj, TestStoryArgs } from './types';
+import type { ChildLayout, StyleObj, TestStoryArgs } from './types';
 
 /**
  * specの描画内容
@@ -23,6 +23,16 @@ export type TestModel = {
   items: {
     label: string;
     style: StyleObj;
+
+    /**
+     * 子要素の中に置く固定サイズの要素のスタイル
+     */
+    contentStyle?: StyleObj;
+
+    /**
+     * 子要素に適用するレイアウト
+     */
+    layout?: ChildLayout;
   }[];
 };
 
@@ -32,7 +42,13 @@ export type TestModel = {
  * @returns
  */
 export default function createTestModel(args: TestStoryArgs): TestModel {
-  const { itemCount = 3, childPositions, ...params } = args;
+  const {
+    itemCount = 3,
+    childPositions,
+    childContentSize,
+    childLayout,
+    ...params
+  } = args;
   const colors = chroma.scale(['d9ed92', '184e77']).colors(itemCount);
   const positions =
     childPositions ??
@@ -56,6 +72,14 @@ export default function createTestModel(args: TestStoryArgs): TestModel {
         left: positions[index].left,
         top: positions[index].top,
       },
+      ...(childContentSize && {
+        contentStyle: {
+          display: 'block',
+          width: childContentSize.width,
+          height: childContentSize.height,
+        },
+      }),
+      ...(childLayout && { layout: childLayout }),
     })),
   };
 }

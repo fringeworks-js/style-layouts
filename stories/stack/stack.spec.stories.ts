@@ -338,3 +338,16 @@ export const DirectionYChildRatio: Story = {
     itemCount: 3,
   },
 };
+
+// ===== 入れ子 =====
+
+export const NestedItemSize: Story = {
+  args: {
+    direction: 'x',
+    itemSizeX: ITEM_SIZE,
+    itemRatioX: 1,
+    itemRatioY: 2,
+    itemCount: 2,
+    childLayout: { name: 'stack' },
+  },
+};

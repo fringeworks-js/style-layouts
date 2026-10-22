@@ -233,3 +233,44 @@ export const ChildRatio: Story = {
     itemCount: 3,
   },
 };
+
+// ===== tracks =====
+
+const TRACKS = [100, 300];
+
+export const TracksXFit: Story = {
+  args: {
+    tracksX: TRACKS,
+    itemCountY: 1,
+    adjustX: 'fit',
+    gapX: GAP,
+    itemCount: 2,
+  },
+};
+export const TracksXGrow: Story = {
+  args: {
+    tracksX: TRACKS,
+    itemCountY: 1,
+    adjustX: 'grow',
+    gapX: GAP,
+    itemCount: 2,
+  },
+};
+export const TracksXShrink: Story = {
+  args: {
+    tracksX: TRACKS,
+    itemCountY: 1,
+    adjustX: 'shrink',
+    gapX: GAP,
+    itemCount: 2,
+  },
+};
+export const TracksYFit: Story = {
+  args: {
+    tracksY: TRACKS,
+    itemCountX: 1,
+    adjustY: 'fit',
+    gapY: GAP,
+    itemCount: 2,
+  },
+};

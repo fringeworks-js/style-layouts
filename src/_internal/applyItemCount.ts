@@ -10,8 +10,8 @@ import mergeClassName from './mergeClassName';
 
 export default function applyItemCount(
   result: LayoutStyle,
-  itemCountX: number | null | undefined,
-  itemCountY: number | null | undefined,
+  itemCountX: number | undefined,
+  itemCountY: number | undefined,
 ): void {
   if (hasValue(itemCountX)) {
     result.className = mergeClassName(result.className, clsLayoutItemCountX);

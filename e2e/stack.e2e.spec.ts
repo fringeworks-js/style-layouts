@@ -514,3 +514,27 @@ test.describe('stack - itemRatio', () => {
     );
   });
 });
+
+// ===== 入れ子 =====
+
+test.describe('stack - 入れ子', () => {
+  test('子要素がレイアウトのコンテナーでも、親のitemSize・itemRatioが適用される', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'nested-item-size');
+    const sizes = await page
+      .locator('#storybook-root > * > *')
+      .evaluateAll((els) =>
+        els.map((el) => {
+          const rect = el.getBoundingClientRect();
+          return { width: rect.width, height: rect.height };
+        }),
+      );
+    expect(sizes).toHaveLength(2);
+    sizes.forEach(({ width, height }) => {
+      expect(width).toBeCloseTo(ITEM_SIZE, 0);
+      expect(height).toBeCloseTo(ITEM_SIZE * 2, 0);
+    });
+  });
+});

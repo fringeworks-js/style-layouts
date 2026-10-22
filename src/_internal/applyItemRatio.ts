@@ -11,8 +11,8 @@ import mergeClassName from './mergeClassName';
  */
 export default function applyItemRatio(
   result: LayoutStyle,
-  itemRatioX: number | null | undefined,
-  itemRatioY: number | null | undefined,
+  itemRatioX: number | undefined,
+  itemRatioY: number | undefined,
 ): void {
   // 子要素の縦横比
   if (hasValue(itemRatioX) || hasValue(itemRatioY)) {

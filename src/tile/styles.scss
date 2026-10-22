@@ -1,10 +1,7 @@
 .frg-layout-tile {
-  // 変数
-  --frg-layout-gapX: 0px;
-  --frg-layout-gapY: 0px;
-  --frg-layout-itemSizeX: auto;
-  --frg-layout-itemSizeY: auto;
-  --frg-layout-itemRatio: auto;
+  // 子要素の間隔
+  column-gap: var(--frg-layout-gapX);
+  row-gap: var(--frg-layout-gapY);
 
   // tileのスタイル
   display: grid;
@@ -194,7 +191,7 @@
 
   &.frg-layout-alignX-left {
     // 横位置: 左
-    justify-content: flex-start;
+    justify-content: start;
   }
   &.frg-layout-alignX-center {
     // 横位置: 中央
@@ -202,7 +199,7 @@
   }
   &.frg-layout-alignX-right {
     // 横位置: 右
-    justify-content: flex-end;
+    justify-content: end;
   }
   &.frg-layout-alignX-spaceBetween {
     // 横位置: 両端揃え
@@ -219,7 +216,7 @@
 
   &.frg-layout-alignY-top {
     // 縦位置: 上
-    align-content: flex-start;
+    align-content: start;
   }
   &.frg-layout-alignY-middle {
     // 縦位置: 中央
@@ -227,7 +224,7 @@
   }
   &.frg-layout-alignY-bottom {
     // 縦位置: 下
-    align-content: flex-end;
+    align-content: end;
   }
   &.frg-layout-alignY-spaceBetween {
     // 縦位置: 両端揃え
@@ -255,15 +252,5 @@
   &.frg-layout-itemRatio > * {
     // 縦横比
     aspect-ratio: var(--frg-layout-itemRatio);
-  }
-
-  &.frg-layout-gapX {
-    // 横方向の間隔
-    column-gap: var(--frg-layout-gapX);
-  }
-
-  &.frg-layout-gapY {
-    // 縦方向の間隔
-    row-gap: var(--frg-layout-gapY);
   }
 }

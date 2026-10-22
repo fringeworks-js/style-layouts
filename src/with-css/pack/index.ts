@@ -1,5 +1,4 @@
-import pack from '../../pack';
 import '../../pack/styles.scss';
 
-export type * from '../../pack';
-export default pack;
+export * from '../../pack';
+export { default } from '../../pack';

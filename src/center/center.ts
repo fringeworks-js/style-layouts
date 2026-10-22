@@ -1,4 +1,4 @@
-import maybeDefault from '@fringeworks/utils/object/maybeDefault';
+import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutCenter } from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemRatio from '../_internal/applyItemRatio';
@@ -25,15 +25,12 @@ const center: CreateLayoutStyle<CenterLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
-  } = maybeDefault(
-    options,
-    {
-      direction: 'x',
-      adjustX: 'none',
-      adjustY: 'none',
-    },
-    { overwriteNull: true },
-  );
+  } = fillDefaults(options, {
+    direction: 'x',
+    adjustX: 'none',
+    adjustY: 'none',
+    gap: 0,
+  });
 
   const result: LayoutStyle = {
     className: mergeClassName(

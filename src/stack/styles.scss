@@ -1,10 +1,7 @@
 .frg-layout-stack {
-  // 変数
-  --frg-layout-gapX: 0px;
-  --frg-layout-gapY: 0px;
-  --frg-layout-itemSizeX: auto;
-  --frg-layout-itemSizeY: auto;
-  --frg-layout-itemRatio: auto;
+  // 子要素の間隔
+  column-gap: var(--frg-layout-gapX);
+  row-gap: var(--frg-layout-gapY);
 
   // stack用のスタイル
   display: flex;
@@ -228,16 +225,5 @@
   &.frg-layout-itemRatio > * {
     // 縦横比
     aspect-ratio: var(--frg-layout-itemRatio);
-  }
-
-  // 子要素の間隔
-  &.frg-layout-gapX {
-    // 横方向の間隔
-    column-gap: var(--frg-layout-gapX);
-  }
-
-  &.frg-layout-gapY {
-    // 縦方向の間隔
-    row-gap: var(--frg-layout-gapY);
   }
 }

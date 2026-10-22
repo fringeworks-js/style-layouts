@@ -10,7 +10,6 @@ import type {
 /**
  * tileのオプション
  */
-
 export type TileLayoutOptions = DirectionOptions &
   AlignOptions &
   AdjustOptions &

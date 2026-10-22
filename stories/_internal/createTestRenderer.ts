@@ -10,13 +10,31 @@ export default function createTestRenderer(name: LayoutName) {
     const { className, style } = layout(options);
 
     const container = document.createElement('div');
-    if (className) container.className = className;
+    if (className) {
+      container.className = className;
+    }
     assignStyle(container, { ...containerStyle, ...style });
 
-    for (const { label, style } of items) {
+    for (const { label, style, contentStyle, layout: childLayout } of items) {
       const child = document.createElement('div');
       child.textContent = label;
-      assignStyle(child, style);
+      if (childLayout) {
+        // 入れ子のレイアウト
+        const childResult = LAYOUTS[childLayout.name](
+          childLayout.options ?? {},
+        );
+        if (childResult.className) {
+          child.className = childResult.className;
+        }
+        assignStyle(child, { ...style, ...childResult.style });
+      } else {
+        assignStyle(child, style);
+      }
+      if (contentStyle) {
+        const content = document.createElement('div');
+        assignStyle(content, contentStyle);
+        child.appendChild(content);
+      }
       container.appendChild(child);
     }
 

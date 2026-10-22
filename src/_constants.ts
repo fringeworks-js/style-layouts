@@ -128,7 +128,7 @@ export const clsLayoutAdjustXFit = 'frg-layout-adjustX-fit';
 /**
  * 子要素の幅調整: 伸ばす
  */
-export const clsLayoutAdjustXExpand = 'frg-layout-adjustX-grow';
+export const clsLayoutAdjustXGrow = 'frg-layout-adjustX-grow';
 
 /**
  * 子要素の幅調整: 縮める
@@ -148,22 +148,12 @@ export const clsLayoutAdjustYFit = 'frg-layout-adjustY-fit';
 /**
  * 子要素の高さ調整: 伸ばす
  */
-export const clsLayoutAdjustYExpand = 'frg-layout-adjustY-grow';
+export const clsLayoutAdjustYGrow = 'frg-layout-adjustY-grow';
 
 /**
  * 子要素の高さ調整: 縮める
  */
 export const clsLayoutAdjustYShrink = 'frg-layout-adjustY-shrink';
-
-/**
- * 間隔: 横方向
- */
-export const clsLayoutGapX = 'frg-layout-gapX';
-
-/**
- * 間隔: 縦方向
- */
-export const clsLayoutGapY = 'frg-layout-gapY';
 
 /**
  * 子要素の幅
@@ -290,13 +280,13 @@ export const clsLayout: {
     x: {
       none: clsLayoutAdjustXNone,
       fit: clsLayoutAdjustXFit,
-      grow: clsLayoutAdjustXExpand,
+      grow: clsLayoutAdjustXGrow,
       shrink: clsLayoutAdjustXShrink,
     },
     y: {
       none: clsLayoutAdjustYNone,
       fit: clsLayoutAdjustYFit,
-      grow: clsLayoutAdjustYExpand,
+      grow: clsLayoutAdjustYGrow,
       shrink: clsLayoutAdjustYShrink,
     },
   },

@@ -1,5 +1,4 @@
-import flow from '../../flow';
 import '../../flow/styles.scss';
 
-export type * from '../../flow';
-export default flow;
+export * from '../../flow';
+export { default } from '../../flow';

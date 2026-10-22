@@ -22,9 +22,11 @@ export type FlowLayoutOptions = AlignOptions &
 
 /**
  * direction & adjustのオプション
+ *
+ * - `direction` を省略した場合は既定値の `'x'` と同じ制限になるよう、`'y'` 側は `direction` を必須にする
  */
 type FlowDirectionWithAdjustOptions =
   | (DirectionOptions<'x'> &
       Omit<AdjustOptions, 'adjustY'> & { adjustY?: AdjustBase })
-  | (DirectionOptions<'y'> &
+  | (Required<DirectionOptions<'y'>> &
       Omit<AdjustOptions, 'adjustX'> & { adjustX?: AdjustBase });

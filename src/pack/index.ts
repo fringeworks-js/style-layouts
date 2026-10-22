@@ -1,2 +1,2 @@
-export { default } from './pack';
+export { default, default as pack } from './pack';
 export type * from './types';

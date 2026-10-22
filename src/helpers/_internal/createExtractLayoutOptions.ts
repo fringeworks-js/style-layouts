@@ -1,7 +1,7 @@
 /**
  * レコードからレイアウトオプションとそれ以外のプロパティを分離する関数を作成する
  *
- * @param optionsKeys レイアウトオプションのキー
+ * @param optionKeys レイアウトオプションのキー
  */
 export default function createExtractLayoutOptions<
   TOptions extends Record<string, unknown>,

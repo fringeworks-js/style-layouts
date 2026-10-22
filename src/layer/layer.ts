@@ -1,4 +1,4 @@
-import maybeDefault from '@fringeworks/utils/object/maybeDefault';
+import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutLayer } from '../_constants';
 import applyItemRatio from '../_internal/applyItemRatio';
 import applyItemSize from '../_internal/applyItemSize';
@@ -23,16 +23,12 @@ const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
-  } = maybeDefault(
-    options,
-    {
-      alignX: 'left',
-      alignY: 'top',
-      adjustX: 'none',
-      adjustY: 'none',
-    },
-    { overwriteNull: true },
-  );
+  } = fillDefaults(options, {
+    alignX: 'left',
+    alignY: 'top',
+    adjustX: 'none',
+    adjustY: 'none',
+  });
 
   const result: LayoutStyle = {
     className: mergeClassName(

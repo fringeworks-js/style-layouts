@@ -1,39 +1,23 @@
-import {
-  clsLayoutGapX,
-  clsLayoutGapY,
-  varLayoutGapX,
-  varLayoutGapY,
-} from '../_constants';
+import { varLayoutGapX, varLayoutGapY } from '../_constants';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
 import unit from './unit';
 
 /**
- * スペーシングに関する設定の適用
+ * 間隔に関する設定の適用
+ *
+ * - コンテナー自身で使う値のため、未指定でも常に出力する（子要素がレイアウトのコンテナーでも親の値を継承させない）
  * @param result
- * @param gap
- * @param gapX
- * @param gapY
+ * @param gap 横縦共通の間隔
+ * @param gapX 横方向の間隔（未指定なら`gap`）
+ * @param gapY 縦方向の間隔（未指定なら`gap`）
  */
 export default function applyGap(
   result: LayoutStyle,
-  gap: number | null | undefined,
-  gapX: number | null | undefined,
-  gapY: number | null | undefined,
+  gap: number,
+  gapX: number | undefined,
+  gapY: number | undefined,
 ): void {
-  gapX = gapX ?? gap;
-  if (hasValue(gapX)) {
-    // 横方向のスペーシング
-    result.className = mergeClassName(result.className, clsLayoutGapX);
-    result.style ??= {};
-    result.style[varLayoutGapX] = unit(gapX);
-  }
-  gapY = gapY ?? gap;
-  if (hasValue(gapY)) {
-    // 縦方向のスペーシング
-    result.className = mergeClassName(result.className, clsLayoutGapY);
-    result.style ??= {};
-    result.style[varLayoutGapY] = unit(gapY);
-  }
+  result.style ??= {};
+  result.style[varLayoutGapX] = unit(gapX ?? gap);
+  result.style[varLayoutGapY] = unit(gapY ?? gap);
 }

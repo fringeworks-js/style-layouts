@@ -1,13 +1,8 @@
 .frg-layout-layer {
-  // 変数
-  --frg-layout-itemSizeX: auto;
-  --frg-layout-itemSizeY: auto;
-  --frg-layout-itemRatio: auto;
-
   // layer用のスタイル
   display: grid;
 
-  > * {
+  & > * {
     grid-area: 1 / 1;
   }
 
@@ -47,40 +42,46 @@
     height: var(--frg-layout-itemSizeY);
   }
 
-  // 子要素の幅調整: 伸ばす & 縮める / 伸ばす 共通のデフォルト
+  // 子要素の幅調整: 伸ばす & 縮める / 伸ばす 共通
   &.frg-layout-adjustX-fit > *,
   &.frg-layout-adjustX-grow > * {
     justify-self: stretch;
     width: auto;
   }
-  &.frg-layout-adjustX-fit > * {
-    // 子要素の幅調整: 伸ばす & 縮める
+  // 子要素の幅調整: 伸ばす & 縮める / 縮める 共通
+  // トラックの最小サイズを0にして、子要素の中身の大きさに関わらず親要素の幅まで縮める
+  &.frg-layout-adjustX-fit,
+  &.frg-layout-adjustX-shrink {
+    grid-template-columns: minmax(0, 100%);
+    & > * {
+      min-width: 0;
+      max-width: 100%;
+    }
   }
-  &.frg-layout-adjustX-grow > * {
+  &.frg-layout-adjustX-grow.frg-layout-itemSizeX > * {
     // 子要素の幅調整: 伸ばす
     min-width: var(--frg-layout-itemSizeX);
   }
-  &.frg-layout-adjustX-shrink > * {
-    // 子要素の幅調整: 縮める
-    width: clamp(0px, 100%, var(--frg-layout-itemSizeX));
-  }
 
-  // 子要素の高さ調整: 伸ばす & 縮める / 伸ばす 共通のデフォルト
+  // 子要素の高さ調整: 伸ばす & 縮める / 伸ばす 共通
   &.frg-layout-adjustY-fit > *,
   &.frg-layout-adjustY-grow > * {
     align-self: stretch;
     height: auto;
   }
-  &.frg-layout-adjustY-fit > * {
-    // 子要素の高さ調整: 伸ばす & 縮める
+  // 子要素の高さ調整: 伸ばす & 縮める / 縮める 共通
+  // トラックの最小サイズを0にして、子要素の中身の大きさに関わらず親要素の高さまで縮める
+  &.frg-layout-adjustY-fit,
+  &.frg-layout-adjustY-shrink {
+    grid-template-rows: minmax(0, 100%);
+    & > * {
+      min-height: 0;
+      max-height: 100%;
+    }
   }
-  &.frg-layout-adjustY-grow > * {
+  &.frg-layout-adjustY-grow.frg-layout-itemSizeY > * {
     // 子要素の高さ調整: 伸ばす
     min-height: var(--frg-layout-itemSizeY);
-  }
-  &.frg-layout-adjustY-shrink > * {
-    // 子要素の高さ調整: 縮める
-    height: clamp(0px, 100%, var(--frg-layout-itemSizeY));
   }
 
   // アスペクト比

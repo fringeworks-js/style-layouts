@@ -119,3 +119,15 @@ export const DirectionYGapY: Story = {
     itemCount: 3,
   },
 };
+
+// ===== 入れ子 =====
+
+export const NestedAdjustXGrow: Story = {
+  args: {
+    direction: 'y',
+    adjustX: 'grow',
+    itemSizeX: ITEM_SIZE,
+    itemCount: 2,
+    childLayout: { name: 'center' },
+  },
+};

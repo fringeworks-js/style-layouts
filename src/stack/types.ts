@@ -22,9 +22,11 @@ export type StackLayoutOptions = AdjustOptions &
 
 /**
  * direction & alignのオプション
+ *
+ * - `direction` を省略した場合は既定値の `'x'` と同じ制限になるよう、`'y'` 側は `direction` を必須にする
  */
 type StackDirectionWithAlignOptions =
   | (DirectionOptions<'x'> &
       Omit<AlignOptions, 'alignY'> & { alignY?: AlignYBase })
-  | (DirectionOptions<'y'> &
+  | (Required<DirectionOptions<'y'>> &
       Omit<AlignOptions, 'alignX'> & { alignX?: AlignXBase });

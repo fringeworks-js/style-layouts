@@ -111,3 +111,36 @@ export const ChildRatio: Story = {
     itemCount: 1,
   },
 };
+
+// ===== adjust（itemSizeなし・子要素の中身が親より大きい） =====
+
+const CONTENT_SIZE = { width: '300px', height: '300px' };
+
+export const AdjustXShrinkContent: Story = {
+  args: {
+    adjustX: 'shrink',
+    itemCount: 1,
+    childContentSize: CONTENT_SIZE,
+  },
+};
+export const AdjustXFitContent: Story = {
+  args: {
+    adjustX: 'fit',
+    itemCount: 1,
+    childContentSize: CONTENT_SIZE,
+  },
+};
+export const AdjustYShrinkContent: Story = {
+  args: {
+    adjustY: 'shrink',
+    itemCount: 1,
+    childContentSize: CONTENT_SIZE,
+  },
+};
+export const AdjustYFitContent: Story = {
+  args: {
+    adjustY: 'fit',
+    itemCount: 1,
+    childContentSize: CONTENT_SIZE,
+  },
+};

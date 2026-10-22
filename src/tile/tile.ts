@@ -1,4 +1,4 @@
-import maybeDefault from '@fringeworks/utils/object/maybeDefault';
+import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutTile } from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemRatio from '../_internal/applyItemRatio';
@@ -27,17 +27,14 @@ const tile: CreateLayoutStyle<TileLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
-  } = maybeDefault(
-    options,
-    {
-      direction: 'x',
-      alignX: 'left',
-      alignY: 'top',
-      adjustX: 'none',
-      adjustY: 'none',
-    },
-    { overwriteNull: true },
-  );
+  } = fillDefaults(options, {
+    direction: 'x',
+    alignX: 'left',
+    alignY: 'top',
+    adjustX: 'none',
+    adjustY: 'none',
+    gap: 0,
+  });
 
   const result: LayoutStyle = {
     className: mergeClassName(

@@ -7,7 +7,7 @@ export type DirectionOptions<D extends Direction = Direction> = {
   /**
    * 並べる方向
    */
-  direction?: D | null;
+  direction?: D;
 };
 
 /**
@@ -17,12 +17,12 @@ export type AlignOptions = {
   /**
    * 子要素の横位置
    */
-  alignX?: AlignX | null;
+  alignX?: AlignX;
 
   /**
    * 子要素の縦位置
    */
-  alignY?: AlignY | null;
+  alignY?: AlignY;
 };
 
 /**
@@ -34,14 +34,14 @@ export type AdjustOptions = {
    * itemSizeXを指定した場合に有効
    * デフォルトは`none`
    */
-  adjustX?: Adjust | null;
+  adjustX?: Adjust;
 
   /**
    * 子要素の高さの調整
    * itemSizeYを指定した場合に有効
    * デフォルトは`none`
    */
-  adjustY?: Adjust | null;
+  adjustY?: Adjust;
 };
 
 /**
@@ -51,17 +51,17 @@ export type GapOptions = {
   /**
    * 余白
    */
-  gap?: number | null;
+  gap?: number;
 
   /**
    * 横方向の余白
    */
-  gapX?: number | null;
+  gapX?: number;
 
   /**
    * 縦方向の余白
    */
-  gapY?: number | null;
+  gapY?: number;
 };
 
 /**
@@ -71,12 +71,12 @@ export type ItemSizeOptions = {
   /**
    * 子要素の幅
    */
-  itemSizeX?: number | null;
+  itemSizeX?: number;
 
   /**
    * 子要素の高さ
    */
-  itemSizeY?: number | null;
+  itemSizeY?: number;
 };
 
 /**
@@ -86,12 +86,12 @@ export type ItemRatioOptions = {
   /**
    * 子要素の縦横比(横)
    */
-  itemRatioX?: number | null;
+  itemRatioX?: number;
 
   /**
    * 子要素の縦横比(縦)
    */
-  itemRatioY?: number | null;
+  itemRatioY?: number;
 };
 
 /**
@@ -101,12 +101,12 @@ export type ItemCountOptions = {
   /**
    * 横方向の要素数
    */
-  itemCountX?: number | null;
+  itemCountX?: number;
 
   /**
    * 縦方向の要素数
    */
-  itemCountY?: number | null;
+  itemCountY?: number;
 };
 
 /**
@@ -117,11 +117,11 @@ export type TracksOptions = {
    * 横方向の設定
    * このプロパティが設定されている場合、itemCountX,itemSizeXは無効
    */
-  tracksX?: (string | number)[] | null;
+  tracksX?: (string | number)[];
 
   /**
    * 縦方向の設定
    * このプロパティが設定されている場合、itemCountY,itemSizeYは無効
    */
-  tracksY?: (string | number)[] | null;
+  tracksY?: (string | number)[];
 };

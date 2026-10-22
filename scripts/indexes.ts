@@ -1,14 +1,35 @@
-import { CONSTANTS, PRIVATE, TEST_FILE } from '@fringeworks/dev/constants';
+import { PRIVATE, TEST_FILE } from '@fringeworks/dev';
 import generateIndexFiles from '@fringeworks/dev/generateIndexFiles';
+
+/**
+ * with-css の index ファイル
+ */
+const WITH_CSS_INDEX = 'src/with-css/index.ts';
 
 generateIndexFiles({
   exclude: [
-    CONSTANTS,
     PRIVATE,
     TEST_FILE,
+    // with-css は CSS を読み込むため、ルートからは export しない（`./with-css` から読み込む）
     {
       valueType: 'path',
-      conditions: 'src/css',
+      conditions: /^src\/with-css$/,
     },
   ],
+  // with-css からも、CSS を読み込まない共通の型・定数・ヘルパーを読み込めるようにする
+  transform: (exports, { indexPath }) => {
+    if (indexPath !== WITH_CSS_INDEX) {
+      return exports;
+    }
+    // 副作用のための import の後に置く
+    const imports = exports.filter((line) => line.startsWith('import '));
+    const rest = exports.filter((line) => !line.startsWith('import '));
+    return [
+      ...imports,
+      "export * from '../constants';",
+      "export * from '../helpers';",
+      "export type * from '../types';",
+      ...rest,
+    ];
+  },
 });

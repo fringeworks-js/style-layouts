@@ -289,3 +289,19 @@ test.describe('center - gapY', () => {
     }
   });
 });
+
+// ===== 入れ子 =====
+
+test.describe('center - 入れ子', () => {
+  test('子要素がレイアウトのコンテナーでも、親のitemSizeが適用される', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 100, height: 600 });
+    await gotoStory(page, 'nested-adjust-x-grow');
+    const widths = await page
+      .locator('#storybook-root > * > *')
+      .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
+    expect(widths).toHaveLength(2);
+    widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
+  });
+});

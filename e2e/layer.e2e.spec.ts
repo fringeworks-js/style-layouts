@@ -259,3 +259,59 @@ test.describe('layer - itemRatio', () => {
     expect(child.height / child.width).toBeCloseTo(1, 1);
   });
 });
+
+// ===== adjust（itemSizeなし・子要素の中身が親より大きい） =====
+
+const CONTENT_SIZE = 300;
+
+test.describe('layer - adjust（itemSizeなし）', () => {
+  test('adjustX shrink: 親幅 > 中身: 中身の幅のまま', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'adjust-x-shrink-content');
+    const child = await getChildRect(page);
+    expect(child.width).toBeCloseTo(CONTENT_SIZE, 0);
+  });
+
+  test('adjustX shrink: 親幅 < 中身: 親幅に合わせて縮む', async ({ page }) => {
+    await page.setViewportSize({ width: 200, height: 600 });
+    await gotoStory(page, 'adjust-x-shrink-content');
+    const child = await getChildRect(page);
+    const container = await getContainerRect(page);
+    expect(child.width).toBeCloseTo(container.width, 0);
+  });
+
+  test('adjustX fit: 親幅 < 中身: 親幅に合わせて縮む', async ({ page }) => {
+    await page.setViewportSize({ width: 200, height: 600 });
+    await gotoStory(page, 'adjust-x-fit-content');
+    const child = await getChildRect(page);
+    const container = await getContainerRect(page);
+    expect(child.width).toBeCloseTo(container.width, 0);
+  });
+
+  test('adjustY shrink: 親高さ > 中身: 中身の高さのまま', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 800 });
+    await gotoStory(page, 'adjust-y-shrink-content');
+    const child = await getChildRect(page);
+    const container = await getContainerRect(page);
+    expect(child.height).toBeGreaterThanOrEqual(CONTENT_SIZE);
+    expect(child.height).toBeLessThan(container.height);
+  });
+
+  test('adjustY shrink: 親高さ < 中身: 親高さに合わせて縮む', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 200 });
+    await gotoStory(page, 'adjust-y-shrink-content');
+    const child = await getChildRect(page);
+    const container = await getContainerRect(page);
+    expect(child.height).toBeCloseTo(container.height, 0);
+  });
+
+  test('adjustY fit: 親高さ < 中身: 親高さに合わせて縮む', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 200 });
+    await gotoStory(page, 'adjust-y-fit-content');
+    const child = await getChildRect(page);
+    const container = await getContainerRect(page);
+    expect(child.height).toBeCloseTo(container.height, 0);
+  });
+});

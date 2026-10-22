@@ -1,5 +1,4 @@
-import tile from '../../tile';
 import '../../tile/styles.scss';
 
-export type * from '../../tile';
-export default tile;
+export * from '../../tile';
+export { default } from '../../tile';

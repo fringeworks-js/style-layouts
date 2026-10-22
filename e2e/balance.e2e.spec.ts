@@ -68,7 +68,9 @@ const getChildYRects = (page: Page) =>
 const expectEvenlySpacedX = (
   rects: { left: number; right: number; width: number }[],
 ) => {
-  if (rects.length < 2) return;
+  if (rects.length < 2) {
+    return;
+  }
   const gaps = rects.slice(1).map((rect, i) => rect.left - rects[i].right);
   const firstGap = gaps[0];
   gaps.forEach((gap) => expect(gap).toBeCloseTo(firstGap, 0));
@@ -77,7 +79,9 @@ const expectEvenlySpacedX = (
 const expectEvenlySpacedY = (
   rects: { top: number; bottom: number; height: number }[],
 ) => {
-  if (rects.length < 2) return;
+  if (rects.length < 2) {
+    return;
+  }
   const gaps = rects.slice(1).map((rect, i) => rect.top - rects[i].bottom);
   const firstGap = gaps[0];
   gaps.forEach((gap) => expect(gap).toBeCloseTo(firstGap, 0));

@@ -137,6 +137,24 @@ export type TestStoryArgs = Record<string, unknown> & {
    * 子要素の位置
    */
   childPositions?: { left: string; top: string }[];
+
+  /**
+   * 子要素の中に置く固定サイズの要素のサイズ（子要素の中身の大きさを再現する）
+   */
+  childContentSize?: { width: string; height: string };
+
+  /**
+   * 子要素に適用するレイアウト（入れ子の確認用）
+   */
+  childLayout?: ChildLayout;
+};
+
+/**
+ * 子要素に適用するレイアウト
+ */
+export type ChildLayout = {
+  name: LayoutName;
+  options?: Record<string, unknown>;
 };
 
 /**

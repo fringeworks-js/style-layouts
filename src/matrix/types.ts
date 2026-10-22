@@ -3,10 +3,8 @@ import type {
   AlignOptions,
   DirectionOptions,
   GapOptions,
-  ItemCountOptions,
   ItemRatioOptions,
   ItemSizeOptions,
-  TracksOptions,
 } from '../_types';
 
 export type MatrixLayoutOptions = DirectionOptions &
@@ -21,7 +19,7 @@ export type MatrixLayoutOptions = DirectionOptions &
  * 横軸、要素数指定
  */
 type MatrixAxisXWithCountOptions = {
-  itemCountX: ItemCountOptions['itemCountX'];
+  itemCountX: number;
   itemSizeX?: ItemSizeOptions['itemSizeX'];
   tracksX?: never;
 };
@@ -32,21 +30,20 @@ type MatrixAxisXWithCountOptions = {
 type MatrixAxisXWithTemplateOptions = {
   itemCountX?: never;
   itemSizeX?: never;
-  tracksX: TracksOptions['tracksX'];
+  tracksX: (string | number)[];
 };
 
 /**
  * 横軸用オプション
  */
 type MatrixAxisXOptions =
-  | MatrixAxisXWithCountOptions
-  | MatrixAxisXWithTemplateOptions;
+  MatrixAxisXWithCountOptions | MatrixAxisXWithTemplateOptions;
 
 /**
  * 縦軸、要素数指定
  */
 type MatrixAxisYWithCountOptions = {
-  itemCountY: ItemCountOptions['itemCountY'];
+  itemCountY: number;
   itemSizeY?: ItemSizeOptions['itemSizeY'];
   tracksY?: never;
 };
@@ -57,12 +54,11 @@ type MatrixAxisYWithCountOptions = {
 type MatrixAxisYWithTemplateOptions = {
   itemCountY?: never;
   itemSizeY?: never;
-  tracksY: TracksOptions['tracksY'];
+  tracksY: (string | number)[];
 };
 
 /**
  * 縦軸用オプション
  */
 type MatrixAxisYOptions =
-  | MatrixAxisYWithCountOptions
-  | MatrixAxisYWithTemplateOptions;
+  MatrixAxisYWithCountOptions | MatrixAxisYWithTemplateOptions;

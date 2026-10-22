@@ -11,8 +11,8 @@ import unit from './unit';
 
 export default function applyItemSize(
   result: LayoutStyle,
-  itemSizeX: number | null | undefined,
-  itemSizeY: number | null | undefined,
+  itemSizeX: number | undefined,
+  itemSizeY: number | undefined,
 ): void {
   if (hasValue(itemSizeX)) {
     result.className = mergeClassName(result.className, clsLayoutItemSizeX);

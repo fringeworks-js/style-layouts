@@ -1,10 +1,7 @@
 .frg-layout-flow {
-  // 変数
-  --frg-layout-gapX: 0px;
-  --frg-layout-gapY: 0px;
-  --frg-layout-itemSizeX: auto;
-  --frg-layout-itemSizeY: auto;
-  --frg-layout-itemRatio: auto;
+  // 子要素の間隔
+  column-gap: var(--frg-layout-gapX);
+  row-gap: var(--frg-layout-gapY);
 
   // flow用のスタイル
   display: flex;
@@ -188,7 +185,7 @@
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
     // 子要素の幅調整: 伸ばす & 縮める (.frg-layout-adjustX-fit)
     // 子要素の幅調整: 伸ばす (.frg-layout-adjustX-grow)
-    // 子要素の幅調整: 縮める (.ws-layout-adjustX-shrink)
+    // 子要素の幅調整: 縮める (.frg-layout-adjustX-shrink)
 
     &.frg-layout-itemSizeY > * {
       // 子要素の高さ
@@ -221,16 +218,5 @@
   &.frg-layout-itemRatio > * {
     // 縦横比
     aspect-ratio: var(--frg-layout-itemRatio);
-  }
-
-  // 子要素の間隔
-  &.frg-layout-gapX {
-    // 横方向の間隔
-    column-gap: var(--frg-layout-gapX);
-  }
-
-  &.frg-layout-gapY {
-    // 縦方向の間隔
-    row-gap: var(--frg-layout-gapY);
   }
 }

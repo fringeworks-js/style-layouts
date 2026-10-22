@@ -1,5 +1,4 @@
-import pin from '../../pin';
 import '../../pin/styles.scss';
 
-export type * from '../../pin';
-export default pin;
+export * from '../../pin';
+export { default } from '../../pin';

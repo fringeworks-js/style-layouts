@@ -1,4 +1,4 @@
-import maybeDefault from '@fringeworks/utils/object/maybeDefault';
+import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutMatrix, varLayout } from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemCount from '../_internal/applyItemCount';
@@ -18,7 +18,7 @@ import type {
   TracksOptions,
 } from '../_types';
 import { Adjust } from '../constants';
-import type { CreateLayoutStyle, LayoutStyle } from '../types';
+import type { LayoutStyle } from '../types';
 import type { MatrixLayoutOptions } from './types';
 
 type MatrixLayoutInternalOptions = DirectionOptions &
@@ -35,10 +35,9 @@ type MatrixLayoutInternalOptions = DirectionOptions &
  *
  * - 子要素の縦の数、横の数を基準にして格子状に配置する
  * - 親要素のサイズが子要素に依存していないことを前提とする
+ * - 列と行は、それぞれ `itemCount` または `tracks` のどちらか一方で指定する（既定値は無い）
  */
-const matrix: CreateLayoutStyle<MatrixLayoutOptions> = (
-  options = { itemCountX: 8, itemCountY: 8 },
-) => {
+export default function matrix(options: MatrixLayoutOptions): LayoutStyle {
   const {
     direction,
     alignX,
@@ -56,17 +55,14 @@ const matrix: CreateLayoutStyle<MatrixLayoutOptions> = (
     itemCountY,
     tracksX,
     tracksY,
-  } = maybeDefault(
-    options as MatrixLayoutInternalOptions,
-    {
-      direction: 'x',
-      alignX: 'left',
-      alignY: 'top',
-      adjustX: 'none',
-      adjustY: 'none',
-    },
-    { overwriteNull: true },
-  );
+  } = fillDefaults(options as MatrixLayoutInternalOptions, {
+    direction: 'x',
+    alignX: 'left',
+    alignY: 'top',
+    adjustX: 'none',
+    adjustY: 'none',
+    gap: 0,
+  });
   let result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutMatrix,
@@ -120,8 +116,7 @@ const matrix: CreateLayoutStyle<MatrixLayoutOptions> = (
   }
 
   return result;
-};
-export default matrix;
+}
 
 /**
  * gridTemplateColumns / gridTemplateRowsを生成する
@@ -156,8 +151,11 @@ function _getTemplate(
 
 /**
  * tracksX/tracksYの各トラック値にadjustを適用する
- * fr単位の値はminmax()のminに使えないため特別扱いになり、
- * 伸縮の比率には影響しない
+ *
+ * - px のトラックは、px の値の比率を保って伸縮する
+ *   - fit / grow: px の値を fr の比率に置き換える（gap を除いた残りを比率で分ける）
+ *   - shrink: 比率で分けたサイズと指定のサイズの小さい方を上限にする
+ * - px 以外（fr・%・auto など）は比率の計算に含めない。px と混ぜた場合の比率は保証しない
  */
 function _applyAdjustToTrack(
   axis: 'x' | 'y',
@@ -168,27 +166,25 @@ function _applyAdjustToTrack(
 ): string {
   const itemSize = unit(size);
   const isFr = typeof size === 'string' && size.trim().endsWith('fr');
-  const pxValue = _extractPx(size);
-  const isPx = pxValue !== null;
+  const px = _extractPx(size);
 
   if (adjust === 'fit') {
     // fit
-    if (isPx && pxTotal > 0) {
-      const trackSize = `calc((100% - var(${varLayout.gap[axis]}) * ${itemCount - 1}) * ${pxValue} / ${pxTotal})`;
-      return `minmax(0, max(${trackSize}, ${itemSize}))`;
+    if (px !== null) {
+      return `minmax(0, ${px}fr)`;
     }
     return isFr ? itemSize : `minmax(0, ${itemSize})`;
   } else if (adjust === 'grow') {
     // grow
-    if (isPx && pxTotal > 0) {
-      return `minmax(${itemSize}, calc(${pxValue} / ${pxTotal} * (100% - var(${varLayout.gap[axis]}) * ${itemCount - 1})))`;
+    if (px !== null) {
+      return `minmax(${itemSize}, ${px}fr)`;
     }
     return isFr ? itemSize : `minmax(${itemSize}, 1fr)`;
   } else if (adjust === 'shrink') {
     // shrink
-    if (isPx && pxTotal > 0) {
-      const trackSize = `calc((100% - var(${varLayout.gap[axis]}) * ${itemCount - 1}) * ${pxValue} / ${pxTotal})`;
-      return `minmax(0, min(${trackSize}, ${itemSize}))`;
+    if (px !== null && pxTotal > 0) {
+      const share = `calc((100% - var(${varLayout.gap[axis]}) * ${itemCount - 1}) * ${px} / ${pxTotal})`;
+      return `minmax(0, min(${share}, ${itemSize}))`;
     }
     return isFr ? itemSize : `minmax(0, ${itemSize})`;
   }
@@ -201,8 +197,8 @@ function _applyAdjustToTrack(
  */
 function _extractPx(itemSize: string | number): number | null {
   if (typeof itemSize === 'number') {
-    return itemSize;
+    return Number.isFinite(itemSize) ? itemSize : null;
   }
-  const match = itemSize.trim().match(/^([\d.]+)px$/);
+  const match = /^(\d+(?:\.\d+)?|\.\d+)px$/.exec(itemSize.trim());
   return match ? parseFloat(match[1]!) : null;
 }
