@@ -1,24 +1,64 @@
+@use '../child';
+
+// アイテムのクラスの接頭辞
+$item: 'frg-layout-pin-item';
+
+// 軸ごとの、alignの値と位置を指定するプロパティ
+$_sides: (
+  X: (
+    left: left,
+    right: right,
+  ),
+  Y: (
+    top: top,
+    bottom: bottom,
+  ),
+);
+
 .frg-layout-pin {
   // pin用のスタイル
   display: block;
   position: relative;
 
-  & > * {
+  // 子要素のサイズ・縦横比・オフセットの値（コンテナの指定とアイテムの指定のどちらを使うか）
+  @include child.resolve($item);
+  @include child.resolve-values($item, offsetX, offsetY, offsetZ);
+
+  @include child.when($item) {
     position: absolute;
   }
 
-  &.frg-layout-itemSizeX > * {
+  @include child.when($item, child.size($item, X)) {
     // 子要素の幅
-    width: var(--frg-layout-itemSizeX);
+    width: var(--_frg-layout-sizeX);
   }
 
-  &.frg-layout-itemSizeY > * {
+  @include child.when($item, child.size($item, Y)) {
     // 子要素の高さ
-    height: var(--frg-layout-itemSizeY);
+    height: var(--_frg-layout-sizeY);
   }
 
-  &.frg-layout-itemRatio > * {
+  // 子要素の位置: alignX / alignYで選んだ辺からの距離
+  // オフセットを指定しない場合は位置を指定しない（子要素のtop / left / bottom / rightに従う）
+  @each $axis, $sides in $_sides {
+    @each $align, $side in $sides {
+      @include child.when(
+        $item,
+        child.align($item, $axis, $align),
+        child.offset($item, $axis)
+      ) {
+        #{$side}: var(--_frg-layout-offset#{$axis});
+      }
+    }
+  }
+
+  @include child.when($item, child.offset($item, Z)) {
+    // 重なり順
+    z-index: var(--_frg-layout-offsetZ);
+  }
+
+  @include child.when($item, child.ratio($item)) {
     // 縦横比
-    aspect-ratio: var(--frg-layout-itemRatio);
+    aspect-ratio: var(--_frg-layout-ratio);
   }
 }

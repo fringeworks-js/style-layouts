@@ -5,6 +5,9 @@ import type {
   GapOptions,
   ItemRatioOptions,
   ItemSizeOptions,
+  LimitToItemsOptions,
+  RatioOptions,
+  SizeOptions,
 } from '../_types';
 import type { AlignXBase, AlignYBase } from '../constants';
 
@@ -18,7 +21,16 @@ export type StackLayoutOptions = AdjustOptions &
   ItemSizeOptions &
   ItemRatioOptions &
   GapOptions &
+  LimitToItemsOptions &
   StackDirectionWithAlignOptions;
+
+/**
+ * stackItemのオプション
+ *
+ * - 指定したオプションだけコンテナの指定を上書きする
+ * - 主軸・交差軸はコンテナのdirectionで決まる
+ */
+export type StackItemOptions = AdjustOptions & SizeOptions & RatioOptions;
 
 /**
  * direction & alignのオプション

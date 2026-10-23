@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import getStoryRects from './_internal/getStoryRects';
 
 const STORY_URL = (storyId: string) =>
   `/iframe.html?id=spec-stack--${storyId}&viewMode=story`;
@@ -536,5 +537,66 @@ test.describe('stack - 入れ子', () => {
       expect(width).toBeCloseTo(ITEM_SIZE, 0);
       expect(height).toBeCloseTo(ITEM_SIZE * 2, 0);
     });
+  });
+});
+
+// ===== stackItem =====
+
+test.describe('stack - stackItem', () => {
+  for (const name of ['x', 'y', 'ratio']) {
+    test(`コンテナで指定した場合と同じ結果になる（${name}）`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 800, height: 600 });
+      await gotoStory(page, `equivalent-${name}-container`);
+      const expected = await getStoryRects(page);
+      await gotoStory(page, `equivalent-${name}-item`);
+      const actual = await getStoryRects(page);
+      expect(actual).toEqual(expected);
+    });
+  }
+
+  test('アイテムの指定でコンテナの指定を上書きする', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'item-override');
+    const { container, children } = await getStoryRects(page);
+    const [first, second, third] = children;
+    // 指定なし: コンテナの指定（itemSizeX: 100, adjustY: fit）
+    expect(first!.width).toBeCloseTo(100, 0);
+    expect(first!.height).toBeCloseTo(container.height, 0);
+    // adjustX: grow, adjustY: none で上書き
+    expect(second!.width).toBeCloseTo(container.width - 100 - 50, 0);
+    expect(second!.height).toBeLessThan(container.height);
+    // sizeX: 50 で上書き（adjustYはコンテナの指定）
+    expect(third!.width).toBeCloseTo(50, 0);
+    expect(third!.height).toBeCloseTo(container.height, 0);
+  });
+
+  test('limitToItems: stackItemを適用した子要素だけが対象になる', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'limit-to-items');
+    const { container, children } = await getStoryRects(page);
+    const [first, second, third] = children;
+    // stackItem(): コンテナの指定が効く
+    expect(first!.width).toBeCloseTo(100, 0);
+    expect(first!.height).toBeCloseTo(container.height, 0);
+    // 未適用: コンテナの子要素向けの指定が効かない
+    expect(second!.width).toBeLessThan(100);
+    expect(second!.height).toBeLessThan(container.height);
+    // stackItem({ sizeX: 50 })
+    expect(third!.width).toBeCloseTo(50, 0);
+    expect(third!.height).toBeCloseTo(container.height, 0);
+  });
+
+  test('子要素がレイアウトのコンテナで同じオプションを使っても干渉しない', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'nested-item');
+    const { children } = await getStoryRects(page);
+    expect(children).toHaveLength(2);
+    children.forEach((c) => expect(c.width).toBeCloseTo(200, 0));
   });
 });

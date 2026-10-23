@@ -1,0 +1,209 @@
+// 子要素のスタイルを、コンテナの指定とアイテムの指定の両方から当てるための関数・ミックスイン
+//
+// - 条件は「コンテナのセレクターに足すもの（parent）」と「子要素のセレクターに足すもの（child）」の組（選択肢）のリストで表す
+// - コンテナで指定した値は、アイテムで同じオプションを指定していない子要素にだけ当てる（アイテムの指定がコンテナの指定を上書きする）
+// - 選択肢同士が重ならないようにして、詳細度や記述順に頼らずに優先順位を決める
+// - 利用者が子要素に当てたスタイルを上書きしないよう、指定が無いプロパティは宣言しない（var()のフォールバックで既定値を表さない）
+// - コンテナにlimitToItemsを指定した場合、コンテナの指定はアイテム（*Item()を適用した子要素）にだけ当てる
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+
+/// 選択肢を1つ作る
+/// @param {String} $parent コンテナのセレクターに足すもの
+/// @param {String} $child 子要素のセレクターに足すもの
+/// @param {Boolean} $item アイテムのクラスを持つ子要素だけに当たるか
+@function _alternative($parent, $child, $item: false) {
+  @return (parent: $parent, child: $child, item: $item);
+}
+
+/// 選択肢のリストを作る
+@function _alternatives($alternatives...) {
+  $result: ();
+  @each $alternative in $alternatives {
+    $result: list.append($result, $alternative, $separator: comma);
+  }
+  @return $result;
+}
+
+/// 条件: 値を選ぶオプション（例: adjustX）の値が$valuesのいずれか
+/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-stack-item）
+/// @param {String} $option オプション名（例: adjustX）
+/// @param {List} $values オプションの値
+@function _option($item, $option, $values) {
+  $result: ();
+  @each $value in $values {
+    // コンテナの指定（アイテムで同じオプションを指定していない子要素）
+    $result: list.append(
+      $result,
+      _alternative(
+        '.frg-layout-#{$option}-#{$value}',
+        ':not(.#{$item}-#{$option})'
+      ),
+      $separator: comma
+    );
+    // アイテムの指定
+    $result: list.append(
+      $result,
+      _alternative('', '.#{$item}-#{$option}-#{$value}', true),
+      $separator: comma
+    );
+  }
+  @return $result;
+}
+
+/// 条件: adjust（軸: X / Y）の値が$valuesのいずれか
+/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-stack-item）
+/// @param {String} $axis 軸（X / Y）
+/// @param {List} $values adjustの値
+@function adjust($item, $axis, $values...) {
+  @return _option($item, 'adjust#{$axis}', $values);
+}
+
+/// 条件: align（軸: X / Y）の値が$valuesのいずれか
+/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-layer-item）
+/// @param {String} $axis 軸（X / Y）
+/// @param {List} $values alignの値（space-*以外）
+@function align($item, $axis, $values...) {
+  @return _option($item, 'align#{$axis}', $values);
+}
+
+/// コンテナのオプション名（アイテムのオプション名にitemを付けたもの。例: sizeX → itemSizeX）
+@function _container-option($name) {
+  @return 'item' + string.to-upper-case(string.slice($name, 1, 1)) +
+    string.slice($name, 2);
+}
+
+/// 条件: 値を指定するオプション（例: sizeX）の指定がある
+/// @param {String} $item アイテムのクラスの接頭辞
+/// @param {String} $name アイテムのオプション名（コンテナではitemを付けた名前）
+@function value($item, $name) {
+  @return _alternatives(
+    _alternative(
+      '.frg-layout-#{_container-option($name)}',
+      ':not(.#{$item}-#{$name})'
+    ),
+    _alternative('', '.#{$item}-#{$name}', true)
+  );
+}
+
+/// 条件: 値を指定するオプション（例: sizeX）の指定が無い
+@function no-value($item, $name) {
+  @return _alternatives(
+    _alternative(
+      ':not(.frg-layout-#{_container-option($name)})',
+      ':not(.#{$item}-#{$name})'
+    )
+  );
+}
+
+/// 条件: サイズ（軸: X / Y）の指定がある
+@function size($item, $axis) {
+  @return value($item, 'size#{$axis}');
+}
+
+/// 条件: サイズ（軸: X / Y）の指定が無い
+@function no-size($item, $axis) {
+  @return no-value($item, 'size#{$axis}');
+}
+
+/// 条件: オフセット（軸: X / Y / Z）の指定がある
+@function offset($item, $axis) {
+  @return value($item, 'offset#{$axis}');
+}
+
+/// 条件: 子要素のセレクター（例: :first-child）
+/// @param {String} $selector 子要素のセレクターに足すもの
+@function child-selector($selector) {
+  @return _alternatives(_alternative('', $selector));
+}
+
+/// 条件: 縦横比の指定がある
+@function ratio($item) {
+  @return value($item, 'ratio');
+}
+
+/// 全ての条件を満たす子要素にスタイルを当てる
+///
+/// - 各条件の選択肢の組み合わせごとにセレクターを作る
+/// - アイテムのクラスを持つ子要素だけに当たる組み合わせは、limitToItemsの指定に関わらずそのまま使う
+/// - それ以外の組み合わせは、limitToItemsを指定しない場合は全ての子要素に、指定した場合はアイテムにだけ当てる
+/// - limitToItemsの切り替えは:where()で書き、詳細度に影響させない（条件の無いルールが、条件のあるルールより常に弱くなるようにする）
+/// - 親のセレクター（&）はコンテナを指していること
+/// @param {String} $item アイテムのクラス（例: frg-layout-stack-item）
+/// @param {List} $conditions 条件（選択肢のリスト）。省略すると全ての子要素（limitToItemsの場合はアイテム）
+@mixin when($item, $conditions...) {
+  $combinations: _alternatives(_alternative('', ''));
+  @each $alternatives in $conditions {
+    $next: ();
+    @each $combination in $combinations {
+      @each $alternative in $alternatives {
+        $next: list.append(
+          $next,
+          _alternative(
+            map.get($combination, parent) + map.get($alternative, parent),
+            map.get($combination, child) + map.get($alternative, child),
+            map.get($combination, item) or map.get($alternative, item)
+          ),
+          $separator: comma
+        );
+      }
+    }
+    $combinations: $next;
+  }
+
+  $selectors: ();
+  @each $combination in $combinations {
+    $parent: map.get($combination, parent);
+    $child: map.get($combination, child);
+    @if map.get($combination, item) {
+      $selectors: list.append(
+        $selectors,
+        '#{&}#{$parent} > #{$child}',
+        $separator: comma
+      );
+    } @else {
+      $all: $child;
+      @if $all == '' {
+        $all: '*';
+      }
+      $selectors: list.append(
+        $selectors,
+        '#{&}:where(:not(.frg-layout-limitToItems))#{$parent} > #{$all}',
+        $separator: comma
+      );
+      $selectors: list.append(
+        $selectors,
+        '#{&}:where(.frg-layout-limitToItems)#{$parent} > :where(.#{$item})#{$child}',
+        $separator: comma
+      );
+    }
+  }
+  @at-root #{$selectors} {
+    @content;
+  }
+}
+
+/// 値を指定するオプションの値を決める
+///
+/// - 内部の変数（--_frg-layout-<アイテムのオプション名>）に、アイテムの値があればアイテムの値を、無ければコンテナの値を設定する
+/// - 内部の変数は、値を設定した条件と同じ条件のルールでだけ読むため、孫要素に継承されても影響しない
+/// @param {String} $item アイテムのクラスの接頭辞
+/// @param {List} $names アイテムのオプション名（例: sizeX）
+@mixin resolve-values($item, $names...) {
+  @each $name in $names {
+    $container: _container-option($name);
+    &.frg-layout-#{$container} > :not(.#{$item}-#{$name}) {
+      --_frg-layout-#{$name}: var(--frg-layout-#{$container});
+    }
+    & > .#{$item}-#{$name} {
+      --_frg-layout-#{$name}: var(--#{$item}-#{$name});
+    }
+  }
+}
+
+/// 子要素のサイズと縦横比の値を決める
+@mixin resolve($item) {
+  @include resolve-values($item, sizeX, sizeY, ratio);
+}

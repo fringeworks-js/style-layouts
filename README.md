@@ -66,12 +66,57 @@ Besides the layout functions, `with-css` also exports the constants, helpers, an
 import { stack } from '@fringeworks/style-layouts/with-css';
 ```
 
+### Per-Child Options (`*Item`)
+
+Options specified on the container apply to all child elements. To change them for a specific child only, apply the return value of `*Item()` to that child. Only the options specified in `*Item()` override the container's options.
+
+> Supported by `stack`, `flow`, `center`, `layer`, and `pin` (`stackItem`, etc.). `tile`, `matrix`, `balance`, and `pack` are not supported because their child sizes are determined by the container (e.g. grid tracks).
+
+```ts
+import { stack, stackItem } from '@fringeworks/style-layouts';
+
+// Container: make every child 100px wide
+const container = stack({ direction: 'x', itemSizeX: 100 });
+
+// Only this child fills the remaining width
+const item = stackItem({ adjustX: 'grow' });
+```
+
+To lay out only the children with `stackItem()` applied, specify `limitToItems: true` on the container. Children without `stackItem()` do not receive the styles applied to child elements. The container's options are used as the defaults for the children with `stackItem()` applied.
+
+```ts
+const container = stack({ limitToItems: true, itemSizeX: 100 });
+const item = stackItem(); // 100px wide
+// Children without stackItem() are not targeted
+```
+
+> **Note:** The container's own styles (`gap`, alignment, etc.) still affect children that are not targeted. They are still laid out as flex or grid items, so use `position: absolute` or similar to take them out of the flow.\
+> Also, since `center` centers its children using the first and last child, place non-targeted children somewhere other than first or last.
+
+In `*Item()` options, the size and ratio names do not have the `item` prefix.
+
+| Container option                              | `*Item()` option                  |
+| --------------------------------------------- | --------------------------------- |
+| `adjustX` / `adjustY`                         | `adjustX` / `adjustY`             |
+| `itemSizeX` / `itemSizeY`                     | `sizeX` / `sizeY`                 |
+| `itemRatioX` / `itemRatioY`                   | `ratioX` / `ratioY`               |
+| `alignX` / `alignY` (`layer` and `pin` only)  | `alignX` / `alignY`               |
+| `itemOffsetX` / `itemOffsetY` / `itemOffsetZ` | `offsetX` / `offsetY` / `offsetZ` |
+
+> In `@fringeworks/style-layouts-adornment`, `*Item()` gives each child a role such as the position of a decoration, and only the children with it applied become decorations. In `style-layouts`, all children have the same role, so the container's options apply to every child and `*Item()` is used to change them per child. With `limitToItems: true`, only the children with `*Item()` applied are targeted, as in `style-layouts-adornment`.
+
 ### Nesting Layouts
 
 A child element can itself be a layout container. The parent's `itemSize` and `itemRatio` are applied to the child even when the child is a layout container.
 
 However, if the parent and the child both specify the same option (e.g. `itemSizeX` on both), the child's own value is also used for the child's own size.\
-This is a limitation of how CSS custom properties work. In that case, wrap the child in a `<div>` or similar and put the layout inside it.
+This is a limitation of how CSS custom properties work. In that case, either specify the child's own size with `*Item()`, or wrap the child in a `<div>` or similar and put the layout inside it.
+
+```ts
+// Apply both class names and styles to the child (which is also a stack container)
+const layout = stack({ itemSizeX: 50 }); // width of the child's children: 50px
+const item = stackItem({ sizeX: 200 }); // width of the child itself: 200px
+```
 
 ```html
 <!-- Parent: stack({ itemSizeX: 200 }) -->
@@ -228,7 +273,8 @@ const { className, style } = balance({
 
 ### `layer`
 
-Stacks child elements on top of each other at the same position.
+Stacks child elements on top of each other at the same position.\
+The position (`alignX` / `alignY`) is relative to the container even when a child is larger than the container (when centered, it overflows on both sides).
 
 > `space-between`, `space-around`, and `space-evenly` cannot be specified for `alignX` / `alignY`.
 
@@ -245,16 +291,25 @@ const { className, style } = layer({
 
 ### `pin`
 
-Positions child elements at specified coordinates. Each child element should have its position set via `top` / `left` / `bottom` / `right` styles.
+Positions child elements at specified coordinates.\
+Choose the edge of the container to measure from with `alignX` / `alignY`, and specify the distance from that edge with `offsetX` / `offsetY`. `offsetZ` specifies the stacking order. Without offsets, the child's own `top` / `left` / `bottom` / `right` styles are used.
 
 ```ts
-import { pin } from '@fringeworks/style-layouts';
+import { pin, pinItem } from '@fringeworks/style-layouts';
 
+// Container: size of every child, and the edges to measure from (bottom right)
 const { className, style } = pin({
+  alignX: 'right',
+  alignY: 'bottom',
   itemSizeX: 100,
   itemSizeY: 80,
 });
+
+// Child: 20px from the right, 10% of the container height from the bottom, in front of the others
+const item = pinItem({ offsetX: 20, offsetY: '10%', offsetZ: 1 });
 ```
+
+> Offset numbers are in px. Strings (`'10%'`, `'1rem'`, etc.) are used as CSS values as-is.
 
 ## API
 
@@ -292,45 +347,55 @@ Returns the class names and CSS custom properties to apply to the container elem
 
 #### Options by Layout
 
-| Option       | stack | flow | tile | matrix | center | pack | balance | layer | pin |
-| ------------ | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
-| `direction`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `alignX`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `alignY`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `adjustX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `adjustY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `gap`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapX`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapY`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `itemSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `itemCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksX`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksY`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| Option         | stack | flow | tile | matrix | center | pack | balance | layer | pin  |
+| -------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :--: |
+| `direction`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —   |
+| `alignX`       |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   | ✓ \* |
+| `alignY`       |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   | ✓ \* |
+| `adjustX`      |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —   |
+| `adjustY`      |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —   |
+| `gap`          |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —   |
+| `gapX`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —   |
+| `gapY`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —   |
+| `itemSizeX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓   |
+| `itemSizeY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓   |
+| `itemRatioX`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓   |
+| `itemRatioY`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓   |
+| `itemCountX`   |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —   |
+| `itemCountY`   |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —   |
+| `tracksX`      |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —   |
+| `tracksY`      |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —   |
+| `itemOffsetX`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   —   |  ✓   |
+| `itemOffsetY`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   —   |  ✓   |
+| `itemOffsetZ`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   ✓   |  ✓   |
+| `limitToItems` |   ✓   |  ✓   |  —   |   —    |   ✓    |  —   |    —    |   ✓   |  ✓   |
+
+\* For `pin`, `alignX` accepts only `'left'` / `'right'` and `alignY` only `'top'` / `'bottom'`; they choose the edge the offsets are measured from.
 
 #### Options Reference
 
-| Option        | Type                       | Description                                                                      |
-| ------------- | -------------------------- | -------------------------------------------------------------------------------- |
-| `direction?`  | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                                             |
-| `alignX?`     | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)                             |
-| `alignY?`     | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)                                |
-| `adjustX?`    | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`)                       |
-| `adjustY?`    | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)                         |
-| `gap?`        | `number`                   | Gap between children in px, both axes (default: `0`)                             |
-| `gapX?`       | `number`                   | Gap between children in px, horizontal (default: `gap`)                          |
-| `gapY?`       | `number`                   | Gap between children in px, vertical (default: `gap`)                            |
-| `itemSizeX?`  | `number`                   | Width of child elements in px (if omitted, the child's own width)                |
-| `itemSizeY?`  | `number`                   | Height of child elements in px (if omitted, the child's own height)              |
-| `itemRatioX?` | `number`                   | Horizontal ratio of child elements (`1` if only `itemRatioY` is specified)       |
-| `itemRatioY?` | `number`                   | Vertical ratio of child elements (`1` if only `itemRatioX` is specified)         |
-| `itemCountX?` | `number`                   | Number of children horizontally (required by `matrix` unless `tracksX` is given) |
-| `itemCountY?` | `number`                   | Number of children vertically (required by `matrix` unless `tracksY` is given)   |
-| `tracksX?`    | `(string \| number)[]`     | Individual sizes of children horizontally (`matrix`, instead of `itemCountX`)    |
-| `tracksY?`    | `(string \| number)[]`     | Individual sizes of children vertically (`matrix`, instead of `itemCountY`)      |
+| Option          | Type                       | Description                                                                         |
+| --------------- | -------------------------- | ----------------------------------------------------------------------------------- |
+| `direction?`    | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                                                |
+| `alignX?`       | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)                                |
+| `alignY?`       | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)                                   |
+| `adjustX?`      | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`)                          |
+| `adjustY?`      | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)                            |
+| `gap?`          | `number`                   | Gap between children in px, both axes (default: `0`)                                |
+| `gapX?`         | `number`                   | Gap between children in px, horizontal (default: `gap`)                             |
+| `gapY?`         | `number`                   | Gap between children in px, vertical (default: `gap`)                               |
+| `itemSizeX?`    | `number`                   | Width of child elements in px (if omitted, the child's own width)                   |
+| `itemSizeY?`    | `number`                   | Height of child elements in px (if omitted, the child's own height)                 |
+| `itemRatioX?`   | `number`                   | Horizontal ratio of child elements (`1` if only `itemRatioY` is specified)          |
+| `itemRatioY?`   | `number`                   | Vertical ratio of child elements (`1` if only `itemRatioX` is specified)            |
+| `itemCountX?`   | `number`                   | Number of children horizontally (required by `matrix` unless `tracksX` is given)    |
+| `itemCountY?`   | `number`                   | Number of children vertically (required by `matrix` unless `tracksY` is given)      |
+| `tracksX?`      | `(string \| number)[]`     | Individual sizes of children horizontally (`matrix`, instead of `itemCountX`)       |
+| `tracksY?`      | `(string \| number)[]`     | Individual sizes of children vertically (`matrix`, instead of `itemCountY`)         |
+| `itemOffsetX?`  | `number \| string`         | Horizontal offset of children (distance from the `alignX` edge; numbers are px)     |
+| `itemOffsetY?`  | `number \| string`         | Vertical offset of children (distance from the `alignY` edge; numbers are px)       |
+| `itemOffsetZ?`  | `number`                   | Stacking order of children (`z-index`)                                              |
+| `limitToItems?` | `boolean`                  | Applies the child styles only to children with `*Item()` applied (default: `false`) |
 
 Combinations not allowed for a given `direction` are type errors (omitting `direction` is treated as `'x'`).
 
@@ -372,19 +437,84 @@ Combinations not allowed for a given `direction` are type errors (omitting `dire
 
 > **Note:** If individual width or height is set on a child element, that value takes precedence and the behavior described above may not apply.
 
+### Item Functions
+
+| Function               | Description                                                       |
+| ---------------------- | ----------------------------------------------------------------- |
+| `stackItem(options?)`  | Applied to a child of `stack`; overrides the container's options  |
+| `flowItem(options?)`   | Applied to a child of `flow`; overrides the container's options   |
+| `centerItem(options?)` | Applied to a child of `center`; overrides the container's options |
+| `layerItem(options?)`  | Applied to a child of `layer`; overrides the container's options  |
+| `pinItem(options?)`    | Applied to a child of `pin`; overrides the container's options    |
+
+```ts
+stackItem(options?: StackItemOptions): LayoutStyle
+flowItem(options?: FlowItemOptions): LayoutStyle
+centerItem(options?: CenterItemOptions): LayoutStyle
+layerItem(options?: LayerItemOptions): LayoutStyle
+pinItem(options?: PinItemOptions): LayoutStyle
+```
+
+Returns the class names and CSS custom properties to apply to a child element. Only the specified options override the container's options; the others follow the container. The main and cross axes are determined by the container's `direction`.
+
+| Parameter  | Type                                | Description       |
+| ---------- | ----------------------------------- | ----------------- |
+| `options?` | `StackItemOptions`, etc. per layout | The options below |
+
+#### Options by Item Function
+
+| Option    | stackItem | flowItem | centerItem | layerItem | pinItem |
+| --------- | :-------: | :------: | :--------: | :-------: | :-----: |
+| `alignX`  |     —     |    —     |     —      |     ✓     |  ✓ \*   |
+| `alignY`  |     —     |    —     |     —      |     ✓     |  ✓ \*   |
+| `adjustX` |     ✓     |    ✓     |     ✓      |     ✓     |    —    |
+| `adjustY` |     ✓     |    ✓     |     ✓      |     ✓     |    —    |
+| `sizeX`   |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `sizeY`   |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `ratioX`  |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `ratioY`  |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `offsetX` |     —     |    —     |     —      |     —     |    ✓    |
+| `offsetY` |     —     |    —     |     —      |     —     |    ✓    |
+| `offsetZ` |     —     |    —     |     —      |     ✓     |    ✓    |
+
+\* For `pinItem`, `alignX` accepts only `'left'` / `'right'` and `alignY` only `'top'` / `'bottom'`; they choose the edge the offsets are measured from.
+
+#### Item Options Reference
+
+| Option     | Type                            | Description                                                         |
+| ---------- | ------------------------------- | ------------------------------------------------------------------- |
+| `alignX?`  | `'left' \| 'center' \| 'right'` | Horizontal position (the edge to measure from for `pinItem`)        |
+| `alignY?`  | `'top' \| 'middle' \| 'bottom'` | Vertical position (the edge to measure from for `pinItem`)          |
+| `adjustX?` | [`Adjust`](#adjust-values)      | Horizontal size adjustment                                          |
+| `adjustY?` | [`Adjust`](#adjust-values)      | Vertical size adjustment                                            |
+| `sizeX?`   | `number`                        | Width in px                                                         |
+| `sizeY?`   | `number`                        | Height in px                                                        |
+| `ratioX?`  | `number`                        | Horizontal ratio (`1` if only `ratioY` is given)                    |
+| `ratioY?`  | `number`                        | Vertical ratio (`1` if only `ratioX` is given)                      |
+| `offsetX?` | `number \| string`              | Horizontal offset (distance from the `alignX` edge; numbers are px) |
+| `offsetY?` | `number \| string`              | Vertical offset (distance from the `alignY` edge; numbers are px)   |
+| `offsetZ?` | `number`                        | Stacking order (`z-index`)                                          |
+
+> As with the container, `adjust` on the cross axis is not applied for `flowItem` (the axes are determined by the container's `direction`, so it is not a type error).
+
 ### `extract*Options`
 
-| Function                        | Description                                           |
-| ------------------------------- | ----------------------------------------------------- |
-| `extractStackOptions(record)`   | Separates `stack` options from the other properties   |
-| `extractFlowOptions(record)`    | Separates `flow` options from the other properties    |
-| `extractTileOptions(record)`    | Separates `tile` options from the other properties    |
-| `extractMatrixOptions(record)`  | Separates `matrix` options from the other properties  |
-| `extractCenterOptions(record)`  | Separates `center` options from the other properties  |
-| `extractPackOptions(record)`    | Separates `pack` options from the other properties    |
-| `extractBalanceOptions(record)` | Separates `balance` options from the other properties |
-| `extractLayerOptions(record)`   | Separates `layer` options from the other properties   |
-| `extractPinOptions(record)`     | Separates `pin` options from the other properties     |
+| Function                           | Description                                              |
+| ---------------------------------- | -------------------------------------------------------- |
+| `extractStackOptions(record)`      | Separates `stack` options from the other properties      |
+| `extractFlowOptions(record)`       | Separates `flow` options from the other properties       |
+| `extractTileOptions(record)`       | Separates `tile` options from the other properties       |
+| `extractMatrixOptions(record)`     | Separates `matrix` options from the other properties     |
+| `extractCenterOptions(record)`     | Separates `center` options from the other properties     |
+| `extractPackOptions(record)`       | Separates `pack` options from the other properties       |
+| `extractBalanceOptions(record)`    | Separates `balance` options from the other properties    |
+| `extractLayerOptions(record)`      | Separates `layer` options from the other properties      |
+| `extractPinOptions(record)`        | Separates `pin` options from the other properties        |
+| `extractStackItemOptions(record)`  | Separates `stackItem` options from the other properties  |
+| `extractFlowItemOptions(record)`   | Separates `flowItem` options from the other properties   |
+| `extractCenterItemOptions(record)` | Separates `centerItem` options from the other properties |
+| `extractLayerItemOptions(record)`  | Separates `layerItem` options from the other properties  |
+| `extractPinItemOptions(record)`    | Separates `pinItem` options from the other properties    |
 
 ```ts
 extractStackOptions<T extends Record<string, unknown>>(
@@ -431,6 +561,13 @@ Constants that list the option values. A type with the same name (the union of t
 | `BalanceLayoutOptions` | Options of `balance`                                 |
 | `LayerLayoutOptions`   | Options of `layer`                                   |
 | `PinLayoutOptions`     | Options of `pin`                                     |
+| `StackItemOptions`     | Options of `stackItem`                               |
+| `FlowItemOptions`      | Options of `flowItem`                                |
+| `CenterItemOptions`    | Options of `centerItem`                              |
+| `LayerItemOptions`     | Options of `layerItem`                               |
+| `PinItemOptions`       | Options of `pinItem`                                 |
+| `PinAlignX`            | Values of `alignX` for `pin` / `pinItem`             |
+| `PinAlignY`            | Values of `alignY` for `pin` / `pinItem`             |
 
 ```ts
 type LayoutStyle = {

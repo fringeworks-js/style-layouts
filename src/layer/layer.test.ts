@@ -28,4 +28,10 @@ describe('layer', () => {
       },
     });
   });
+
+  it('itemOffsetZをクラスと変数に変換する', () => {
+    const { className, style } = layer({ itemOffsetZ: 3 });
+    expect(className).toContain('frg-layout-itemOffsetZ');
+    expect(style).toEqual({ '--frg-layout-itemOffsetZ': '3' });
+  });
 });

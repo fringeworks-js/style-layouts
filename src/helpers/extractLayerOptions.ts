@@ -1,15 +1,15 @@
+import { createSplitByKeys } from '@fringeworks/utils/object/createSplitByKeys';
 import type { LayerLayoutOptions } from '../layer/types';
-import {
-  ADJUST_OPTIONS_KEYS,
-  ALIGN_OPTIONS_KEYS,
-  ITEM_RATIO_OPTIONS_KEYS,
-  ITEM_SIZE_OPTIONS_KEYS,
-} from './_internal/constants';
-import createExtractLayoutOptions from './_internal/createExtractLayoutOptions';
 
-export default createExtractLayoutOptions<LayerLayoutOptions>([
-  ...ALIGN_OPTIONS_KEYS,
-  ...ADJUST_OPTIONS_KEYS,
-  ...ITEM_SIZE_OPTIONS_KEYS,
-  ...ITEM_RATIO_OPTIONS_KEYS,
-]);
+export default createSplitByKeys<LayerLayoutOptions>({
+  alignX: true,
+  alignY: true,
+  adjustX: true,
+  adjustY: true,
+  itemSizeX: true,
+  itemSizeY: true,
+  itemRatioX: true,
+  itemRatioY: true,
+  limitToItems: true,
+  itemOffsetZ: true,
+});

@@ -1,3 +1,9 @@
+@use '../child';
+@use '../flex';
+
+// アイテムのクラスの接頭辞
+$item: 'frg-layout-flow-item';
+
 .frg-layout-flow {
   // 子要素の間隔
   column-gap: var(--frg-layout-gapX);
@@ -6,6 +12,9 @@
   // flow用のスタイル
   display: flex;
   flex-wrap: wrap;
+
+  // 子要素のサイズ・縦横比の値（コンテナの指定とアイテムの指定のどちらを使うか）
+  @include child.resolve($item);
 
   &.frg-layout-direction-x {
     // 子要素を並べる向き・横並び
@@ -66,49 +75,20 @@
       align-content: space-evenly;
     }
 
-    // 子要素のデフォルト調整
-    & > * {
-      flex-grow: 0;
-      flex-shrink: 0;
-      min-width: 0;
-      min-height: 0;
-    }
-
-    &.frg-layout-itemSizeX > * {
-      // 子要素の幅
-      flex-basis: var(--frg-layout-itemSizeX);
-    }
     &.frg-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
       justify-content: flex-start;
-      // 子要素
-      & > * {
-        // 主軸
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: auto;
-      }
-      &.frg-layout-itemSizeX > * {
-        flex-basis: var(--frg-layout-itemSizeX);
-      }
-    }
-    &.frg-layout-adjustX-grow > * {
-      // 子要素の幅調整: 伸ばす
-      flex-grow: 1;
-    }
-    &.frg-layout-adjustX-shrink > * {
-      // 子要素の幅調整: 縮める
-      flex-shrink: 1;
     }
 
-    &.frg-layout-itemSizeY > * {
-      // 子要素の高さ
-      height: var(--frg-layout-itemSizeY);
-    }
-    // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
-    // 子要素の高さ調整: 伸ばす & 縮める (.frg-layout-adjustY-fit)
-    // 子要素の高さ調整: 伸ばす (.frg-layout-adjustY-grow)
-    // 子要素の高さ調整: 縮める (.frg-layout-adjustY-shrink)
+    // 子要素のデフォルト調整
+    @include flex.base($item);
+
+    // 子要素の幅(主軸)
+    @include flex.main-axis($item, X);
+
+    // 子要素の高さ(交差軸)
+    // wrap時に交差軸のサイズを調整することはできないため、adjustYは扱わない
+    @include flex.cross-axis-size($item, Y);
   }
 
   &.frg-layout-direction-y {
@@ -170,53 +150,24 @@
       justify-content: space-evenly;
     }
 
-    // 子要素のデフォルト調整
-    & > * {
-      flex-grow: 0;
-      flex-shrink: 0;
-      min-width: 0;
-      min-height: 0;
-    }
-
-    &.frg-layout-itemSizeX > * {
-      // 子要素の幅
-      width: var(--frg-layout-itemSizeX);
-    }
-    // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
-    // 子要素の幅調整: 伸ばす & 縮める (.frg-layout-adjustX-fit)
-    // 子要素の幅調整: 伸ばす (.frg-layout-adjustX-grow)
-    // 子要素の幅調整: 縮める (.frg-layout-adjustX-shrink)
-
-    &.frg-layout-itemSizeY > * {
-      // 子要素の高さ
-      flex-basis: var(--frg-layout-itemSizeY);
-    }
     &.frg-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める
       justify-content: flex-start;
-      // 子要素
-      & > * {
-        // 主軸
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: auto;
-      }
-      &.frg-layout-itemSizeY > * {
-        flex-basis: var(--frg-layout-itemSizeY);
-      }
     }
-    &.frg-layout-adjustY-grow > * {
-      // 子要素の高さ調整: 伸ばす
-      flex-grow: 1;
-    }
-    &.frg-layout-adjustY-shrink > * {
-      // 子要素の高さ調整: 縮める
-      flex-shrink: 1;
-    }
+
+    // 子要素のデフォルト調整
+    @include flex.base($item);
+
+    // 子要素の幅(交差軸)
+    // wrap時に交差軸のサイズを調整することはできないため、adjustXは扱わない
+    @include flex.cross-axis-size($item, X);
+
+    // 子要素の高さ(主軸)
+    @include flex.main-axis($item, Y);
   }
 
-  &.frg-layout-itemRatio > * {
+  @include child.when($item, child.ratio($item)) {
     // 縦横比
-    aspect-ratio: var(--frg-layout-itemRatio);
+    aspect-ratio: var(--_frg-layout-ratio);
   }
 }

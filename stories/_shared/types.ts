@@ -147,6 +147,11 @@ export type TestStoryArgs = Record<string, unknown> & {
    * 子要素に適用するレイアウト（入れ子の確認用）
    */
   childLayout?: ChildLayout;
+
+  /**
+   * 子要素ごとのアイテムのオプション（*Item()に渡す。nullの子要素には適用しない）
+   */
+  childItems?: (Record<string, unknown> | null)[];
 };
 
 /**

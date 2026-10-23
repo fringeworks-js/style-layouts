@@ -33,6 +33,11 @@ export type TestModel = {
      * 子要素に適用するレイアウト
      */
     layout?: ChildLayout;
+
+    /**
+     * 子要素に適用するアイテムのオプション
+     */
+    itemOptions?: Record<string, unknown>;
   }[];
 };
 
@@ -47,6 +52,7 @@ export default function createTestModel(args: TestStoryArgs): TestModel {
     childPositions,
     childContentSize,
     childLayout,
+    childItems,
     ...params
   } = args;
   const colors = chroma.scale(['d9ed92', '184e77']).colors(itemCount);
@@ -80,6 +86,7 @@ export default function createTestModel(args: TestStoryArgs): TestModel {
         },
       }),
       ...(childLayout && { layout: childLayout }),
+      ...(childItems?.[index] && { itemOptions: childItems[index] }),
     })),
   };
 }

@@ -1,5 +1,10 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
-import { clsLayout, clsLayoutLayer } from '../_constants';
+import {
+  clsLayout,
+  clsLayoutLayer,
+  clsLayoutLimitToItems,
+} from '../_constants';
+import applyItemOffset from '../_internal/applyItemOffset';
 import applyItemRatio from '../_internal/applyItemRatio';
 import applyItemSize from '../_internal/applyItemSize';
 import mergeClassName from '../_internal/mergeClassName';
@@ -23,6 +28,8 @@ const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
+    itemOffsetZ,
+    limitToItems,
   } = fillDefaults(options, {
     alignX: 'left',
     alignY: 'top',
@@ -37,12 +44,16 @@ const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
       clsLayout.align.y[alignY],
       clsLayout.adjust.x[adjustX],
       clsLayout.adjust.y[adjustY],
+      limitToItems ? clsLayoutLimitToItems : undefined,
     ),
     style: {},
   };
 
   // 子要素のサイズ
   applyItemSize(result, itemSizeX, itemSizeY);
+
+  // 子要素の重なり順
+  applyItemOffset(result, undefined, undefined, itemOffsetZ);
 
   // 子要素のアスペクト比
   applyItemRatio(result, itemRatioX, itemRatioY);

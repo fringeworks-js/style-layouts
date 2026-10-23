@@ -5,6 +5,9 @@ import type {
   GapOptions,
   ItemRatioOptions,
   ItemSizeOptions,
+  LimitToItemsOptions,
+  RatioOptions,
+  SizeOptions,
 } from '../_types';
 import type { AdjustBase } from '../constants';
 
@@ -18,7 +21,16 @@ export type FlowLayoutOptions = AlignOptions &
   GapOptions &
   ItemSizeOptions &
   ItemRatioOptions &
+  LimitToItemsOptions &
   FlowDirectionWithAdjustOptions;
+
+/**
+ * flowItemのオプション
+ *
+ * - 指定したオプションだけコンテナの指定を上書きする
+ * - 主軸・交差軸はコンテナのdirectionで決まる。交差軸のadjustは折り返しと両立しないため適用しない
+ */
+export type FlowItemOptions = AdjustOptions & SizeOptions & RatioOptions;
 
 /**
  * direction & adjustのオプション

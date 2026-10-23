@@ -351,3 +351,92 @@ export const NestedItemSize: Story = {
     childLayout: { name: 'stack' },
   },
 };
+
+// ===== stackItem =====
+
+// コンテナで指定した場合とアイテムで指定した場合で同じ結果になる
+const EQUIVALENT_X = {
+  container: { adjustX: 'grow', itemSizeX: 100, adjustY: 'fit' },
+  item: { adjustX: 'grow', sizeX: 100, adjustY: 'fit' },
+};
+const EQUIVALENT_Y = {
+  container: {
+    adjustY: 'shrink',
+    itemSizeY: 400,
+    adjustX: 'grow',
+    itemSizeX: 200,
+  },
+  item: { adjustY: 'shrink', sizeY: 400, adjustX: 'grow', sizeX: 200 },
+};
+const EQUIVALENT_RATIO = {
+  container: { itemSizeX: 100, itemRatioX: 1, itemRatioY: 2 },
+  item: { sizeX: 100, ratioX: 1, ratioY: 2 },
+};
+
+export const EquivalentXContainer: Story = {
+  args: { direction: 'x', ...EQUIVALENT_X.container, itemCount: 3 },
+};
+export const EquivalentXItem: Story = {
+  args: {
+    direction: 'x',
+    itemCount: 3,
+    childItems: [EQUIVALENT_X.item, EQUIVALENT_X.item, EQUIVALENT_X.item],
+  },
+};
+export const EquivalentYContainer: Story = {
+  args: { direction: 'y', ...EQUIVALENT_Y.container, itemCount: 3 },
+};
+export const EquivalentYItem: Story = {
+  args: {
+    direction: 'y',
+    itemCount: 3,
+    childItems: [EQUIVALENT_Y.item, EQUIVALENT_Y.item, EQUIVALENT_Y.item],
+  },
+};
+export const EquivalentRatioContainer: Story = {
+  args: { direction: 'x', ...EQUIVALENT_RATIO.container, itemCount: 3 },
+};
+export const EquivalentRatioItem: Story = {
+  args: {
+    direction: 'x',
+    itemCount: 3,
+    childItems: [
+      EQUIVALENT_RATIO.item,
+      EQUIVALENT_RATIO.item,
+      EQUIVALENT_RATIO.item,
+    ],
+  },
+};
+
+// アイテムの指定でコンテナの指定を上書きする
+export const ItemOverride: Story = {
+  args: {
+    direction: 'x',
+    itemSizeX: 100,
+    adjustY: 'fit',
+    itemCount: 3,
+    childItems: [null, { adjustX: 'grow', adjustY: 'none' }, { sizeX: 50 }],
+  },
+};
+
+// limitToItems: stackItemを適用した子要素だけが対象
+export const LimitToItems: Story = {
+  args: {
+    direction: 'x',
+    limitToItems: true,
+    itemSizeX: 100,
+    adjustY: 'fit',
+    itemCount: 3,
+    childItems: [{}, null, { sizeX: 50 }],
+  },
+};
+
+// 子要素がレイアウトのコンテナで同じオプションを使う場合も、stackItemなら干渉しない
+export const NestedItem: Story = {
+  args: {
+    direction: 'x',
+    itemCount: 2,
+    childLayout: { name: 'stack', options: { itemSizeX: 50 } },
+    childItems: [{ sizeX: 200 }, { sizeX: 200 }],
+  },
+};

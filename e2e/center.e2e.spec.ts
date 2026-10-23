@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import getStoryRects from './_internal/getStoryRects';
 
 const STORY_URL = (storyId: string) =>
   `/iframe.html?id=spec-center--${storyId}&viewMode=story`;
@@ -303,5 +304,46 @@ test.describe('center - 入れ子', () => {
       .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
     expect(widths).toHaveLength(2);
     widths.forEach((w) => expect(w).toBeCloseTo(ITEM_SIZE, 0));
+  });
+});
+
+// ===== centerItem =====
+
+test.describe('center - centerItem', () => {
+  for (const key of ['x', 'y', 'ratio']) {
+    test(`コンテナで指定した場合と同じ結果になる（${key}）`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 800, height: 600 });
+      await gotoStory(page, `equivalent-${key}-container`);
+      const expected = await getStoryRects(page);
+      await gotoStory(page, `equivalent-${key}-item`);
+      const actual = await getStoryRects(page);
+      expect(actual).toEqual(expected);
+    });
+  }
+
+  test('アイテムの指定でコンテナの指定を上書きする', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'item-override');
+    const { container, children } = await getStoryRects(page);
+    const [first, second, third] = children;
+    expect(first!.width).toBeCloseTo(100, 0);
+    expect(first!.height).toBeCloseTo(container.height, 0);
+    expect(second!.width).toBeCloseTo(100, 0);
+    expect(second!.height).toBeLessThan(container.height);
+    expect(third!.width).toBeCloseTo(50, 0);
+    expect(third!.height).toBeCloseTo(container.height, 0);
+  });
+
+  test('limitToItems: centerItemを適用した子要素だけが対象になる', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'limit-to-items');
+    const { children } = await getStoryRects(page);
+    expect(children[0]!.width).toBeCloseTo(100, 0);
+    expect(children[1]!.width).toBeLessThan(100);
+    expect(children[2]!.width).toBeCloseTo(100, 0);
   });
 });

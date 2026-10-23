@@ -131,3 +131,83 @@ export const NestedAdjustXGrow: Story = {
     childLayout: { name: 'center' },
   },
 };
+
+// ===== centerItem =====
+
+export const EquivalentXContainer: Story = {
+  args: {
+    ...{ direction: 'x' },
+    ...{ adjustX: 'shrink', itemSizeX: 400, adjustY: 'grow', itemSizeY: 100 },
+    itemCount: 3,
+  },
+};
+export const EquivalentXItem: Story = {
+  args: {
+    ...{ direction: 'x' },
+    itemCount: 3,
+    childItems: Array.from({ length: 3 }, () => ({
+      adjustX: 'shrink',
+      sizeX: 400,
+      adjustY: 'grow',
+      sizeY: 100,
+    })),
+  },
+};
+export const EquivalentYContainer: Story = {
+  args: {
+    ...{ direction: 'y' },
+    ...{ adjustY: 'fit', adjustX: 'shrink', itemSizeX: 300 },
+    itemCount: 2,
+  },
+};
+export const EquivalentYItem: Story = {
+  args: {
+    ...{ direction: 'y' },
+    itemCount: 2,
+    childItems: Array.from({ length: 2 }, () => ({
+      adjustY: 'fit',
+      adjustX: 'shrink',
+      sizeX: 300,
+    })),
+  },
+};
+export const EquivalentRatioContainer: Story = {
+  args: {
+    ...{ direction: 'x' },
+    ...{ itemSizeX: 100, itemRatioX: 1, itemRatioY: 2 },
+    itemCount: 3,
+  },
+};
+export const EquivalentRatioItem: Story = {
+  args: {
+    ...{ direction: 'x' },
+    itemCount: 3,
+    childItems: Array.from({ length: 3 }, () => ({
+      sizeX: 100,
+      ratioX: 1,
+      ratioY: 2,
+    })),
+  },
+};
+
+// アイテムの指定でコンテナの指定を上書きする
+export const ItemOverride: Story = {
+  args: {
+    direction: 'x',
+    itemSizeX: 100,
+    adjustY: 'grow',
+    itemCount: 3,
+    childItems: [null, { adjustY: 'none' }, { sizeX: 50 }],
+  },
+};
+
+// limitToItems: centerItemを適用した子要素だけが対象
+export const LimitToItems: Story = {
+  args: {
+    direction: 'x',
+    limitToItems: true,
+    itemSizeX: 100,
+    itemCount: 3,
+    childItems: [{}, null, {}],
+  },
+};

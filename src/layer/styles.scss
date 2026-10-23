@@ -1,91 +1,100 @@
+@use '../child';
+
+// アイテムのクラスの接頭辞
+$item: 'frg-layout-layer-item';
+
+/// 軸ごとの子要素のスタイル
+/// @param {String} $axis 軸（X / Y）
+/// @param {String} $size サイズのプロパティ（width / height）
+/// @param {String} $self 位置のプロパティ（justify-self / align-self）
+/// @param {Map} $aligns alignの値と位置の値
+@mixin _axis($axis, $size, $self, $aligns) {
+  // 位置（伸ばす場合は親要素の幅・高さに合わせるため、alignは使わない）
+  @each $align, $value in $aligns {
+    @include child.when(
+      $item,
+      child.align($item, $axis, $align),
+      child.adjust($item, $axis, none, shrink)
+    ) {
+      #{$self}: $value;
+    }
+  }
+
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, none, shrink),
+    child.size($item, $axis)
+  ) {
+    // 子要素のサイズ
+    #{$size}: var(--_frg-layout-size#{$axis});
+  }
+  @include child.when($item, child.adjust($item, $axis, fit, grow)) {
+    // 伸ばす & 縮める / 伸ばす 共通: 親要素に合わせる
+    #{$self}: stretch;
+    #{$size}: auto;
+  }
+  @include child.when($item, child.adjust($item, $axis, fit, shrink)) {
+    // 伸ばす & 縮める / 縮める 共通: 子要素の中身の大きさに関わらず親要素まで縮める
+    min-#{$size}: 0;
+    max-#{$size}: 100%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, grow),
+    child.size($item, $axis)
+  ) {
+    // 伸ばす: 指定のサイズより小さくしない
+    min-#{$size}: var(--_frg-layout-size#{$axis});
+  }
+}
+
 .frg-layout-layer {
   // layer用のスタイル
   display: grid;
+  // 子要素を重ねる領域を親要素の大きさにする
+  // トラックの最小サイズを0にして、子要素の中身が大きくても親要素の大きさを超えないようにする（adjustのfit / shrinkで縮められるようにする）
+  grid-template-columns: minmax(0, 100%);
+  grid-template-rows: minmax(0, 100%);
 
-  & > * {
+  // 子要素のサイズ・縦横比・重なり順の値（コンテナの指定とアイテムの指定のどちらを使うか）
+  @include child.resolve($item);
+  @include child.resolve-values($item, offsetZ);
+
+  @include child.when($item) {
     grid-area: 1 / 1;
   }
 
-  &.frg-layout-alignX-left > * {
-    // 横位置: 左
-    justify-self: start;
-  }
-  &.frg-layout-alignX-center > * {
-    // 横位置: 中央
-    justify-self: center;
-  }
-  &.frg-layout-alignX-right > * {
-    // 横位置: 右
-    justify-self: end;
+  // 子要素の幅
+  @include _axis(
+    X,
+    width,
+    justify-self,
+    (
+      left: start,
+      center: center,
+      right: end,
+    )
+  );
+
+  // 子要素の高さ
+  @include _axis(
+    Y,
+    height,
+    align-self,
+    (
+      top: start,
+      middle: center,
+      bottom: end,
+    )
+  );
+
+  @include child.when($item, child.offset($item, Z)) {
+    // 重なり順
+    z-index: var(--_frg-layout-offsetZ);
   }
 
-  &.frg-layout-alignY-top > * {
-    // 縦位置: 上
-    align-self: start;
-  }
-  &.frg-layout-alignY-middle > * {
-    // 縦位置: 中央
-    align-self: center;
-  }
-  &.frg-layout-alignY-bottom > * {
-    // 縦位置: 下
-    align-self: end;
-  }
-
-  &.frg-layout-itemSizeX > * {
-    // 子要素の幅
-    width: var(--frg-layout-itemSizeX);
-  }
-
-  &.frg-layout-itemSizeY > * {
-    // 子要素の高さ
-    height: var(--frg-layout-itemSizeY);
-  }
-
-  // 子要素の幅調整: 伸ばす & 縮める / 伸ばす 共通
-  &.frg-layout-adjustX-fit > *,
-  &.frg-layout-adjustX-grow > * {
-    justify-self: stretch;
-    width: auto;
-  }
-  // 子要素の幅調整: 伸ばす & 縮める / 縮める 共通
-  // トラックの最小サイズを0にして、子要素の中身の大きさに関わらず親要素の幅まで縮める
-  &.frg-layout-adjustX-fit,
-  &.frg-layout-adjustX-shrink {
-    grid-template-columns: minmax(0, 100%);
-    & > * {
-      min-width: 0;
-      max-width: 100%;
-    }
-  }
-  &.frg-layout-adjustX-grow.frg-layout-itemSizeX > * {
-    // 子要素の幅調整: 伸ばす
-    min-width: var(--frg-layout-itemSizeX);
-  }
-
-  // 子要素の高さ調整: 伸ばす & 縮める / 伸ばす 共通
-  &.frg-layout-adjustY-fit > *,
-  &.frg-layout-adjustY-grow > * {
-    align-self: stretch;
-    height: auto;
-  }
-  // 子要素の高さ調整: 伸ばす & 縮める / 縮める 共通
-  // トラックの最小サイズを0にして、子要素の中身の大きさに関わらず親要素の高さまで縮める
-  &.frg-layout-adjustY-fit,
-  &.frg-layout-adjustY-shrink {
-    grid-template-rows: minmax(0, 100%);
-    & > * {
-      min-height: 0;
-      max-height: 100%;
-    }
-  }
-  &.frg-layout-adjustY-grow.frg-layout-itemSizeY > * {
-    // 子要素の高さ調整: 伸ばす
-    min-height: var(--frg-layout-itemSizeY);
-  }
-
-  // アスペクト比
-  &.frg-layout-itemRatio > * {
-    aspect-ratio: var(--frg-layout-itemRatio);
+  @include child.when($item, child.ratio($item)) {
+    // 縦横比
+    aspect-ratio: var(--_frg-layout-ratio);
   }
 }

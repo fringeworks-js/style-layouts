@@ -246,3 +246,81 @@ export const DirectionXChildRatio: Story = {
     itemCount: 3,
   },
 };
+
+// ===== flowItem =====
+
+export const EquivalentXContainer: Story = {
+  args: {
+    ...{ direction: 'x' },
+    ...{ adjustX: 'grow', itemSizeX: 150, itemSizeY: 60 },
+    itemCount: 7,
+  },
+};
+export const EquivalentXItem: Story = {
+  args: {
+    ...{ direction: 'x' },
+    itemCount: 7,
+    childItems: Array.from({ length: 7 }, () => ({
+      adjustX: 'grow',
+      sizeX: 150,
+      sizeY: 60,
+    })),
+  },
+};
+export const EquivalentYContainer: Story = {
+  args: {
+    ...{ direction: 'y' },
+    ...{ adjustY: 'shrink', itemSizeY: 250, itemSizeX: 120 },
+    itemCount: 4,
+  },
+};
+export const EquivalentYItem: Story = {
+  args: {
+    ...{ direction: 'y' },
+    itemCount: 4,
+    childItems: Array.from({ length: 4 }, () => ({
+      adjustY: 'shrink',
+      sizeY: 250,
+      sizeX: 120,
+    })),
+  },
+};
+export const EquivalentRatioContainer: Story = {
+  args: {
+    ...{ direction: 'x' },
+    ...{ itemSizeX: 100, itemRatioX: 1, itemRatioY: 2 },
+    itemCount: 3,
+  },
+};
+export const EquivalentRatioItem: Story = {
+  args: {
+    ...{ direction: 'x' },
+    itemCount: 3,
+    childItems: Array.from({ length: 3 }, () => ({
+      sizeX: 100,
+      ratioX: 1,
+      ratioY: 2,
+    })),
+  },
+};
+
+// アイテムの指定でコンテナの指定を上書きする
+export const ItemOverride: Story = {
+  args: {
+    direction: 'x',
+    itemSizeX: 100,
+    itemCount: 3,
+    childItems: [null, { sizeX: 50 }, { adjustX: 'grow' }],
+  },
+};
+
+// limitToItems: flowItemを適用した子要素だけが対象
+export const LimitToItems: Story = {
+  args: {
+    direction: 'x',
+    limitToItems: true,
+    itemSizeX: 100,
+    itemCount: 3,
+    childItems: [{}, null, { sizeX: 50 }],
+  },
+};

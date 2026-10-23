@@ -144,3 +144,103 @@ export const AdjustYFitContent: Story = {
     childContentSize: CONTENT_SIZE,
   },
 };
+
+// ===== layerItem =====
+
+export const EquivalentAContainer: Story = {
+  args: {
+    ...{},
+    ...{
+      alignX: 'center',
+      alignY: 'bottom',
+      adjustX: 'shrink',
+      itemSizeX: 1000,
+      itemSizeY: 100,
+    },
+    itemCount: 2,
+  },
+};
+export const EquivalentAItem: Story = {
+  args: {
+    ...{},
+    itemCount: 2,
+    childItems: Array.from({ length: 2 }, () => ({
+      alignX: 'center',
+      alignY: 'bottom',
+      adjustX: 'shrink',
+      sizeX: 1000,
+      sizeY: 100,
+    })),
+  },
+};
+export const EquivalentBContainer: Story = {
+  args: {
+    ...{},
+    ...{ adjustX: 'grow', itemSizeX: 100, adjustY: 'fit' },
+    itemCount: 2,
+  },
+};
+export const EquivalentBItem: Story = {
+  args: {
+    ...{},
+    itemCount: 2,
+    childItems: Array.from({ length: 2 }, () => ({
+      adjustX: 'grow',
+      sizeX: 100,
+      adjustY: 'fit',
+    })),
+  },
+};
+export const EquivalentRatioContainer: Story = {
+  args: {
+    ...{},
+    ...{ itemSizeX: 100, itemRatioX: 1, itemRatioY: 2 },
+    itemCount: 2,
+  },
+};
+export const EquivalentRatioItem: Story = {
+  args: {
+    ...{},
+    itemCount: 2,
+    childItems: Array.from({ length: 2 }, () => ({
+      sizeX: 100,
+      ratioX: 1,
+      ratioY: 2,
+    })),
+  },
+};
+
+// アイテムの指定でコンテナの指定を上書きする
+export const ItemOverride: Story = {
+  args: {
+    alignX: 'left',
+    itemSizeX: 100,
+    itemSizeY: 100,
+    itemCount: 3,
+    childItems: [null, { alignX: 'right' }, { adjustX: 'grow' }],
+  },
+};
+
+// limitToItems: layerItemを適用した子要素だけが対象
+export const LimitToItems: Story = {
+  args: {
+    limitToItems: true,
+    itemSizeX: 100,
+    itemSizeY: 100,
+    itemCount: 2,
+    childItems: [{}, null],
+  },
+};
+
+// ===== 重なり順 =====
+
+// 先の子要素をoffsetZで手前にする
+export const OffsetZ: Story = {
+  args: {
+    itemSizeX: 100,
+    itemSizeY: 100,
+    itemOffsetZ: 1,
+    itemCount: 2,
+    childItems: [{ offsetZ: 2 }, null],
+  },
+};

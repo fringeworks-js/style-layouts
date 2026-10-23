@@ -1,5 +1,9 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
-import { clsLayout, clsLayoutStack } from '../_constants';
+import {
+  clsLayout,
+  clsLayoutLimitToItems,
+  clsLayoutStack,
+} from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemRatio from '../_internal/applyItemRatio';
 import applyItemSize from '../_internal/applyItemSize';
@@ -11,6 +15,7 @@ import type { StackLayoutOptions } from './types';
  * stackレイアウト
  *
  * - 子要素を一列に並べて配置する
+ * - 子要素ごとに指定を変える場合はstackItemを使う
  */
 const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
   const {
@@ -26,6 +31,7 @@ const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
+    limitToItems,
   } = fillDefaults(options, {
     direction: 'x',
     alignX: 'left',
@@ -43,6 +49,7 @@ const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
       clsLayout.align.y[alignY],
       clsLayout.adjust.x[adjustX],
       clsLayout.adjust.y[adjustY],
+      limitToItems ? clsLayoutLimitToItems : undefined,
     ),
     style: {},
   };

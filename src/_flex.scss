@@ -1,0 +1,95 @@
+// flexで子要素を並べるレイアウト（stack・flow）の子要素のスタイル
+
+@use 'child';
+
+/// 主軸方向の子要素のスタイル
+/// @param {String} $item アイテムのクラス
+/// @param {String} $axis 主軸（X / Y）
+@mixin main-axis($item, $axis) {
+  @include child.when($item, child.adjust($item, $axis, fit, grow)) {
+    // 伸ばす
+    flex-grow: 1;
+  }
+  @include child.when($item, child.adjust($item, $axis, fit, shrink)) {
+    // 縮める
+    flex-shrink: 1;
+  }
+  @include child.when($item, child.size($item, $axis)) {
+    // 子要素のサイズ
+    flex-basis: var(--_frg-layout-size#{$axis});
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, fit),
+    child.no-size($item, $axis)
+  ) {
+    flex-basis: auto;
+  }
+}
+
+/// 交差軸方向の子要素のスタイル
+/// @param {String} $item アイテムのクラス
+/// @param {String} $axis 交差軸（X / Y）
+@mixin cross-axis($item, $axis) {
+  $size: height;
+  @if $axis == X {
+    $size: width;
+  }
+
+  @include child.when($item, child.adjust($item, $axis, fit)) {
+    // 伸ばす & 縮める
+    align-self: stretch;
+    min-#{$size}: 100%;
+    max-#{$size}: 100%;
+  }
+  @include child.when($item, child.adjust($item, $axis, grow)) {
+    // 伸ばす
+    min-#{$size}: 100%;
+  }
+  @include child.when($item, child.adjust($item, $axis, shrink)) {
+    // 縮める
+    max-#{$size}: 100%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, none, grow, shrink),
+    child.size($item, $axis)
+  ) {
+    // 子要素のサイズ
+    #{$size}: var(--_frg-layout-size#{$axis});
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, fit),
+    child.size($item, $axis)
+  ) {
+    // fitではサイズの指定を使わない
+    #{$size}: auto;
+  }
+}
+
+/// 交差軸方向の子要素のサイズ（adjustを扱わない場合）
+/// @param {String} $item アイテムのクラス
+/// @param {String} $axis 交差軸（X / Y）
+@mixin cross-axis-size($item, $axis) {
+  $size: height;
+  @if $axis == X {
+    $size: width;
+  }
+
+  @include child.when($item, child.size($item, $axis)) {
+    // 子要素のサイズ
+    #{$size}: var(--_frg-layout-size#{$axis});
+  }
+}
+
+/// 子要素のデフォルト調整
+/// @param {String} $item アイテムのクラス
+@mixin base($item) {
+  @include child.when($item) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+}

@@ -1,19 +1,17 @@
+import { createSplitByKeys } from '@fringeworks/utils/object/createSplitByKeys';
 import type { TileLayoutOptions } from '../tile/types';
-import {
-  ADJUST_OPTIONS_KEYS,
-  ALIGN_OPTIONS_KEYS,
-  DIRECTION_OPTIONS_KEYS,
-  GAP_OPTIONS_KEYS,
-  ITEM_RATIO_OPTIONS_KEYS,
-  ITEM_SIZE_OPTIONS_KEYS,
-} from './_internal/constants';
-import createExtractLayoutOptions from './_internal/createExtractLayoutOptions';
 
-export default createExtractLayoutOptions<TileLayoutOptions>([
-  ...DIRECTION_OPTIONS_KEYS,
-  ...ALIGN_OPTIONS_KEYS,
-  ...ADJUST_OPTIONS_KEYS,
-  ...GAP_OPTIONS_KEYS,
-  ...ITEM_SIZE_OPTIONS_KEYS,
-  ...ITEM_RATIO_OPTIONS_KEYS,
-]);
+export default createSplitByKeys<TileLayoutOptions>({
+  direction: true,
+  alignX: true,
+  alignY: true,
+  adjustX: true,
+  adjustY: true,
+  gap: true,
+  gapX: true,
+  gapY: true,
+  itemSizeX: true,
+  itemSizeY: true,
+  itemRatioX: true,
+  itemRatioY: true,
+});

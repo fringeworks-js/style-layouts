@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import getStoryRects from './_internal/getStoryRects';
 
 const STORY_URL = (storyId: string) =>
   `/iframe.html?id=spec-flow--${storyId}&viewMode=story`;
@@ -386,5 +387,44 @@ test.describe('flow - itemRatio', () => {
     await gotoStory(page, 'direction-x-child-ratio');
     const { children } = await getRects(page);
     children.forEach((c) => expect(c.height / c.width).toBeCloseTo(1, 1));
+  });
+});
+
+// ===== flowItem =====
+
+test.describe('flow - flowItem', () => {
+  for (const key of ['x', 'y', 'ratio']) {
+    test(`コンテナで指定した場合と同じ結果になる（${key}）`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 800, height: 600 });
+      await gotoStory(page, `equivalent-${key}-container`);
+      const expected = await getStoryRects(page);
+      await gotoStory(page, `equivalent-${key}-item`);
+      const actual = await getStoryRects(page);
+      expect(actual).toEqual(expected);
+    });
+  }
+
+  test('アイテムの指定でコンテナの指定を上書きする', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'item-override');
+    const { container, children } = await getStoryRects(page);
+    expect(children.map((c) => Math.round(c.width))).toEqual([
+      100,
+      50,
+      Math.round(container.width - 150),
+    ]);
+  });
+
+  test('limitToItems: flowItemを適用した子要素だけが対象になる', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'limit-to-items');
+    const { children } = await getStoryRects(page);
+    expect(children[0]!.width).toBeCloseTo(100, 0);
+    expect(children[1]!.width).toBeLessThan(100);
+    expect(children[2]!.width).toBeCloseTo(50, 0);
   });
 });

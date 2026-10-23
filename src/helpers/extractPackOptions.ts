@@ -1,11 +1,9 @@
+import { createSplitByKeys } from '@fringeworks/utils/object/createSplitByKeys';
 import type { PackLayoutOptions } from '../pack/types';
-import {
-  DIRECTION_OPTIONS_KEYS,
-  GAP_OPTIONS_KEYS,
-} from './_internal/constants';
-import createExtractLayoutOptions from './_internal/createExtractLayoutOptions';
 
-export default createExtractLayoutOptions<PackLayoutOptions>([
-  ...DIRECTION_OPTIONS_KEYS,
-  ...GAP_OPTIONS_KEYS,
-]);
+export default createSplitByKeys<PackLayoutOptions>({
+  direction: true,
+  gap: true,
+  gapX: true,
+  gapY: true,
+});

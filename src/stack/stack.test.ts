@@ -37,6 +37,15 @@ describe('stack', () => {
     });
   });
 
+  it('limitToItemsを指定するとクラスを追加する', () => {
+    expect(stack({ limitToItems: true }).className).toContain(
+      'frg-layout-limitToItems',
+    );
+    expect(stack({ limitToItems: false }).className).not.toContain(
+      'frg-layout-limitToItems',
+    );
+  });
+
   it('同じクラスを重複して返さない', () => {
     const classNames = stack({ itemSizeX: 100 }).className!.split(' ');
     expect(new Set(classNames).size).toBe(classNames.length);

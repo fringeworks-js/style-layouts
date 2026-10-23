@@ -66,12 +66,57 @@ CSSを自動的に読み込みたい場合は `with-css` 配下のモジュー�
 import { stack } from '@fringeworks/style-layouts/with-css';
 ```
 
+### 子要素ごとの指定（`*Item`）
+
+コンテナに指定したオプションは、全ての子要素に適用されます。特定の子要素だけ指定を変えたい場合は、その子要素に `*Item()` の戻り値を適用します。`*Item()` で指定したオプションだけが、コンテナの指定を上書きします。
+
+> `stack`・`flow`・`center`・`layer`・`pin` に対応しています（`stackItem` など）。`tile`・`matrix`・`balance`・`pack` は、子要素のサイズをコンテナ（グリッドのトラックなど）で決めているため対応していません。
+
+```ts
+import { stack, stackItem } from '@fringeworks/style-layouts';
+
+// コンテナ: 全ての子要素の幅を100pxにする
+const container = stack({ direction: 'x', itemSizeX: 100 });
+
+// この子要素だけ、残りの幅を埋める
+const item = stackItem({ adjustX: 'grow' });
+```
+
+`stackItem()` を適用した子要素だけをレイアウトの対象にしたい場合は、コンテナに `limitToItems: true` を指定します。`stackItem()` を適用していない子要素には、子要素に当てるスタイルが適用されません。コンテナの指定は、`stackItem()` を適用した子要素の既定値として使われます。
+
+```ts
+const container = stack({ limitToItems: true, itemSizeX: 100 });
+const item = stackItem(); // 幅100px
+// stackItem() を適用していない子要素は対象外
+```
+
+> **注意:** 対象外の子要素にも、コンテナ自体のスタイル（`gap`・並ぶ位置など）は影響します。flex・gridのアイテムとして並ぶこと自体は変わらないため、並びから外したい場合は `position: absolute` などを指定してください。\
+> また、`center` は先頭と末尾の子要素で中央に寄せているため、対象外の子要素は先頭と末尾以外に置いてください。
+
+`*Item()` のオプションでは、サイズと縦横比の名前に `item` を付けません。
+
+| コンテナのオプション                          | `*Item()` のオプション            |
+| --------------------------------------------- | --------------------------------- |
+| `adjustX` / `adjustY`                         | `adjustX` / `adjustY`             |
+| `itemSizeX` / `itemSizeY`                     | `sizeX` / `sizeY`                 |
+| `itemRatioX` / `itemRatioY`                   | `ratioX` / `ratioY`               |
+| `alignX` / `alignY`（`layer`・`pin` のみ）    | `alignX` / `alignY`               |
+| `itemOffsetX` / `itemOffsetY` / `itemOffsetZ` | `offsetX` / `offsetY` / `offsetZ` |
+
+> `@fringeworks/style-layouts-adornment` の `*Item()` は、装飾の位置などの役割を子要素ごとに決めるもので、適用した子要素だけが装飾になります。`style-layouts` では子要素の役割が全て同じなので、コンテナの指定が全ての子要素に適用され、`*Item()` はそれを子要素ごとに変えるために使います。`limitToItems: true` を指定すると、`style-layouts-adornment` と同じく `*Item()` を適用した子要素だけが対象になります。
+
 ### レイアウトの入れ子
 
 子要素自身もレイアウトのコンテナにできます。親の `itemSize`・`itemRatio` は、子要素がレイアウトのコンテナでも適用されます。
 
 ただし、親と子要素の両方で同じオプション（例: 両方で `itemSizeX`）を指定すると、子要素自身のサイズにも子要素側の値が使われます。\
-これはCSS変数の仕組みによる制限です。この場合は子要素を `<div>` などで包み、その中にレイアウトを置いてください。
+これはCSS変数の仕組みによる制限です。この場合は、子要素自身のサイズを `*Item()` で指定するか、子要素を `<div>` などで包み、その中にレイアウトを置いてください。
+
+```ts
+// 子要素（自身も stack のコンテナ）には、両方のクラス名とスタイルを適用する
+const layout = stack({ itemSizeX: 50 }); // 子要素の子の幅: 50px
+const item = stackItem({ sizeX: 200 }); // 子要素自身の幅: 200px
+```
 
 ```html
 <!-- 親: stack({ itemSizeX: 200 }) -->
@@ -228,7 +273,8 @@ const { className, style } = balance({
 
 ### `layer`
 
-子要素を重ねて全て同じ位置に配置します。
+子要素を重ねて全て同じ位置に配置します。\
+子要素の位置（`alignX` / `alignY`）は、子要素が親要素より大きい場合も親要素を基準にします（中央寄せの場合は両側にはみ出します）。
 
 > `alignX` / `alignY` に `space-between`、`space-around`、`space-evenly` は指定できません。
 
@@ -245,16 +291,25 @@ const { className, style } = layer({
 
 ### `pin`
 
-子要素を指定の座標に配置します。子要素は `top` / `left` / `bottom` / `right` スタイルで位置を指定してください。
+子要素を指定の座標に配置します。\
+`alignX` / `alignY` で基準にする親要素の辺を選び、`offsetX` / `offsetY` でその辺からの距離を指定します。`offsetZ` で重なり順を指定します。オフセットを指定しない場合は、子要素の `top` / `left` / `bottom` / `right` スタイルに従います。
 
 ```ts
-import { pin } from '@fringeworks/style-layouts';
+import { pin, pinItem } from '@fringeworks/style-layouts';
 
+// コンテナ: 全ての子要素の大きさと、位置の基準（右下）
 const { className, style } = pin({
+  alignX: 'right',
+  alignY: 'bottom',
   itemSizeX: 100,
   itemSizeY: 80,
 });
+
+// 子要素: 右端から20px、下端から親の高さの10%、他の子要素より手前
+const item = pinItem({ offsetX: 20, offsetY: '10%', offsetZ: 1 });
 ```
+
+> オフセットの数値はpxです。文字列（`'10%'`・`'1rem'` など）はそのままCSSの値として使います。
 
 ## API
 
@@ -292,45 +347,55 @@ pin(options?: PinLayoutOptions): LayoutStyle
 
 #### レイアウト別対応表
 
-| オプション   | stack | flow | tile | matrix | center | pack | balance | layer | pin |
-| ------------ | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
-| `direction`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `alignX`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `alignY`     |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
-| `adjustX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `adjustY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
-| `gap`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapX`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `gapY`       |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
-| `itemSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
-| `itemCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `itemCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksX`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
-| `tracksY`    |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| オプション     | stack | flow | tile | matrix | center | pack | balance | layer | pin |
+| -------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
+| `direction`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `alignX`       |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   | ✓ ※ |
+| `alignY`       |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   | ✓ ※ |
+| `adjustX`      |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `adjustY`      |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `gap`          |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapX`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapY`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `itemSizeX`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemSizeY`    |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioX`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemRatioY`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `itemCountX`   |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `itemCountY`   |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksX`      |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksY`      |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `itemOffsetX`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   —   |  ✓  |
+| `itemOffsetY`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   —   |  ✓  |
+| `itemOffsetZ`  |   —   |  —   |  —   |   —    |   —    |  —   |    —    |   ✓   |  ✓  |
+| `limitToItems` |   ✓   |  ✓   |  —   |   —    |   ✓    |  —   |    —    |   ✓   |  ✓  |
+
+※ `pin` の `alignX` は `'left'` / `'right'`、`alignY` は `'top'` / `'bottom'` だけを指定でき、オフセットを測る辺を表します。
 
 #### オプション一覧
 
-| オプション    | 型                       | 説明                                                                     |
-| ------------- | ------------------------ | ------------------------------------------------------------------------ |
-| `direction?`  | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                                            |
-| `alignX?`     | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)                                     |
-| `alignY?`     | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)                                      |
-| `adjustX?`    | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`)                         |
-| `adjustY?`    | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`)                         |
-| `gap?`        | `number`                 | 子要素間の余白 (px,横縦共通。デフォルト `0`)                             |
-| `gapX?`       | `number`                 | 子要素間の余白 (px,横方向。デフォルト `gap`)                             |
-| `gapY?`       | `number`                 | 子要素間の余白 (px,縦方向。デフォルト `gap`)                             |
-| `itemSizeX?`  | `number`                 | 子要素の幅 (px。省略時は子要素自身の幅)                                  |
-| `itemSizeY?`  | `number`                 | 子要素の高さ (px。省略時は子要素自身の高さ)                              |
-| `itemRatioX?` | `number`                 | 子要素の幅の比 (`itemRatioY` のみ指定した場合は `1`)                     |
-| `itemRatioY?` | `number`                 | 子要素の高さの比 (`itemRatioX` のみ指定した場合は `1`)                   |
-| `itemCountX?` | `number`                 | 子要素の横方向の数 (`matrix` では `tracksX` を指定しない場合に必須)      |
-| `itemCountY?` | `number`                 | 子要素の縦方向の数 (`matrix` では `tracksY` を指定しない場合に必須)      |
-| `tracksX?`    | `(string \| number)[]`   | 子要素の横方向の個々のサイズ (`matrix` では `itemCountX` の代わりに指定) |
-| `tracksY?`    | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ (`matrix` では `itemCountY` の代わりに指定) |
+| オプション      | 型                       | 説明                                                                                  |
+| --------------- | ------------------------ | ------------------------------------------------------------------------------------- |
+| `direction?`    | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                                                         |
+| `alignX?`       | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)                                                  |
+| `alignY?`       | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)                                                   |
+| `adjustX?`      | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`)                                      |
+| `adjustY?`      | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`)                                      |
+| `gap?`          | `number`                 | 子要素間の余白 (px,横縦共通。デフォルト `0`)                                          |
+| `gapX?`         | `number`                 | 子要素間の余白 (px,横方向。デフォルト `gap`)                                          |
+| `gapY?`         | `number`                 | 子要素間の余白 (px,縦方向。デフォルト `gap`)                                          |
+| `itemSizeX?`    | `number`                 | 子要素の幅 (px。省略時は子要素自身の幅)                                               |
+| `itemSizeY?`    | `number`                 | 子要素の高さ (px。省略時は子要素自身の高さ)                                           |
+| `itemRatioX?`   | `number`                 | 子要素の幅の比 (`itemRatioY` のみ指定した場合は `1`)                                  |
+| `itemRatioY?`   | `number`                 | 子要素の高さの比 (`itemRatioX` のみ指定した場合は `1`)                                |
+| `itemCountX?`   | `number`                 | 子要素の横方向の数 (`matrix` では `tracksX` を指定しない場合に必須)                   |
+| `itemCountY?`   | `number`                 | 子要素の縦方向の数 (`matrix` では `tracksY` を指定しない場合に必須)                   |
+| `tracksX?`      | `(string \| number)[]`   | 子要素の横方向の個々のサイズ (`matrix` では `itemCountX` の代わりに指定)              |
+| `tracksY?`      | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ (`matrix` では `itemCountY` の代わりに指定)              |
+| `itemOffsetX?`  | `number \| string`       | 子要素の横方向のオフセット (`alignX` の辺からの距離。数値はpx)                        |
+| `itemOffsetY?`  | `number \| string`       | 子要素の縦方向のオフセット (`alignY` の辺からの距離。数値はpx)                        |
+| `itemOffsetZ?`  | `number`                 | 子要素の重なり順 (`z-index`)                                                          |
+| `limitToItems?` | `boolean`                | 子要素に当てるスタイルを、`*Item()` を適用した子要素だけに当てる (デフォルト `false`) |
 
 `direction` によって指定できない組み合わせは型でエラーになります（`direction` を省略した場合は `'x'` と同じ扱い）。
 
@@ -372,19 +437,84 @@ pin(options?: PinLayoutOptions): LayoutStyle
 
 > **注意:** 子要素に個別の幅や高さが設定されている場合、その値が優先されるため上記の動作にならないことがあります。
 
+### アイテム関数
+
+| 関数                   | 説明                                                  |
+| ---------------------- | ----------------------------------------------------- |
+| `stackItem(options?)`  | `stack` の子要素に適用し、コンテナの指定を上書きする  |
+| `flowItem(options?)`   | `flow` の子要素に適用し、コンテナの指定を上書きする   |
+| `centerItem(options?)` | `center` の子要素に適用し、コンテナの指定を上書きする |
+| `layerItem(options?)`  | `layer` の子要素に適用し、コンテナの指定を上書きする  |
+| `pinItem(options?)`    | `pin` の子要素に適用し、コンテナの指定を上書きする    |
+
+```ts
+stackItem(options?: StackItemOptions): LayoutStyle
+flowItem(options?: FlowItemOptions): LayoutStyle
+centerItem(options?: CenterItemOptions): LayoutStyle
+layerItem(options?: LayerItemOptions): LayoutStyle
+pinItem(options?: PinItemOptions): LayoutStyle
+```
+
+子要素に適用するクラス名とCSS変数を返します。指定したオプションだけがコンテナの指定を上書きし、指定しないオプションはコンテナの指定に従います。主軸・交差軸はコンテナの `direction` で決まります。
+
+| 引数       | 型                                    | 説明             |
+| ---------- | ------------------------------------- | ---------------- |
+| `options?` | `StackItemOptions` などレイアウトごと | 下記のオプション |
+
+#### レイアウト別対応表
+
+| オプション | stackItem | flowItem | centerItem | layerItem | pinItem |
+| ---------- | :-------: | :------: | :--------: | :-------: | :-----: |
+| `alignX`   |     —     |    —     |     —      |     ✓     |   ✓ ※   |
+| `alignY`   |     —     |    —     |     —      |     ✓     |   ✓ ※   |
+| `adjustX`  |     ✓     |    ✓     |     ✓      |     ✓     |    —    |
+| `adjustY`  |     ✓     |    ✓     |     ✓      |     ✓     |    —    |
+| `sizeX`    |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `sizeY`    |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `ratioX`   |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `ratioY`   |     ✓     |    ✓     |     ✓      |     ✓     |    ✓    |
+| `offsetX`  |     —     |    —     |     —      |     —     |    ✓    |
+| `offsetY`  |     —     |    —     |     —      |     —     |    ✓    |
+| `offsetZ`  |     —     |    —     |     —      |     ✓     |    ✓    |
+
+※ `pinItem` の `alignX` は `'left'` / `'right'`、`alignY` は `'top'` / `'bottom'` だけを指定でき、オフセットを測る辺を表します。
+
+#### オプション一覧
+
+| オプション | 型                              | 説明                                                   |
+| ---------- | ------------------------------- | ------------------------------------------------------ |
+| `alignX?`  | `'left' \| 'center' \| 'right'` | 横位置（`pinItem` ではオフセットを測る辺）             |
+| `alignY?`  | `'top' \| 'middle' \| 'bottom'` | 縦位置（`pinItem` ではオフセットを測る辺）             |
+| `adjustX?` | [`Adjust`](#adjust-の値)        | 横方向のサイズ調整                                     |
+| `adjustY?` | [`Adjust`](#adjust-の値)        | 縦方向のサイズ調整                                     |
+| `sizeX?`   | `number`                        | 幅 (px)                                                |
+| `sizeY?`   | `number`                        | 高さ (px)                                              |
+| `ratioX?`  | `number`                        | 幅の比 (`ratioY` のみ指定した場合は `1`)               |
+| `ratioY?`  | `number`                        | 高さの比 (`ratioX` のみ指定した場合は `1`)             |
+| `offsetX?` | `number \| string`              | 横方向のオフセット (`alignX` の辺からの距離。数値はpx) |
+| `offsetY?` | `number \| string`              | 縦方向のオフセット (`alignY` の辺からの距離。数値はpx) |
+| `offsetZ?` | `number`                        | 重なり順 (`z-index`)                                   |
+
+> `flowItem` の交差軸方向の `adjust` は、コンテナと同じく適用されません（主軸・交差軸はコンテナの `direction` で決まるため、型ではエラーになりません）。
+
 ### `extract*Options`
 
-| 関数                            | 説明                                                 |
-| ------------------------------- | ---------------------------------------------------- |
-| `extractStackOptions(record)`   | `stack` のオプションとそれ以外のプロパティを分ける   |
-| `extractFlowOptions(record)`    | `flow` のオプションとそれ以外のプロパティを分ける    |
-| `extractTileOptions(record)`    | `tile` のオプションとそれ以外のプロパティを分ける    |
-| `extractMatrixOptions(record)`  | `matrix` のオプションとそれ以外のプロパティを分ける  |
-| `extractCenterOptions(record)`  | `center` のオプションとそれ以外のプロパティを分ける  |
-| `extractPackOptions(record)`    | `pack` のオプションとそれ以外のプロパティを分ける    |
-| `extractBalanceOptions(record)` | `balance` のオプションとそれ以外のプロパティを分ける |
-| `extractLayerOptions(record)`   | `layer` のオプションとそれ以外のプロパティを分ける   |
-| `extractPinOptions(record)`     | `pin` のオプションとそれ以外のプロパティを分ける     |
+| 関数                               | 説明                                                    |
+| ---------------------------------- | ------------------------------------------------------- |
+| `extractStackOptions(record)`      | `stack` のオプションとそれ以外のプロパティを分ける      |
+| `extractFlowOptions(record)`       | `flow` のオプションとそれ以外のプロパティを分ける       |
+| `extractTileOptions(record)`       | `tile` のオプションとそれ以外のプロパティを分ける       |
+| `extractMatrixOptions(record)`     | `matrix` のオプションとそれ以外のプロパティを分ける     |
+| `extractCenterOptions(record)`     | `center` のオプションとそれ以外のプロパティを分ける     |
+| `extractPackOptions(record)`       | `pack` のオプションとそれ以外のプロパティを分ける       |
+| `extractBalanceOptions(record)`    | `balance` のオプションとそれ以外のプロパティを分ける    |
+| `extractLayerOptions(record)`      | `layer` のオプションとそれ以外のプロパティを分ける      |
+| `extractPinOptions(record)`        | `pin` のオプションとそれ以外のプロパティを分ける        |
+| `extractStackItemOptions(record)`  | `stackItem` のオプションとそれ以外のプロパティを分ける  |
+| `extractFlowItemOptions(record)`   | `flowItem` のオプションとそれ以外のプロパティを分ける   |
+| `extractCenterItemOptions(record)` | `centerItem` のオプションとそれ以外のプロパティを分ける |
+| `extractLayerItemOptions(record)`  | `layerItem` のオプションとそれ以外のプロパティを分ける  |
+| `extractPinItemOptions(record)`    | `pinItem` のオプションとそれ以外のプロパティを分ける    |
 
 ```ts
 extractStackOptions<T extends Record<string, unknown>>(
@@ -431,6 +561,13 @@ const { className, style } = stack(layoutOptions);
 | `BalanceLayoutOptions` | `balance` のオプション                   |
 | `LayerLayoutOptions`   | `layer` のオプション                     |
 | `PinLayoutOptions`     | `pin` のオプション                       |
+| `StackItemOptions`     | `stackItem` のオプション                 |
+| `FlowItemOptions`      | `flowItem` のオプション                  |
+| `CenterItemOptions`    | `centerItem` のオプション                |
+| `LayerItemOptions`     | `layerItem` のオプション                 |
+| `PinItemOptions`       | `pinItem` のオプション                   |
+| `PinAlignX`            | `pin`・`pinItem` の `alignX` の値        |
+| `PinAlignY`            | `pin`・`pinItem` の `alignY` の値        |
 
 ```ts
 type LayoutStyle = {

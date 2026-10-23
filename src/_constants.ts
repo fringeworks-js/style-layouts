@@ -46,6 +46,36 @@ export const clsLayoutLayer = 'frg-layout-layer';
 export const clsLayoutPin = 'frg-layout-pin';
 
 /**
+ * アイテム: stack
+ */
+export const clsLayoutStackItem = 'frg-layout-stack-item';
+
+/**
+ * アイテム: flow
+ */
+export const clsLayoutFlowItem = 'frg-layout-flow-item';
+
+/**
+ * アイテム: center
+ */
+export const clsLayoutCenterItem = 'frg-layout-center-item';
+
+/**
+ * アイテム: layer
+ */
+export const clsLayoutLayerItem = 'frg-layout-layer-item';
+
+/**
+ * アイテム: pin
+ */
+export const clsLayoutPinItem = 'frg-layout-pin-item';
+
+/**
+ * 子要素のスタイルを当てる対象をアイテムに限定する
+ */
+export const clsLayoutLimitToItems = 'frg-layout-limitToItems';
+
+/**
  * 整列: 横方向
  */
 export const clsLayoutDirectionX = 'frg-layout-direction-x';
@@ -189,6 +219,39 @@ export const clsLayoutTemplateX = 'frg-layout-templateX';
  * 縦方向のテンプレート
  */
 export const clsLayoutTemplateY = 'frg-layout-templateY';
+
+/**
+ * 子要素のオフセット: 横方向
+ */
+export const clsLayoutItemOffsetX = 'frg-layout-itemOffsetX';
+
+/**
+ * 子要素のオフセット: 縦方向
+ */
+export const clsLayoutItemOffsetY = 'frg-layout-itemOffsetY';
+
+/**
+ * 子要素のオフセット: 重なり順
+ */
+export const clsLayoutItemOffsetZ = 'frg-layout-itemOffsetZ';
+
+/**
+ * 変数\
+ * 子要素のオフセット: 横方向
+ */
+export const varLayoutItemOffsetX = '--frg-layout-itemOffsetX';
+
+/**
+ * 変数\
+ * 子要素のオフセット: 縦方向
+ */
+export const varLayoutItemOffsetY = '--frg-layout-itemOffsetY';
+
+/**
+ * 変数\
+ * 子要素のオフセット: 重なり順
+ */
+export const varLayoutItemOffsetZ = '--frg-layout-itemOffsetZ';
 
 /**
  * 変数\

@@ -1,3 +1,97 @@
+@use '../child';
+
+// アイテムのクラスの接頭辞
+$item: 'frg-layout-center-item';
+
+/// 軸のサイズのプロパティ名
+@function _size($axis) {
+  @if $axis == X {
+    @return width;
+  }
+  @return height;
+}
+
+/// 主軸方向の子要素のスタイル
+/// @param {String} $axis 主軸（X / Y）
+@mixin _main-axis($axis) {
+  $size: _size($axis);
+
+  @include child.when($item, child.adjust($item, $axis, fit, grow)) {
+    // 伸ばす
+    #{$size}: 100%;
+    flex-grow: 1;
+  }
+  @include child.when($item, child.adjust($item, $axis, fit, shrink)) {
+    // 縮める
+    flex-shrink: 1;
+  }
+  @include child.when($item, child.adjust($item, $axis, fit)) {
+    // 伸ばす & 縮める: 子要素で均等に分ける
+    flex-basis: 0%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, grow),
+    child.size($item, $axis)
+  ) {
+    // 伸ばす: 指定のサイズより小さくしない
+    min-#{$size}: var(--_frg-layout-size#{$axis});
+    flex-basis: var(--_frg-layout-size#{$axis});
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, grow),
+    child.no-size($item, $axis)
+  ) {
+    flex-basis: auto;
+  }
+  @include child.when($item, child.adjust($item, $axis, shrink)) {
+    // 縮める: 親要素のサイズより大きくしない
+    max-#{$size}: 100%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, none, shrink),
+    child.size($item, $axis)
+  ) {
+    // 子要素のサイズ
+    #{$size}: var(--_frg-layout-size#{$axis});
+    flex-basis: var(--_frg-layout-size#{$axis});
+  }
+}
+
+/// 交差軸方向の子要素のスタイル
+/// @param {String} $axis 交差軸（X / Y）
+@mixin _cross-axis($axis) {
+  $size: _size($axis);
+
+  @include child.when($item, child.adjust($item, $axis, fit, grow)) {
+    // 伸ばす
+    // 交差軸もautoマージンで寄せているため、align-self: stretchは効かない。サイズで伸ばす
+    #{$size}: 100%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, grow),
+    child.size($item, $axis)
+  ) {
+    // 伸ばす: 指定のサイズより小さくしない
+    min-#{$size}: var(--_frg-layout-size#{$axis});
+  }
+  @include child.when($item, child.adjust($item, $axis, shrink)) {
+    // 縮める: 親要素のサイズより大きくしない
+    max-#{$size}: 100%;
+  }
+  @include child.when(
+    $item,
+    child.adjust($item, $axis, none, shrink),
+    child.size($item, $axis)
+  ) {
+    // 子要素のサイズ
+    #{$size}: var(--_frg-layout-size#{$axis});
+  }
+}
+
 .frg-layout-center {
   // 子要素の間隔
   // 中央寄せはautoマージンで行っているため、gapはautoマージンと干渉しない
@@ -9,7 +103,11 @@
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: nowrap;
-  & > * {
+
+  // 子要素のサイズ・縦横比の値（コンテナの指定とアイテムの指定のどちらを使うか）
+  @include child.resolve($item);
+
+  @include child.when($item) {
     min-width: 0;
     min-height: 0;
     margin: 0;
@@ -19,180 +117,56 @@
     // 子要素を並べる向き・横並び
     flex-direction: row;
 
-    & > * {
+    // 子要素のデフォルト調整
+    // 中央寄せ: 交差軸は上下、主軸は先頭と末尾の子要素のautoマージンで寄せる
+    @include child.when($item) {
       flex-grow: 0;
       flex-shrink: 0;
       margin-top: auto;
       margin-bottom: auto;
-      &:first-child {
-        margin-left: auto;
-      }
-      &:last-child {
-        margin-right: auto;
-      }
+    }
+    @include child.when($item, child.child-selector(':first-child')) {
+      margin-left: auto;
+    }
+    @include child.when($item, child.child-selector(':last-child')) {
+      margin-right: auto;
     }
 
-    // 子要素の幅調整
-    &.frg-layout-itemSizeX > * {
-      // 子要素の幅
-      width: var(--frg-layout-itemSizeX);
-      flex-basis: var(--frg-layout-itemSizeX);
-    }
-    &.frg-layout-adjustX-fit {
-      // 子要素の幅調整: 伸ばす & 縮める
-      & > * {
-        width: 100%;
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: 0%;
-      }
-    }
-    &.frg-layout-adjustX-grow {
-      // 子要素の幅調整: 伸ばす
-      & > * {
-        width: 100%;
-        flex-grow: 1;
-        flex-basis: auto;
-      }
-      &.frg-layout-itemSizeX > * {
-        min-width: var(--frg-layout-itemSizeX);
-        flex-basis: var(--frg-layout-itemSizeX);
-      }
-    }
-    &.frg-layout-adjustX-shrink {
-      // 子要素の幅調整: 縮める
-      & > * {
-        max-width: 100%;
-        flex-shrink: 1;
-      }
-      &.frg-layout-itemSizeX > * {
-        width: var(--frg-layout-itemSizeX);
-        flex-basis: var(--frg-layout-itemSizeX);
-      }
-    }
+    // 子要素の幅(主軸)
+    @include _main-axis(X);
 
-    // 子要素の高さ調整
-    &.frg-layout-itemSizeY > * {
-      // 子要素の高さ
-      height: var(--frg-layout-itemSizeY);
-    }
-    &.frg-layout-adjustY-fit {
-      // 子要素の高さ調整: 伸ばす & 縮める
-      align-items: stretch;
-      & > * {
-        height: 100%;
-      }
-    }
-    &.frg-layout-adjustY-grow {
-      // 子要素の高さ調整: 伸ばす
-      align-items: stretch;
-      & > * {
-        height: 100%;
-      }
-      &.frg-layout-itemSizeY > * {
-        min-height: var(--frg-layout-itemSizeY);
-      }
-    }
-    &.frg-layout-adjustY-shrink {
-      // 子要素の高さ調整: 縮める
-      & > * {
-        max-height: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
-      }
-    }
+    // 子要素の高さ(交差軸)
+    @include _cross-axis(Y);
   }
 
   &.frg-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
 
-    & > * {
+    // 子要素のデフォルト調整
+    // 中央寄せ: 交差軸は左右、主軸は先頭と末尾の子要素のautoマージンで寄せる
+    @include child.when($item) {
       flex-grow: 0;
       flex-shrink: 0;
       margin-left: auto;
       margin-right: auto;
-      &:first-child {
-        margin-top: auto;
-      }
-      &:last-child {
-        margin-bottom: auto;
-      }
+    }
+    @include child.when($item, child.child-selector(':first-child')) {
+      margin-top: auto;
+    }
+    @include child.when($item, child.child-selector(':last-child')) {
+      margin-bottom: auto;
     }
 
-    // 子要素の幅調整
-    &.frg-layout-itemSizeX > * {
-      // 子要素の幅
-      width: var(--frg-layout-itemSizeX);
-    }
-    &.frg-layout-adjustX-fit {
-      // 子要素の幅調整: 伸ばす & 縮める
-      align-items: stretch;
-      & > * {
-        width: 100%;
-      }
-    }
-    &.frg-layout-adjustX-grow {
-      // 子要素の幅調整: 伸ばす
-      align-items: stretch;
-      & > * {
-        width: 100%;
-      }
-      &.frg-layout-itemSizeX > * {
-        min-width: var(--frg-layout-itemSizeX);
-      }
-    }
-    &.frg-layout-adjustX-shrink {
-      // 子要素の幅調整: 縮める
-      & > * {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
+    // 子要素の幅(交差軸)
+    @include _cross-axis(X);
 
-    // 子要素の高さ調整
-    &.frg-layout-itemSizeY > * {
-      // 子要素の高さ
-      height: var(--frg-layout-itemSizeY);
-      flex-basis: var(--frg-layout-itemSizeY);
-    }
-    &.frg-layout-adjustY-fit {
-      // 子要素の高さ調整: 伸ばす & 縮める
-      & > * {
-        height: 100%;
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: 0%;
-      }
-    }
-    &.frg-layout-adjustY-grow {
-      // 子要素の高さ調整: 伸ばす
-      & > * {
-        height: 100%;
-        flex-grow: 1;
-        flex-basis: auto;
-      }
-      &.frg-layout-itemSizeY > * {
-        min-height: var(--frg-layout-itemSizeY);
-        flex-basis: var(--frg-layout-itemSizeY);
-      }
-    }
-    &.frg-layout-adjustY-shrink {
-      // 子要素の高さ調整: 縮める
-      & > * {
-        max-height: 100%;
-        flex-shrink: 1;
-      }
-      &.frg-layout-itemSizeY > * {
-        height: var(--frg-layout-itemSizeY);
-        flex-basis: var(--frg-layout-itemSizeY);
-      }
-    }
+    // 子要素の高さ(主軸)
+    @include _main-axis(Y);
   }
 
-  &.frg-layout-itemRatio > * {
+  @include child.when($item, child.ratio($item)) {
     // 縦横比
-    aspect-ratio: var(--frg-layout-itemRatio);
+    aspect-ratio: var(--_frg-layout-ratio);
   }
 }

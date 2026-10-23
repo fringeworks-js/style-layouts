@@ -1,4 +1,11 @@
-import type { Adjust, AlignX, AlignY, Direction } from './constants';
+import type {
+  Adjust,
+  AlignX,
+  AlignXBase,
+  AlignY,
+  AlignYBase,
+  Direction,
+} from './constants';
 
 /**
  * 子要素を並べる方向
@@ -124,4 +131,100 @@ export type TracksOptions = {
    * このプロパティが設定されている場合、itemCountY,itemSizeYは無効
    */
   tracksY?: (string | number)[];
+};
+
+/**
+ * 子要素の位置（space-*以外）
+ */
+export type AlignBaseOptions = {
+  /**
+   * 子要素の横位置
+   */
+  alignX?: AlignXBase;
+
+  /**
+   * 子要素の縦位置
+   */
+  alignY?: AlignYBase;
+};
+
+/**
+ * 子要素のオフセット（コンテナ）
+ */
+export type ItemOffsetOptions = {
+  /**
+   * 子要素の横方向のオフセット（alignXで選んだ辺からの距離。数値はpx）
+   */
+  itemOffsetX?: number | string;
+
+  /**
+   * 子要素の縦方向のオフセット（alignYで選んだ辺からの距離。数値はpx）
+   */
+  itemOffsetY?: number | string;
+
+  /**
+   * 子要素の重なり順（z-index）
+   */
+  itemOffsetZ?: number;
+};
+
+/**
+ * アイテムのオフセット
+ */
+export type OffsetOptions = {
+  /**
+   * 横方向のオフセット（alignXで選んだ辺からの距離。数値はpx）
+   */
+  offsetX?: number | string;
+
+  /**
+   * 縦方向のオフセット（alignYで選んだ辺からの距離。数値はpx）
+   */
+  offsetY?: number | string;
+
+  /**
+   * 重なり順（z-index）
+   */
+  offsetZ?: number;
+};
+
+/**
+ * 子要素のスタイルを当てる対象
+ */
+export type LimitToItemsOptions = {
+  /**
+   * 子要素のスタイルを、アイテム（*Item()を適用した子要素）にだけ当てる
+   * デフォルトは`false`（全ての子要素に当てる）
+   */
+  limitToItems?: boolean;
+};
+
+/**
+ * アイテムのサイズ
+ */
+export type SizeOptions = {
+  /**
+   * 幅
+   */
+  sizeX?: number;
+
+  /**
+   * 高さ
+   */
+  sizeY?: number;
+};
+
+/**
+ * アイテムの縦横比
+ */
+export type RatioOptions = {
+  /**
+   * 縦横比(横)
+   */
+  ratioX?: number;
+
+  /**
+   * 縦横比(縦)
+   */
+  ratioY?: number;
 };

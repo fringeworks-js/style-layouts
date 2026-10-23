@@ -1,5 +1,5 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
-import { clsLayout, clsLayoutFlow } from '../_constants';
+import { clsLayout, clsLayoutFlow, clsLayoutLimitToItems } from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemRatio from '../_internal/applyItemRatio';
 import applyItemSize from '../_internal/applyItemSize';
@@ -27,6 +27,7 @@ const flow: CreateLayoutStyle<FlowLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
+    limitToItems,
   } = fillDefaults(options, {
     direction: 'x',
     alignX: 'left',
@@ -44,6 +45,7 @@ const flow: CreateLayoutStyle<FlowLayoutOptions> = (options = {}) => {
       clsLayout.align.y[alignY],
       clsLayout.adjust.x[adjustX],
       clsLayout.adjust.y[adjustY],
+      limitToItems ? clsLayoutLimitToItems : undefined,
     ),
     style: {},
   };

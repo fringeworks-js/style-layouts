@@ -1,5 +1,9 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
-import { clsLayout, clsLayoutCenter } from '../_constants';
+import {
+  clsLayout,
+  clsLayoutCenter,
+  clsLayoutLimitToItems,
+} from '../_constants';
 import applyGap from '../_internal/applyGap';
 import applyItemRatio from '../_internal/applyItemRatio';
 import applyItemSize from '../_internal/applyItemSize';
@@ -25,6 +29,7 @@ const center: CreateLayoutStyle<CenterLayoutOptions> = (options = {}) => {
     itemSizeY,
     itemRatioX,
     itemRatioY,
+    limitToItems,
   } = fillDefaults(options, {
     direction: 'x',
     adjustX: 'none',
@@ -38,6 +43,7 @@ const center: CreateLayoutStyle<CenterLayoutOptions> = (options = {}) => {
       clsLayout.direction[direction],
       clsLayout.adjust.x[adjustX],
       clsLayout.adjust.y[adjustY],
+      limitToItems ? clsLayoutLimitToItems : undefined,
     ),
     style: {},
   };

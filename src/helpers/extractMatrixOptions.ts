@@ -1,23 +1,21 @@
+import { createSplitByKeys } from '@fringeworks/utils/object/createSplitByKeys';
 import type { MatrixLayoutOptions } from '../matrix/types';
-import {
-  ADJUST_OPTIONS_KEYS,
-  ALIGN_OPTIONS_KEYS,
-  DIRECTION_OPTIONS_KEYS,
-  GAP_OPTIONS_KEYS,
-  ITEM_COUNT_OPTIONS_KEYS,
-  ITEM_RATIO_OPTIONS_KEYS,
-  ITEM_SIZE_OPTIONS_KEYS,
-  TRACKS_OPTIONS_KEYS,
-} from './_internal/constants';
-import createExtractLayoutOptions from './_internal/createExtractLayoutOptions';
 
-export default createExtractLayoutOptions<MatrixLayoutOptions>([
-  ...DIRECTION_OPTIONS_KEYS,
-  ...ALIGN_OPTIONS_KEYS,
-  ...ADJUST_OPTIONS_KEYS,
-  ...GAP_OPTIONS_KEYS,
-  ...ITEM_SIZE_OPTIONS_KEYS,
-  ...ITEM_RATIO_OPTIONS_KEYS,
-  ...ITEM_COUNT_OPTIONS_KEYS,
-  ...TRACKS_OPTIONS_KEYS,
-]);
+export default createSplitByKeys<MatrixLayoutOptions>({
+  direction: true,
+  alignX: true,
+  alignY: true,
+  adjustX: true,
+  adjustY: true,
+  gap: true,
+  gapX: true,
+  gapY: true,
+  itemSizeX: true,
+  itemSizeY: true,
+  itemRatioX: true,
+  itemRatioY: true,
+  itemCountX: true,
+  itemCountY: true,
+  tracksX: true,
+  tracksY: true,
+});
