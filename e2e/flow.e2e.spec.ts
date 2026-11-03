@@ -6,7 +6,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.frg-layout-flow > *');
+  await page.waitForSelector('.frgs-layout-flow > *');
 };
 
 const ITEM_SIZE = 200;
@@ -42,7 +42,7 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
       width: r.width,
       height: r.height,
     });
-    const container = document.querySelector('.frg-layout-flow')!;
+    const container = document.querySelector('.frgs-layout-flow')!;
     const children = Array.from(container.querySelectorAll(':scope > *'));
     return {
       container: toPlain(container.getBoundingClientRect()),
@@ -52,12 +52,12 @@ const getRects = (page: Page): Promise<{ container: Rect; children: Rect[] }> =>
 
 const getChildWidths = (page: Page) =>
   page
-    .locator('.frg-layout-flow > *')
+    .locator('.frgs-layout-flow > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
 
 const getChildHeights = (page: Page) =>
   page
-    .locator('.frg-layout-flow > *')
+    .locator('.frgs-layout-flow > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height));
 
 // ===== direction:x 主軸(adjustX) =====

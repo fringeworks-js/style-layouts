@@ -1,7 +1,7 @@
 @use '../child';
 
 // アイテムのクラスの接頭辞
-$item: 'frg-layout-pin-item';
+$item: 'frgs-layout-pin-item';
 
 // 軸ごとの、alignの値と位置を指定するプロパティ
 $_sides: (
@@ -15,7 +15,7 @@ $_sides: (
   ),
 );
 
-.frg-layout-pin {
+.frgs-layout-pin {
   // pin用のスタイル
   display: block;
   position: relative;
@@ -30,12 +30,12 @@ $_sides: (
 
   @include child.when($item, child.size($item, X)) {
     // 子要素の幅
-    width: var(--_frg-layout-sizeX);
+    width: var(--_frgs-layout-sizeX);
   }
 
   @include child.when($item, child.size($item, Y)) {
     // 子要素の高さ
-    height: var(--_frg-layout-sizeY);
+    height: var(--_frgs-layout-sizeY);
   }
 
   // 子要素の位置: alignX / alignYで選んだ辺からの距離
@@ -47,18 +47,18 @@ $_sides: (
         child.align($item, $axis, $align),
         child.offset($item, $axis)
       ) {
-        #{$side}: var(--_frg-layout-offset#{$axis});
+        #{$side}: var(--_frgs-layout-offset#{$axis});
       }
     }
   }
 
   @include child.when($item, child.offset($item, Z)) {
     // 重なり順
-    z-index: var(--_frg-layout-offsetZ);
+    z-index: var(--_frgs-layout-offsetZ);
   }
 
   @include child.when($item, child.ratio($item)) {
     // 縦横比
-    aspect-ratio: var(--_frg-layout-ratio);
+    aspect-ratio: var(--_frgs-layout-ratio);
   }
 }

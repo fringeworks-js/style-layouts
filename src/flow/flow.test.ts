@@ -4,8 +4,8 @@ describe('flow', () => {
   it('オプションを省略すると既定値のクラスと間隔を返す', () => {
     expect(flow()).toEqual({
       className:
-        'frg-layout-flow frg-layout-direction-x frg-layout-alignX-left frg-layout-alignY-top frg-layout-adjustX-none frg-layout-adjustY-none',
-      style: { '--frg-layout-gapX': '0px', '--frg-layout-gapY': '0px' },
+        'frgs-layout-flow frgs-layout-direction-x frgs-layout-alignX-left frgs-layout-alignY-top frgs-layout-adjustX-none frgs-layout-adjustY-none',
+      style: { '--frgs-layout-gapX': '0px', '--frgs-layout-gapY': '0px' },
     });
   });
 
@@ -21,11 +21,11 @@ describe('flow', () => {
       }),
     ).toEqual({
       className:
-        'frg-layout-flow frg-layout-direction-y frg-layout-alignX-spaceAround frg-layout-alignY-bottom frg-layout-adjustX-none frg-layout-adjustY-shrink frg-layout-itemSizeY',
+        'frgs-layout-flow frgs-layout-direction-y frgs-layout-alignX-spaceAround frgs-layout-alignY-bottom frgs-layout-adjustX-none frgs-layout-adjustY-shrink frgs-layout-itemSizeY',
       style: {
-        '--frg-layout-gapX': '8px',
-        '--frg-layout-gapY': '0px',
-        '--frg-layout-itemSizeY': '50px',
+        '--frgs-layout-gapX': '8px',
+        '--frgs-layout-gapY': '0px',
+        '--frgs-layout-itemSizeY': '50px',
       },
     });
   });

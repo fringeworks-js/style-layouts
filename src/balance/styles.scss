@@ -1,97 +1,97 @@
-.frg-layout-balance {
+.frgs-layout-balance {
   // 子要素の間隔
-  column-gap: var(--frg-layout-gapX);
-  row-gap: var(--frg-layout-gapY);
+  column-gap: var(--frgs-layout-gapX);
+  row-gap: var(--frgs-layout-gapY);
 
   // balanceのスタイル
   display: grid;
 
-  &.frg-layout-direction-x {
+  &.frgs-layout-direction-x {
     // 子要素を並べる向き・横並び
     grid-auto-flow: column;
     // デフォルト: 列をコンテンツサイズにしてgapが実際の余白になる
     grid-auto-columns: max-content;
     // grow/fit: 列をautoにして伸縮させる
-    &.frg-layout-adjustX-grow,
-    &.frg-layout-adjustX-fit {
+    &.frgs-layout-adjustX-grow,
+    &.frgs-layout-adjustX-fit {
       grid-auto-columns: auto;
     }
     // shrink: 列をコンテンツサイズ上限にして余白を均等分配する（縮小は可）
-    &.frg-layout-adjustX-shrink {
+    &.frgs-layout-adjustX-shrink {
       grid-auto-columns: minmax(0, max-content);
     }
     // itemSizeあり: 常にautoにして余白を均等分配する（adjust含めて上書き）
-    &.frg-layout-itemSizeX {
+    &.frgs-layout-itemSizeX {
       grid-auto-columns: auto;
     }
   }
 
-  &.frg-layout-direction-y {
+  &.frgs-layout-direction-y {
     // 子要素を並べる向き・縦並び
     grid-auto-flow: row;
     // デフォルト: 行をコンテンツサイズにしてgapが実際の余白になる
     grid-auto-rows: max-content;
     // grow/fit: 行をautoにして伸縮させる
-    &.frg-layout-adjustY-grow,
-    &.frg-layout-adjustY-fit {
+    &.frgs-layout-adjustY-grow,
+    &.frgs-layout-adjustY-fit {
       grid-auto-rows: auto;
     }
     // shrink: 行をコンテンツサイズ上限にして余白を均等分配する（縮小は可）
-    &.frg-layout-adjustY-shrink {
+    &.frgs-layout-adjustY-shrink {
       grid-auto-rows: minmax(0, max-content);
     }
     // itemSizeあり: 常にautoにして余白を均等分配する（adjust含めて上書き）
-    &.frg-layout-itemSizeY {
+    &.frgs-layout-itemSizeY {
       grid-auto-rows: auto;
     }
   }
 
-  &.frg-layout-alignX-left {
+  &.frgs-layout-alignX-left {
     // 横位置: 左
     justify-items: start;
   }
-  &.frg-layout-alignX-center {
+  &.frgs-layout-alignX-center {
     // 横位置: 中央
     justify-items: center;
   }
-  &.frg-layout-alignX-right {
+  &.frgs-layout-alignX-right {
     // 横位置: 右
     justify-items: end;
   }
-  &.frg-layout-alignX-spaceBetween {
+  &.frgs-layout-alignX-spaceBetween {
     // 横位置: 両端揃え
     justify-content: space-between;
   }
-  &.frg-layout-alignX-spaceAround {
+  &.frgs-layout-alignX-spaceAround {
     // 横位置: 両端余白あり均等
     justify-content: space-around;
   }
-  &.frg-layout-alignX-spaceEvenly {
+  &.frgs-layout-alignX-spaceEvenly {
     // 横位置: 完全均等
     justify-content: space-evenly;
   }
 
-  &.frg-layout-alignY-top {
+  &.frgs-layout-alignY-top {
     // 縦位置: 上
     align-items: start;
   }
-  &.frg-layout-alignY-middle {
+  &.frgs-layout-alignY-middle {
     // 縦位置: 中央
     align-items: center;
   }
-  &.frg-layout-alignY-bottom {
+  &.frgs-layout-alignY-bottom {
     // 縦位置: 下
     align-items: end;
   }
-  &.frg-layout-alignY-spaceBetween {
+  &.frgs-layout-alignY-spaceBetween {
     // 縦位置: 両端揃え
     align-content: space-between;
   }
-  &.frg-layout-alignY-spaceAround {
+  &.frgs-layout-alignY-spaceAround {
     // 縦位置: 両端余白あり均等
     align-content: space-around;
   }
-  &.frg-layout-alignY-spaceEvenly {
+  &.frgs-layout-alignY-spaceEvenly {
     // 縦位置: 完全均等
     align-content: space-evenly;
   }
@@ -102,11 +102,11 @@
     min-height: 0;
   }
 
-  &.frg-layout-itemSizeX > * {
+  &.frgs-layout-itemSizeX > * {
     // 子要素の幅
-    width: var(--frg-layout-itemSizeX);
+    width: var(--frgs-layout-itemSizeX);
   }
-  &.frg-layout-adjustX-fit {
+  &.frgs-layout-adjustX-fit {
     // 子要素の幅調整: 伸ばす & 縮める
     justify-items: stretch;
     & > * {
@@ -114,36 +114,36 @@
     }
   }
   // 子要素の幅調整: 伸ばす / 縮める 共通のデフォルト
-  &.frg-layout-adjustX-grow,
-  &.frg-layout-adjustX-shrink {
+  &.frgs-layout-adjustX-grow,
+  &.frgs-layout-adjustX-shrink {
     & > * {
       width: 100%;
     }
   }
-  &.frg-layout-adjustX-grow {
+  &.frgs-layout-adjustX-grow {
     // 子要素の幅調整: 伸ばす
     & > * {
       min-width: max-content;
     }
-    &.frg-layout-itemSizeX > * {
-      min-width: var(--frg-layout-itemSizeX);
+    &.frgs-layout-itemSizeX > * {
+      min-width: var(--frgs-layout-itemSizeX);
     }
   }
-  &.frg-layout-adjustX-shrink {
+  &.frgs-layout-adjustX-shrink {
     // 子要素の幅調整: 縮める
     & > * {
       max-width: max-content;
     }
-    &.frg-layout-itemSizeX > * {
-      max-width: var(--frg-layout-itemSizeX);
+    &.frgs-layout-itemSizeX > * {
+      max-width: var(--frgs-layout-itemSizeX);
     }
   }
 
-  &.frg-layout-itemSizeY > * {
+  &.frgs-layout-itemSizeY > * {
     // 子要素の高さ
-    height: var(--frg-layout-itemSizeY);
+    height: var(--frgs-layout-itemSizeY);
   }
-  &.frg-layout-adjustY-fit {
+  &.frgs-layout-adjustY-fit {
     // 子要素の高さ調整: 伸ばす & 縮める
     align-items: stretch;
     // 子要素
@@ -152,33 +152,33 @@
     }
   }
   // 子要素の高さ調整: 伸ばす / 縮める 共通のデフォルト
-  &.frg-layout-adjustY-grow,
-  &.frg-layout-adjustY-shrink {
+  &.frgs-layout-adjustY-grow,
+  &.frgs-layout-adjustY-shrink {
     & > * {
       height: 100%;
     }
   }
-  &.frg-layout-adjustY-grow {
+  &.frgs-layout-adjustY-grow {
     // 子要素の高さ調整: 伸ばす
-    &:not(.frg-layout-itemSizeY) > * {
+    &:not(.frgs-layout-itemSizeY) > * {
       min-height: max-content;
     }
-    &.frg-layout-itemSizeY > * {
-      min-height: var(--frg-layout-itemSizeY);
+    &.frgs-layout-itemSizeY > * {
+      min-height: var(--frgs-layout-itemSizeY);
     }
   }
-  &.frg-layout-adjustY-shrink {
+  &.frgs-layout-adjustY-shrink {
     // 子要素の高さ調整: 縮める
-    &:not(.frg-layout-itemSizeY) > * {
+    &:not(.frgs-layout-itemSizeY) > * {
       max-height: max-content;
     }
-    &.frg-layout-itemSizeY > * {
-      max-height: var(--frg-layout-itemSizeY);
+    &.frgs-layout-itemSizeY > * {
+      max-height: var(--frgs-layout-itemSizeY);
     }
   }
 
-  &.frg-layout-itemRatio > * {
+  &.frgs-layout-itemRatio > * {
     // 縦横比
-    aspect-ratio: var(--frg-layout-itemRatio);
+    aspect-ratio: var(--frgs-layout-itemRatio);
   }
 }

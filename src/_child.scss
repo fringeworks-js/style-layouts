@@ -28,7 +28,7 @@
 }
 
 /// 条件: 値を選ぶオプション（例: adjustX）の値が$valuesのいずれか
-/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-stack-item）
+/// @param {String} $item アイテムのクラスの接頭辞（例: frgs-layout-stack-item）
 /// @param {String} $option オプション名（例: adjustX）
 /// @param {List} $values オプションの値
 @function _option($item, $option, $values) {
@@ -38,7 +38,7 @@
     $result: list.append(
       $result,
       _alternative(
-        '.frg-layout-#{$option}-#{$value}',
+        '.frgs-layout-#{$option}-#{$value}',
         ':not(.#{$item}-#{$option})'
       ),
       $separator: comma
@@ -54,7 +54,7 @@
 }
 
 /// 条件: adjust（軸: X / Y）の値が$valuesのいずれか
-/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-stack-item）
+/// @param {String} $item アイテムのクラスの接頭辞（例: frgs-layout-stack-item）
 /// @param {String} $axis 軸（X / Y）
 /// @param {List} $values adjustの値
 @function adjust($item, $axis, $values...) {
@@ -62,7 +62,7 @@
 }
 
 /// 条件: align（軸: X / Y）の値が$valuesのいずれか
-/// @param {String} $item アイテムのクラスの接頭辞（例: frg-layout-layer-item）
+/// @param {String} $item アイテムのクラスの接頭辞（例: frgs-layout-layer-item）
 /// @param {String} $axis 軸（X / Y）
 /// @param {List} $values alignの値（space-*以外）
 @function align($item, $axis, $values...) {
@@ -81,7 +81,7 @@
 @function value($item, $name) {
   @return _alternatives(
     _alternative(
-      '.frg-layout-#{_container-option($name)}',
+      '.frgs-layout-#{_container-option($name)}',
       ':not(.#{$item}-#{$name})'
     ),
     _alternative('', '.#{$item}-#{$name}', true)
@@ -92,7 +92,7 @@
 @function no-value($item, $name) {
   @return _alternatives(
     _alternative(
-      ':not(.frg-layout-#{_container-option($name)})',
+      ':not(.frgs-layout-#{_container-option($name)})',
       ':not(.#{$item}-#{$name})'
     )
   );
@@ -131,7 +131,7 @@
 /// - それ以外の組み合わせは、limitToItemsを指定しない場合は全ての子要素に、指定した場合はアイテムにだけ当てる
 /// - limitToItemsの切り替えは:where()で書き、詳細度に影響させない（条件の無いルールが、条件のあるルールより常に弱くなるようにする）
 /// - 親のセレクター（&）はコンテナを指していること
-/// @param {String} $item アイテムのクラス（例: frg-layout-stack-item）
+/// @param {String} $item アイテムのクラス（例: frgs-layout-stack-item）
 /// @param {List} $conditions 条件（選択肢のリスト）。省略すると全ての子要素（limitToItemsの場合はアイテム）
 @mixin when($item, $conditions...) {
   $combinations: _alternatives(_alternative('', ''));
@@ -170,12 +170,12 @@
       }
       $selectors: list.append(
         $selectors,
-        '#{&}:where(:not(.frg-layout-limitToItems))#{$parent} > #{$all}',
+        '#{&}:where(:not(.frgs-layout-limitToItems))#{$parent} > #{$all}',
         $separator: comma
       );
       $selectors: list.append(
         $selectors,
-        '#{&}:where(.frg-layout-limitToItems)#{$parent} > :where(.#{$item})#{$child}',
+        '#{&}:where(.frgs-layout-limitToItems)#{$parent} > :where(.#{$item})#{$child}',
         $separator: comma
       );
     }
@@ -187,18 +187,18 @@
 
 /// 値を指定するオプションの値を決める
 ///
-/// - 内部の変数（--_frg-layout-<アイテムのオプション名>）に、アイテムの値があればアイテムの値を、無ければコンテナの値を設定する
+/// - 内部の変数（--_frgs-layout-<アイテムのオプション名>）に、アイテムの値があればアイテムの値を、無ければコンテナの値を設定する
 /// - 内部の変数は、値を設定した条件と同じ条件のルールでだけ読むため、孫要素に継承されても影響しない
 /// @param {String} $item アイテムのクラスの接頭辞
 /// @param {List} $names アイテムのオプション名（例: sizeX）
 @mixin resolve-values($item, $names...) {
   @each $name in $names {
     $container: _container-option($name);
-    &.frg-layout-#{$container} > :not(.#{$item}-#{$name}) {
-      --_frg-layout-#{$name}: var(--frg-layout-#{$container});
+    &.frgs-layout-#{$container} > :not(.#{$item}-#{$name}) {
+      --_frgs-layout-#{$name}: var(--frgs-layout-#{$container});
     }
     & > .#{$item}-#{$name} {
-      --_frg-layout-#{$name}: var(--#{$item}-#{$name});
+      --_frgs-layout-#{$name}: var(--#{$item}-#{$name});
     }
   }
 }

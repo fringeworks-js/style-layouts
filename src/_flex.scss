@@ -16,7 +16,7 @@
   }
   @include child.when($item, child.size($item, $axis)) {
     // 子要素のサイズ
-    flex-basis: var(--_frg-layout-size#{$axis});
+    flex-basis: var(--_frgs-layout-size#{$axis});
   }
   @include child.when(
     $item,
@@ -56,7 +56,7 @@
     child.size($item, $axis)
   ) {
     // 子要素のサイズ
-    #{$size}: var(--_frg-layout-size#{$axis});
+    #{$size}: var(--_frgs-layout-size#{$axis});
   }
   @include child.when(
     $item,
@@ -79,7 +79,7 @@
 
   @include child.when($item, child.size($item, $axis)) {
     // 子要素のサイズ
-    #{$size}: var(--_frg-layout-size#{$axis});
+    #{$size}: var(--_frgs-layout-size#{$axis});
   }
 }
 

@@ -6,8 +6,8 @@ describe('applyItemCount', () => {
     const result: LayoutStyle = {};
     applyItemCount(result, 3, undefined);
     expect(result).toEqual({
-      className: 'frg-layout-itemCountX',
-      style: { '--frg-layout-itemCountX': '3' },
+      className: 'frgs-layout-itemCountX',
+      style: { '--frgs-layout-itemCountX': '3' },
     });
   });
 
@@ -15,10 +15,10 @@ describe('applyItemCount', () => {
     const result: LayoutStyle = {};
     applyItemCount(result, 3, 2);
     expect(result).toEqual({
-      className: 'frg-layout-itemCountX frg-layout-itemCountY',
+      className: 'frgs-layout-itemCountX frgs-layout-itemCountY',
       style: {
-        '--frg-layout-itemCountX': '3',
-        '--frg-layout-itemCountY': '2',
+        '--frgs-layout-itemCountX': '3',
+        '--frgs-layout-itemCountY': '2',
       },
     });
   });

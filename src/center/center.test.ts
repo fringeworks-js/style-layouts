@@ -4,8 +4,8 @@ describe('center', () => {
   it('オプションを省略すると既定値のクラスと間隔を返す', () => {
     expect(center()).toEqual({
       className:
-        'frg-layout-center frg-layout-direction-x frg-layout-adjustX-none frg-layout-adjustY-none',
-      style: { '--frg-layout-gapX': '0px', '--frg-layout-gapY': '0px' },
+        'frgs-layout-center frgs-layout-direction-x frgs-layout-adjustX-none frgs-layout-adjustY-none',
+      style: { '--frgs-layout-gapX': '0px', '--frgs-layout-gapY': '0px' },
     });
   });
 
@@ -20,12 +20,12 @@ describe('center', () => {
       }),
     ).toEqual({
       className:
-        'frg-layout-center frg-layout-direction-y frg-layout-adjustX-shrink frg-layout-adjustY-none frg-layout-itemSizeY frg-layout-itemRatio',
+        'frgs-layout-center frgs-layout-direction-y frgs-layout-adjustX-shrink frgs-layout-adjustY-none frgs-layout-itemSizeY frgs-layout-itemRatio',
       style: {
-        '--frg-layout-gapX': '8px',
-        '--frg-layout-gapY': '8px',
-        '--frg-layout-itemSizeY': '200px',
-        '--frg-layout-itemRatio': '1.6 / 1',
+        '--frgs-layout-gapX': '8px',
+        '--frgs-layout-gapY': '8px',
+        '--frgs-layout-itemSizeY': '200px',
+        '--frgs-layout-itemRatio': '1.6 / 1',
       },
     });
   });

@@ -33,12 +33,12 @@ const { className, style } = stack({
   gap: 16,
 });
 
-// className: "frg-layout-stack frg-layout-direction-x ..."
-// style: { "--frg-layout-gapX": "16px", "--frg-layout-gapY": "16px" }
+// className: "frgs-layout-stack frgs-layout-direction-x ..."
+// style: { "--frgs-layout-gapX": "16px", "--frgs-layout-gapY": "16px" }
 ```
 
 ```html
-<div class="frg-layout-stack ..." style="--frg-layout-gapX: 16px; ...">
+<div class="frgs-layout-stack ..." style="--frgs-layout-gapX: 16px; ...">
   <div>Item 1</div>
   <div>Item 2</div>
 </div>
@@ -120,11 +120,11 @@ const item = stackItem({ sizeX: 200 }); // 子要素自身の幅: 200px
 
 ```html
 <!-- 親: stack({ itemSizeX: 200 }) -->
-<div class="frg-layout-stack ...">
+<div class="frgs-layout-stack ...">
   <!-- 親の itemSizeX (200px) が適用される -->
   <div>
     <!-- 子要素のレイアウト: stack({ itemSizeX: 50 }) -->
-    <div class="frg-layout-stack ...">...</div>
+    <div class="frgs-layout-stack ...">...</div>
   </div>
 </div>
 ```

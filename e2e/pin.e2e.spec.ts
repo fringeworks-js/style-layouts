@@ -6,11 +6,11 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.frg-layout-pin > *');
+  await page.waitForSelector('.frgs-layout-pin > *');
 };
 
 const getChildRects = (page: Page) =>
-  page.locator('.frg-layout-pin > *').evaluateAll((els) =>
+  page.locator('.frgs-layout-pin > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       const parent = el.parentElement!.getBoundingClientRect();

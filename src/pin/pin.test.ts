@@ -4,7 +4,8 @@ import pinItem from './pinItem';
 describe('pin', () => {
   it('オプションを省略すると既定値のクラスを返す', () => {
     expect(pin()).toEqual({
-      className: 'frg-layout-pin frg-layout-alignX-left frg-layout-alignY-top',
+      className:
+        'frgs-layout-pin frgs-layout-alignX-left frgs-layout-alignY-top',
       style: {},
     });
   });
@@ -22,13 +23,13 @@ describe('pin', () => {
       }),
     ).toEqual({
       className:
-        'frg-layout-pin frg-layout-alignX-right frg-layout-alignY-bottom frg-layout-itemOffsetX frg-layout-itemOffsetY frg-layout-itemOffsetZ frg-layout-itemSizeX frg-layout-itemSizeY',
+        'frgs-layout-pin frgs-layout-alignX-right frgs-layout-alignY-bottom frgs-layout-itemOffsetX frgs-layout-itemOffsetY frgs-layout-itemOffsetZ frgs-layout-itemSizeX frgs-layout-itemSizeY',
       style: {
-        '--frg-layout-itemOffsetX': '10px',
-        '--frg-layout-itemOffsetY': '20%',
-        '--frg-layout-itemOffsetZ': '2',
-        '--frg-layout-itemSizeX': '100px',
-        '--frg-layout-itemSizeY': '80px',
+        '--frgs-layout-itemOffsetX': '10px',
+        '--frgs-layout-itemOffsetY': '20%',
+        '--frgs-layout-itemOffsetZ': '2',
+        '--frgs-layout-itemSizeX': '100px',
+        '--frgs-layout-itemSizeY': '80px',
       },
     });
   });
@@ -40,18 +41,18 @@ describe('pinItem', () => {
       pinItem({ alignX: 'right', offsetX: 10, offsetY: '50%', offsetZ: 0 }),
     ).toEqual({
       className:
-        'frg-layout-pin-item frg-layout-pin-item-alignX frg-layout-pin-item-alignX-right frg-layout-pin-item-offsetX frg-layout-pin-item-offsetY frg-layout-pin-item-offsetZ',
+        'frgs-layout-pin-item frgs-layout-pin-item-alignX frgs-layout-pin-item-alignX-right frgs-layout-pin-item-offsetX frgs-layout-pin-item-offsetY frgs-layout-pin-item-offsetZ',
       style: {
-        '--frg-layout-pin-item-offsetX': '10px',
-        '--frg-layout-pin-item-offsetY': '50%',
-        '--frg-layout-pin-item-offsetZ': '0',
+        '--frgs-layout-pin-item-offsetX': '10px',
+        '--frgs-layout-pin-item-offsetY': '50%',
+        '--frgs-layout-pin-item-offsetZ': '0',
       },
     });
   });
 
   it('空文字のオフセットは指定しなかったものとして扱う', () => {
     expect(pinItem({ offsetX: '' })).toEqual({
-      className: 'frg-layout-pin-item',
+      className: 'frgs-layout-pin-item',
       style: {},
     });
   });

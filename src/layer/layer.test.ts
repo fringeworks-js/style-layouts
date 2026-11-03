@@ -4,7 +4,7 @@ describe('layer', () => {
   it('オプションを省略すると既定値のクラスを返す', () => {
     expect(layer()).toEqual({
       className:
-        'frg-layout-layer frg-layout-alignX-left frg-layout-alignY-top frg-layout-adjustX-none frg-layout-adjustY-none',
+        'frgs-layout-layer frgs-layout-alignX-left frgs-layout-alignY-top frgs-layout-adjustX-none frgs-layout-adjustY-none',
       style: {},
     });
   });
@@ -21,17 +21,17 @@ describe('layer', () => {
       }),
     ).toEqual({
       className:
-        'frg-layout-layer frg-layout-alignX-center frg-layout-alignY-bottom frg-layout-adjustX-shrink frg-layout-adjustY-none frg-layout-itemSizeX frg-layout-itemRatio',
+        'frgs-layout-layer frgs-layout-alignX-center frgs-layout-alignY-bottom frgs-layout-adjustX-shrink frgs-layout-adjustY-none frgs-layout-itemSizeX frgs-layout-itemRatio',
       style: {
-        '--frg-layout-itemSizeX': '200px',
-        '--frg-layout-itemRatio': '16 / 9',
+        '--frgs-layout-itemSizeX': '200px',
+        '--frgs-layout-itemRatio': '16 / 9',
       },
     });
   });
 
   it('itemOffsetZをクラスと変数に変換する', () => {
     const { className, style } = layer({ itemOffsetZ: 3 });
-    expect(className).toContain('frg-layout-itemOffsetZ');
-    expect(style).toEqual({ '--frg-layout-itemOffsetZ': '3' });
+    expect(className).toContain('frgs-layout-itemOffsetZ');
+    expect(style).toEqual({ '--frgs-layout-itemOffsetZ': '3' });
   });
 });

@@ -15,10 +15,10 @@ describe('createItemStyle', () => {
   });
 
   it.each([
-    ['flowItem', flowItem, 'frg-layout-flow-item'],
-    ['centerItem', centerItem, 'frg-layout-center-item'],
-    ['layerItem', layerItem, 'frg-layout-layer-item'],
-    ['pinItem', pinItem, 'frg-layout-pin-item'],
+    ['flowItem', flowItem, 'frgs-layout-flow-item'],
+    ['centerItem', centerItem, 'frgs-layout-center-item'],
+    ['layerItem', layerItem, 'frgs-layout-layer-item'],
+    ['pinItem', pinItem, 'frgs-layout-pin-item'],
   ] as const)('%s: レイアウトのアイテムのクラスを使う', (_, fn, item) => {
     expect(fn()).toEqual({ className: item, style: {} });
     expect(fn({ sizeX: 10, ratioX: 2 })).toEqual({
@@ -32,7 +32,7 @@ describe('createItemStyle', () => {
 
   it('layerItem: alignとadjustを指定できる', () => {
     expect(layerItem({ alignX: 'center', adjustY: 'fit' }).className).toBe(
-      'frg-layout-layer-item frg-layout-layer-item-alignX frg-layout-layer-item-alignX-center frg-layout-layer-item-adjustY frg-layout-layer-item-adjustY-fit',
+      'frgs-layout-layer-item frgs-layout-layer-item-alignX frgs-layout-layer-item-alignX-center frgs-layout-layer-item-adjustY frgs-layout-layer-item-adjustY-fit',
     );
   });
 });

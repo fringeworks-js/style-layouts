@@ -6,8 +6,8 @@ describe('applyItemSize', () => {
     const result: LayoutStyle = {};
     applyItemSize(result, 100, undefined);
     expect(result).toEqual({
-      className: 'frg-layout-itemSizeX',
-      style: { '--frg-layout-itemSizeX': '100px' },
+      className: 'frgs-layout-itemSizeX',
+      style: { '--frgs-layout-itemSizeX': '100px' },
     });
   });
 
@@ -15,10 +15,10 @@ describe('applyItemSize', () => {
     const result: LayoutStyle = {};
     applyItemSize(result, 100, 0);
     expect(result).toEqual({
-      className: 'frg-layout-itemSizeX frg-layout-itemSizeY',
+      className: 'frgs-layout-itemSizeX frgs-layout-itemSizeY',
       style: {
-        '--frg-layout-itemSizeX': '100px',
-        '--frg-layout-itemSizeY': '0px',
+        '--frgs-layout-itemSizeX': '100px',
+        '--frgs-layout-itemSizeY': '0px',
       },
     });
   });

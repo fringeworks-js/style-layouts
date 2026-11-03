@@ -6,7 +6,7 @@ const STORY_URL = (storyId: string) =>
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
-  await page.waitForSelector('.frg-layout-center > *');
+  await page.waitForSelector('.frgs-layout-center > *');
 };
 
 const ITEM_SIZE = 200;
@@ -15,16 +15,16 @@ const ITEMS_SIZE = ITEM_SIZE * ITEM_COUNT;
 
 const getChildWidths = (page: Page) =>
   page
-    .locator('.frg-layout-center > *')
+    .locator('.frgs-layout-center > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().width));
 
 const getChildHeights = (page: Page) =>
   page
-    .locator('.frg-layout-center > *')
+    .locator('.frgs-layout-center > *')
     .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height));
 
 const getChildXRects = (page: Page) =>
-  page.locator('.frg-layout-center > *').evaluateAll((els) =>
+  page.locator('.frgs-layout-center > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { left: rect.left, right: rect.right, width: rect.width };
@@ -32,7 +32,7 @@ const getChildXRects = (page: Page) =>
   );
 
 const getChildYRects = (page: Page) =>
-  page.locator('.frg-layout-center > *').evaluateAll((els) =>
+  page.locator('.frgs-layout-center > *').evaluateAll((els) =>
     els.map((el) => {
       const rect = el.getBoundingClientRect();
       return { top: rect.top, bottom: rect.bottom, height: rect.height };
@@ -40,7 +40,7 @@ const getChildYRects = (page: Page) =>
   );
 
 const getContainerRect = (page: Page) =>
-  page.locator('.frg-layout-center').evaluate((el) => {
+  page.locator('.frgs-layout-center').evaluate((el) => {
     const rect = el.getBoundingClientRect();
     return {
       left: rect.left,

@@ -14,9 +14,9 @@ import unit from './unit';
  * アイテム（子要素）に適用するクラスと変数を作る
  *
  * - オプションを指定した場合だけクラスと変数を設定し、指定しないオプションはコンテナの指定に従う
- * - align・adjustは、指定したことを表すクラス（例: frg-layout-stack-item-adjustX）と値のクラスを設定する
+ * - align・adjustは、指定したことを表すクラス（例: frgs-layout-stack-item-adjustX）と値のクラスを設定する
  * - 変数の名前はコンテナの変数と分ける（子要素がレイアウトのコンテナを兼ねても干渉しない）
- * @param item アイテムのクラス（例: frg-layout-stack-item）
+ * @param item アイテムのクラス（例: frgs-layout-stack-item）
  * @param options オプション
  * @returns
  */

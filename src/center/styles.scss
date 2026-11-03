@@ -1,7 +1,7 @@
 @use '../child';
 
 // アイテムのクラスの接頭辞
-$item: 'frg-layout-center-item';
+$item: 'frgs-layout-center-item';
 
 /// 軸のサイズのプロパティ名
 @function _size($axis) {
@@ -35,8 +35,8 @@ $item: 'frg-layout-center-item';
     child.size($item, $axis)
   ) {
     // 伸ばす: 指定のサイズより小さくしない
-    min-#{$size}: var(--_frg-layout-size#{$axis});
-    flex-basis: var(--_frg-layout-size#{$axis});
+    min-#{$size}: var(--_frgs-layout-size#{$axis});
+    flex-basis: var(--_frgs-layout-size#{$axis});
   }
   @include child.when(
     $item,
@@ -55,8 +55,8 @@ $item: 'frg-layout-center-item';
     child.size($item, $axis)
   ) {
     // 子要素のサイズ
-    #{$size}: var(--_frg-layout-size#{$axis});
-    flex-basis: var(--_frg-layout-size#{$axis});
+    #{$size}: var(--_frgs-layout-size#{$axis});
+    flex-basis: var(--_frgs-layout-size#{$axis});
   }
 }
 
@@ -76,7 +76,7 @@ $item: 'frg-layout-center-item';
     child.size($item, $axis)
   ) {
     // 伸ばす: 指定のサイズより小さくしない
-    min-#{$size}: var(--_frg-layout-size#{$axis});
+    min-#{$size}: var(--_frgs-layout-size#{$axis});
   }
   @include child.when($item, child.adjust($item, $axis, shrink)) {
     // 縮める: 親要素のサイズより大きくしない
@@ -88,15 +88,15 @@ $item: 'frg-layout-center-item';
     child.size($item, $axis)
   ) {
     // 子要素のサイズ
-    #{$size}: var(--_frg-layout-size#{$axis});
+    #{$size}: var(--_frgs-layout-size#{$axis});
   }
 }
 
-.frg-layout-center {
+.frgs-layout-center {
   // 子要素の間隔
   // 中央寄せはautoマージンで行っているため、gapはautoマージンと干渉しない
-  column-gap: var(--frg-layout-gapX);
-  row-gap: var(--frg-layout-gapY);
+  column-gap: var(--frgs-layout-gapX);
+  row-gap: var(--frgs-layout-gapY);
 
   // center用のスタイル
   display: flex;
@@ -113,7 +113,7 @@ $item: 'frg-layout-center-item';
     margin: 0;
   }
 
-  &.frg-layout-direction-x {
+  &.frgs-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
 
@@ -139,7 +139,7 @@ $item: 'frg-layout-center-item';
     @include _cross-axis(Y);
   }
 
-  &.frg-layout-direction-y {
+  &.frgs-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
 
@@ -167,6 +167,6 @@ $item: 'frg-layout-center-item';
 
   @include child.when($item, child.ratio($item)) {
     // 縦横比
-    aspect-ratio: var(--_frg-layout-ratio);
+    aspect-ratio: var(--_frgs-layout-ratio);
   }
 }

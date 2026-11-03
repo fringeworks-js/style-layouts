@@ -6,7 +6,7 @@ describe('applyGap', () => {
     const result: LayoutStyle = {};
     applyGap(result, 8, undefined, undefined);
     expect(result).toEqual({
-      style: { '--frg-layout-gapX': '8px', '--frg-layout-gapY': '8px' },
+      style: { '--frgs-layout-gapX': '8px', '--frgs-layout-gapY': '8px' },
     });
   });
 
@@ -14,8 +14,8 @@ describe('applyGap', () => {
     const result: LayoutStyle = {};
     applyGap(result, 8, 4, 0);
     expect(result.style).toEqual({
-      '--frg-layout-gapX': '4px',
-      '--frg-layout-gapY': '0px',
+      '--frgs-layout-gapX': '4px',
+      '--frgs-layout-gapY': '0px',
     });
   });
 

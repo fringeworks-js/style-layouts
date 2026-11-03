@@ -3,309 +3,309 @@ import type { Adjust, AlignX, AlignY, Direction } from './constants';
 /**
  * レイアウト種別: stack
  */
-export const clsLayoutStack = 'frg-layout-stack';
+export const clsLayoutStack = 'frgs-layout-stack';
 
 /**
  * レイアウト種別: flow
  */
-export const clsLayoutFlow = 'frg-layout-flow';
+export const clsLayoutFlow = 'frgs-layout-flow';
 
 /**
  * レイアウト種別: tile
  */
-export const clsLayoutTile = 'frg-layout-tile';
+export const clsLayoutTile = 'frgs-layout-tile';
 
 /**
  * レイアウト種別: matrix
  */
-export const clsLayoutMatrix = 'frg-layout-matrix';
+export const clsLayoutMatrix = 'frgs-layout-matrix';
 
 /**
  * レイアウト種別: center
  */
-export const clsLayoutCenter = 'frg-layout-center';
+export const clsLayoutCenter = 'frgs-layout-center';
 
 /**
  * レイアウト種別: pack
  */
-export const clsLayoutPack = 'frg-layout-pack';
+export const clsLayoutPack = 'frgs-layout-pack';
 
 /**
  * レイアウト種別: balance
  */
-export const clsLayoutBalance = 'frg-layout-balance';
+export const clsLayoutBalance = 'frgs-layout-balance';
 
 /**
  * レイアウト種別: layer
  */
-export const clsLayoutLayer = 'frg-layout-layer';
+export const clsLayoutLayer = 'frgs-layout-layer';
 
 /**
  * レイアウト種別: pin
  */
-export const clsLayoutPin = 'frg-layout-pin';
+export const clsLayoutPin = 'frgs-layout-pin';
 
 /**
  * アイテム: stack
  */
-export const clsLayoutStackItem = 'frg-layout-stack-item';
+export const clsLayoutStackItem = 'frgs-layout-stack-item';
 
 /**
  * アイテム: flow
  */
-export const clsLayoutFlowItem = 'frg-layout-flow-item';
+export const clsLayoutFlowItem = 'frgs-layout-flow-item';
 
 /**
  * アイテム: center
  */
-export const clsLayoutCenterItem = 'frg-layout-center-item';
+export const clsLayoutCenterItem = 'frgs-layout-center-item';
 
 /**
  * アイテム: layer
  */
-export const clsLayoutLayerItem = 'frg-layout-layer-item';
+export const clsLayoutLayerItem = 'frgs-layout-layer-item';
 
 /**
  * アイテム: pin
  */
-export const clsLayoutPinItem = 'frg-layout-pin-item';
+export const clsLayoutPinItem = 'frgs-layout-pin-item';
 
 /**
  * 子要素のスタイルを当てる対象をアイテムに限定する
  */
-export const clsLayoutLimitToItems = 'frg-layout-limitToItems';
+export const clsLayoutLimitToItems = 'frgs-layout-limitToItems';
 
 /**
  * 整列: 横方向
  */
-export const clsLayoutDirectionX = 'frg-layout-direction-x';
+export const clsLayoutDirectionX = 'frgs-layout-direction-x';
 
 /**
  * 整列: 縦方向
  */
-export const clsLayoutDirectionY = 'frg-layout-direction-y';
+export const clsLayoutDirectionY = 'frgs-layout-direction-y';
 
 /**
  * 横位置: 左
  */
-export const clsLayoutAlignXLeft = 'frg-layout-alignX-left';
+export const clsLayoutAlignXLeft = 'frgs-layout-alignX-left';
 
 /**
  * 横位置: 中央
  */
-export const clsLayoutAlignXCenter = 'frg-layout-alignX-center';
+export const clsLayoutAlignXCenter = 'frgs-layout-alignX-center';
 
 /**
  * 横位置: 右
  */
-export const clsLayoutAlignXRight = 'frg-layout-alignX-right';
+export const clsLayoutAlignXRight = 'frgs-layout-alignX-right';
 
 /**
  * 横位置: 両端揃え
  */
-export const clsLayoutAlignXSpaceBetween = 'frg-layout-alignX-spaceBetween';
+export const clsLayoutAlignXSpaceBetween = 'frgs-layout-alignX-spaceBetween';
 
 /**
  * 横位置: 両端余白あり均等
  */
-export const clsLayoutAlignXSpaceAround = 'frg-layout-alignX-spaceAround';
+export const clsLayoutAlignXSpaceAround = 'frgs-layout-alignX-spaceAround';
 
 /**
  * 横位置: 完全均等
  */
-export const clsLayoutAlignXSpaceEvenly = 'frg-layout-alignX-spaceEvenly';
+export const clsLayoutAlignXSpaceEvenly = 'frgs-layout-alignX-spaceEvenly';
 
 /**
  * 縦位置: 上
  */
-export const clsLayoutAlignYTop = 'frg-layout-alignY-top';
+export const clsLayoutAlignYTop = 'frgs-layout-alignY-top';
 
 /**
  * 縦位置: 中央
  */
-export const clsLayoutAlignYMiddle = 'frg-layout-alignY-middle';
+export const clsLayoutAlignYMiddle = 'frgs-layout-alignY-middle';
 
 /**
  * 縦位置: 下
  */
-export const clsLayoutAlignYBottom = 'frg-layout-alignY-bottom';
+export const clsLayoutAlignYBottom = 'frgs-layout-alignY-bottom';
 
 /**
  * 縦位置: 両端揃え
  */
-export const clsLayoutAlignYSpaceBetween = 'frg-layout-alignY-spaceBetween';
+export const clsLayoutAlignYSpaceBetween = 'frgs-layout-alignY-spaceBetween';
 
 /**
  * 縦位置: 両端余白あり均等
  */
-export const clsLayoutAlignYSpaceAround = 'frg-layout-alignY-spaceAround';
+export const clsLayoutAlignYSpaceAround = 'frgs-layout-alignY-spaceAround';
 
 /**
  * 縦位置: 完全均等
  */
-export const clsLayoutAlignYSpaceEvenly = 'frg-layout-alignY-spaceEvenly';
+export const clsLayoutAlignYSpaceEvenly = 'frgs-layout-alignY-spaceEvenly';
 
 /**
  * 子要素の幅調整: なし
  */
-export const clsLayoutAdjustXNone = 'frg-layout-adjustX-none';
+export const clsLayoutAdjustXNone = 'frgs-layout-adjustX-none';
 
 /**
  * 子要素の幅調整: 伸ばす & 縮める
  */
-export const clsLayoutAdjustXFit = 'frg-layout-adjustX-fit';
+export const clsLayoutAdjustXFit = 'frgs-layout-adjustX-fit';
 
 /**
  * 子要素の幅調整: 伸ばす
  */
-export const clsLayoutAdjustXGrow = 'frg-layout-adjustX-grow';
+export const clsLayoutAdjustXGrow = 'frgs-layout-adjustX-grow';
 
 /**
  * 子要素の幅調整: 縮める
  */
-export const clsLayoutAdjustXShrink = 'frg-layout-adjustX-shrink';
+export const clsLayoutAdjustXShrink = 'frgs-layout-adjustX-shrink';
 
 /**
  * 子要素の高さ調整: なし
  */
-export const clsLayoutAdjustYNone = 'frg-layout-adjustY-none';
+export const clsLayoutAdjustYNone = 'frgs-layout-adjustY-none';
 
 /**
  * 子要素の高さ調整: 伸ばす & 縮める
  */
-export const clsLayoutAdjustYFit = 'frg-layout-adjustY-fit';
+export const clsLayoutAdjustYFit = 'frgs-layout-adjustY-fit';
 
 /**
  * 子要素の高さ調整: 伸ばす
  */
-export const clsLayoutAdjustYGrow = 'frg-layout-adjustY-grow';
+export const clsLayoutAdjustYGrow = 'frgs-layout-adjustY-grow';
 
 /**
  * 子要素の高さ調整: 縮める
  */
-export const clsLayoutAdjustYShrink = 'frg-layout-adjustY-shrink';
+export const clsLayoutAdjustYShrink = 'frgs-layout-adjustY-shrink';
 
 /**
  * 子要素の幅
  */
-export const clsLayoutItemSizeX = 'frg-layout-itemSizeX';
+export const clsLayoutItemSizeX = 'frgs-layout-itemSizeX';
 
 /**
  * 子要素の高さ
  */
-export const clsLayoutItemSizeY = 'frg-layout-itemSizeY';
+export const clsLayoutItemSizeY = 'frgs-layout-itemSizeY';
 
 /**
  * 子要素の縦横比
  */
-export const clsLayoutItemRatio = 'frg-layout-itemRatio';
+export const clsLayoutItemRatio = 'frgs-layout-itemRatio';
 
 /**
  * 子要素の横方向の数
  */
-export const clsLayoutItemCountX = 'frg-layout-itemCountX';
+export const clsLayoutItemCountX = 'frgs-layout-itemCountX';
 
 /**
  * 子要素の縦方向の数
  */
-export const clsLayoutItemCountY = 'frg-layout-itemCountY';
+export const clsLayoutItemCountY = 'frgs-layout-itemCountY';
 
 /**
  * 横方向のテンプレート
  */
-export const clsLayoutTemplateX = 'frg-layout-templateX';
+export const clsLayoutTemplateX = 'frgs-layout-templateX';
 
 /**
  * 縦方向のテンプレート
  */
-export const clsLayoutTemplateY = 'frg-layout-templateY';
+export const clsLayoutTemplateY = 'frgs-layout-templateY';
 
 /**
  * 子要素のオフセット: 横方向
  */
-export const clsLayoutItemOffsetX = 'frg-layout-itemOffsetX';
+export const clsLayoutItemOffsetX = 'frgs-layout-itemOffsetX';
 
 /**
  * 子要素のオフセット: 縦方向
  */
-export const clsLayoutItemOffsetY = 'frg-layout-itemOffsetY';
+export const clsLayoutItemOffsetY = 'frgs-layout-itemOffsetY';
 
 /**
  * 子要素のオフセット: 重なり順
  */
-export const clsLayoutItemOffsetZ = 'frg-layout-itemOffsetZ';
+export const clsLayoutItemOffsetZ = 'frgs-layout-itemOffsetZ';
 
 /**
  * 変数\
  * 子要素のオフセット: 横方向
  */
-export const varLayoutItemOffsetX = '--frg-layout-itemOffsetX';
+export const varLayoutItemOffsetX = '--frgs-layout-itemOffsetX';
 
 /**
  * 変数\
  * 子要素のオフセット: 縦方向
  */
-export const varLayoutItemOffsetY = '--frg-layout-itemOffsetY';
+export const varLayoutItemOffsetY = '--frgs-layout-itemOffsetY';
 
 /**
  * 変数\
  * 子要素のオフセット: 重なり順
  */
-export const varLayoutItemOffsetZ = '--frg-layout-itemOffsetZ';
+export const varLayoutItemOffsetZ = '--frgs-layout-itemOffsetZ';
 
 /**
  * 変数\
  * 間隔: 横方向
  */
-export const varLayoutGapX = '--frg-layout-gapX';
+export const varLayoutGapX = '--frgs-layout-gapX';
 
 /**
  * 変数\
  * 間隔: 縦方向
  */
-export const varLayoutGapY = '--frg-layout-gapY';
+export const varLayoutGapY = '--frgs-layout-gapY';
 
 /**
  * 変数\
  * 子要素の幅
  */
-export const varLayoutItemSizeX = '--frg-layout-itemSizeX';
+export const varLayoutItemSizeX = '--frgs-layout-itemSizeX';
 
 /**
  * 変数\
  * 子要素の高さ
  */
-export const varLayoutItemSizeY = '--frg-layout-itemSizeY';
+export const varLayoutItemSizeY = '--frgs-layout-itemSizeY';
 
 /**
  * 変数\
  * 子要素の縦横比
  */
-export const varLayoutItemRatio = '--frg-layout-itemRatio';
+export const varLayoutItemRatio = '--frgs-layout-itemRatio';
 
 /**
  * 変数\
  * 子要素の横方向の数
  */
-export const varLayoutItemCountX = '--frg-layout-itemCountX';
+export const varLayoutItemCountX = '--frgs-layout-itemCountX';
 
 /**
  * 変数\
  * 子要素の縦方向の数
  */
-export const varLayoutItemCountY = '--frg-layout-itemCountY';
+export const varLayoutItemCountY = '--frgs-layout-itemCountY';
 
 /**
  * 変数\
  * 横方向のテンプレート
  */
-export const varLayoutTemplateX = '--frg-layout-templateX';
+export const varLayoutTemplateX = '--frgs-layout-templateX';
 
 /**
  * 変数\
  * 縦方向のテンプレート
  */
-export const varLayoutTemplateY = '--frg-layout-templateY';
+export const varLayoutTemplateY = '--frgs-layout-templateY';
 
 /**
  * axis毎のクラス

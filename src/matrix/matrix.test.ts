@@ -5,12 +5,12 @@ describe('matrix', () => {
   it('itemCountをクラスと変数に変換する', () => {
     expect(matrix({ itemCountX: 3, itemCountY: 2 })).toEqual({
       className:
-        'frg-layout-matrix frg-layout-direction-x frg-layout-alignX-left frg-layout-alignY-top frg-layout-adjustX-none frg-layout-adjustY-none frg-layout-itemCountX frg-layout-itemCountY',
+        'frgs-layout-matrix frgs-layout-direction-x frgs-layout-alignX-left frgs-layout-alignY-top frgs-layout-adjustX-none frgs-layout-adjustY-none frgs-layout-itemCountX frgs-layout-itemCountY',
       style: {
-        '--frg-layout-gapX': '0px',
-        '--frg-layout-gapY': '0px',
-        '--frg-layout-itemCountX': '3',
-        '--frg-layout-itemCountY': '2',
+        '--frgs-layout-gapX': '0px',
+        '--frgs-layout-gapY': '0px',
+        '--frgs-layout-itemCountX': '3',
+        '--frgs-layout-itemCountY': '2',
       },
     });
   });
@@ -21,13 +21,13 @@ describe('matrix', () => {
       itemSizeX: 100,
       itemCountY: 2,
     });
-    expect(className).toContain('frg-layout-itemSizeX');
-    expect(style).toMatchObject({ '--frg-layout-itemSizeX': '100px' });
+    expect(className).toContain('frgs-layout-itemSizeX');
+    expect(style).toMatchObject({ '--frgs-layout-itemSizeX': '100px' });
   });
 
   describe('tracks', () => {
     const getTemplateX = (options: MatrixLayoutOptions) =>
-      matrix(options).style?.['--frg-layout-templateX'];
+      matrix(options).style?.['--frgs-layout-templateX'];
 
     it('adjustなし: 値をそのまま並べる（数値はpx）', () => {
       expect(
@@ -59,7 +59,7 @@ describe('matrix', () => {
           adjustX: 'shrink',
         }),
       ).toBe(
-        'minmax(0, min(calc((100% - var(--frg-layout-gapX) * 1) * 100 / 400), 100px)) minmax(0, min(calc((100% - var(--frg-layout-gapX) * 1) * 300 / 400), 300px))',
+        'minmax(0, min(calc((100% - var(--frgs-layout-gapX) * 1) * 100 / 400), 100px)) minmax(0, min(calc((100% - var(--frgs-layout-gapX) * 1) * 300 / 400), 300px))',
       );
     });
 
@@ -95,9 +95,9 @@ describe('matrix', () => {
         itemCountX: 2,
         tracksY: [50, 50],
       });
-      expect(className).toContain('frg-layout-templateY');
-      expect(className).not.toContain('frg-layout-itemCountY');
-      expect(style).toMatchObject({ '--frg-layout-templateY': '50px 50px' });
+      expect(className).toContain('frgs-layout-templateY');
+      expect(className).not.toContain('frgs-layout-itemCountY');
+      expect(style).toMatchObject({ '--frgs-layout-templateY': '50px 50px' });
     });
   });
 });

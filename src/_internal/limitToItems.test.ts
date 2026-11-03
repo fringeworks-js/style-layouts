@@ -13,11 +13,11 @@ describe('limitToItems', () => {
     ['pin', pin],
   ] as const)('%s: 指定した場合だけクラスを追加する', (_, layout) => {
     expect(layout({ limitToItems: true }).className).toContain(
-      'frg-layout-limitToItems',
+      'frgs-layout-limitToItems',
     );
     expect(layout({ limitToItems: false }).className).not.toContain(
-      'frg-layout-limitToItems',
+      'frgs-layout-limitToItems',
     );
-    expect(layout().className).not.toContain('frg-layout-limitToItems');
+    expect(layout().className).not.toContain('frgs-layout-limitToItems');
   });
 });
