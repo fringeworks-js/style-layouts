@@ -1,9 +1,9 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutLimitToItems, clsLayoutPin } from '../_constants';
-import applyItemOffset from '../_internal/applyItemOffset';
-import applyItemRatio from '../_internal/applyItemRatio';
-import applyItemSize from '../_internal/applyItemSize';
-import mergeClassName from '../_internal/mergeClassName';
+import applyItemOffset from '../_internal/_applyItemOffset';
+import applyItemRatio from '../_internal/_applyItemRatio';
+import applyItemSize from '../_internal/_applyItemSize';
+import mergeClassName from '../_internal/_mergeClassName';
 import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { PinLayoutOptions } from './types';
 

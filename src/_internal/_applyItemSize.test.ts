@@ -1,5 +1,5 @@
 import type { LayoutStyle } from '../types';
-import applyItemSize from './applyItemSize';
+import applyItemSize from './_applyItemSize';
 
 describe('applyItemSize', () => {
   it('指定した軸だけクラスと変数を設定する', () => {

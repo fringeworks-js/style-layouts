@@ -1,5 +1,5 @@
 import type { LayoutStyle } from '../types';
-import mergeClassName from './mergeClassName';
+import mergeClassName from './_mergeClassName';
 
 export default function mergeLayoutResults(
   results: LayoutStyle[],

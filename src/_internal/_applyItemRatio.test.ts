@@ -1,5 +1,5 @@
 import type { LayoutStyle } from '../types';
-import applyItemRatio from './applyItemRatio';
+import applyItemRatio from './_applyItemRatio';
 
 describe('applyItemRatio', () => {
   it('縦横比を設定する', () => {

@@ -1,4 +1,4 @@
-import unit from './unit';
+import unit from './_unit';
 
 describe('unit', () => {
   it('数値に単位を付ける', () => {

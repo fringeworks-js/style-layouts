@@ -1,12 +1,12 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutMatrix, varLayout } from '../_constants';
-import applyGap from '../_internal/applyGap';
-import applyItemCount from '../_internal/applyItemCount';
-import applyItemRatio from '../_internal/applyItemRatio';
-import applyItemSize from '../_internal/applyItemSize';
-import mergeClassName from '../_internal/mergeClassName';
-import mergeLayoutResults from '../_internal/mergeLayoutResults';
-import unit from '../_internal/unit';
+import applyGap from '../_internal/_applyGap';
+import applyItemCount from '../_internal/_applyItemCount';
+import applyItemRatio from '../_internal/_applyItemRatio';
+import applyItemSize from '../_internal/_applyItemSize';
+import mergeClassName from '../_internal/_mergeClassName';
+import mergeLayoutResults from '../_internal/_mergeLayoutResults';
+import unit from '../_internal/_unit';
 import type {
   AdjustOptions,
   AlignOptions,

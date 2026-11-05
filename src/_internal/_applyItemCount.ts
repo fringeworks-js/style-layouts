@@ -5,8 +5,8 @@ import {
   varLayoutItemCountY,
 } from '../_constants';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
+import hasValue from './_hasValue';
+import mergeClassName from './_mergeClassName';
 
 export default function applyItemCount(
   result: LayoutStyle,

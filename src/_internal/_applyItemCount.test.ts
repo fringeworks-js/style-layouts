@@ -1,5 +1,5 @@
 import type { LayoutStyle } from '../types';
-import applyItemCount from './applyItemCount';
+import applyItemCount from './_applyItemCount';
 
 describe('applyItemCount', () => {
   it('指定した軸だけクラスと変数を設定する', () => {

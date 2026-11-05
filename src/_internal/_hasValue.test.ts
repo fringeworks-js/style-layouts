@@ -1,4 +1,4 @@
-import hasValue from './hasValue';
+import hasValue from './_hasValue';
 
 describe('hasValue', () => {
   it.each([0, -1, 1.5, 'a', '0', true, false])('%j は有効', (value) => {

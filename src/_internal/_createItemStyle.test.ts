@@ -2,7 +2,7 @@ import centerItem from '../center/centerItem';
 import flowItem from '../flow/flowItem';
 import layerItem from '../layer/layerItem';
 import pinItem from '../pin/pinItem';
-import createItemStyle from './createItemStyle';
+import createItemStyle from './_createItemStyle';
 
 describe('createItemStyle', () => {
   it('alignは指定したことを表すクラスと値のクラスを設定する', () => {

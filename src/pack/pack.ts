@@ -1,7 +1,7 @@
 import { fillDefaults } from '@fringeworks/utils/object/fillDefaults';
 import { clsLayout, clsLayoutPack } from '../_constants';
-import applyGap from '../_internal/applyGap';
-import mergeClassName from '../_internal/mergeClassName';
+import applyGap from '../_internal/_applyGap';
+import mergeClassName from '../_internal/_mergeClassName';
 import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { PackLayoutOptions } from './types';
 

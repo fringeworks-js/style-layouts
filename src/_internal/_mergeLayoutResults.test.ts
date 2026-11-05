@@ -1,4 +1,4 @@
-import mergeLayoutResults from './mergeLayoutResults';
+import mergeLayoutResults from './_mergeLayoutResults';
 
 describe('mergeLayoutResults', () => {
   it('クラスを結合し、スタイルは後のものを優先して統合する', () => {

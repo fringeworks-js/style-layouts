@@ -1,5 +1,5 @@
 import type { LayoutStyle } from '../types';
-import applyGap from './applyGap';
+import applyGap from './_applyGap';
 
 describe('applyGap', () => {
   it('gapX・gapYを省略するとgapを使う', () => {

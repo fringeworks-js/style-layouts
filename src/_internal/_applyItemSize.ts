@@ -5,9 +5,9 @@ import {
   varLayoutItemSizeY,
 } from '../_constants';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
-import unit from './unit';
+import hasValue from './_hasValue';
+import mergeClassName from './_mergeClassName';
+import unit from './_unit';
 
 export default function applyItemSize(
   result: LayoutStyle,

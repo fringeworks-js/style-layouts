@@ -1,7 +1,7 @@
 import { clsLayoutItemRatio, varLayoutItemRatio } from '../_constants';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
+import hasValue from './_hasValue';
+import mergeClassName from './_mergeClassName';
 
 /**
  * 子要素の縦横比に関する設定の適用

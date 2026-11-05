@@ -1,4 +1,4 @@
-import mergeClassName from './mergeClassName';
+import mergeClassName from './_mergeClassName';
 
 describe('mergeClassName', () => {
   it('空の値を除いて空白で結合する', () => {

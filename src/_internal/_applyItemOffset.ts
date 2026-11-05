@@ -7,9 +7,9 @@ import {
   varLayoutItemOffsetZ,
 } from '../_constants';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
-import unit from './unit';
+import hasValue from './_hasValue';
+import mergeClassName from './_mergeClassName';
+import unit from './_unit';
 
 /**
  * 子要素のオフセットに関する設定の適用

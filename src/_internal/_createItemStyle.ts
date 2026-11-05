@@ -6,9 +6,9 @@ import type {
   SizeOptions,
 } from '../_types';
 import type { LayoutStyle } from '../types';
-import hasValue from './hasValue';
-import mergeClassName from './mergeClassName';
-import unit from './unit';
+import hasValue from './_hasValue';
+import mergeClassName from './_mergeClassName';
+import unit from './_unit';
 
 /**
  * アイテム（子要素）に適用するクラスと変数を作る

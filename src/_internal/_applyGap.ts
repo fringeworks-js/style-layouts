@@ -1,6 +1,6 @@
 import { varLayoutGapX, varLayoutGapY } from '../_constants';
 import type { LayoutStyle } from '../types';
-import unit from './unit';
+import unit from './_unit';
 
 /**
  * 間隔に関する設定の適用

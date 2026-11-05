@@ -1,5 +1,5 @@
 import { clsLayoutStackItem } from '../_constants';
-import createItemStyle from '../_internal/createItemStyle';
+import createItemStyle from '../_internal/_createItemStyle';
 import type { LayoutStyle } from '../types';
 import type { StackItemOptions } from './types';
 
