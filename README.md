@@ -15,8 +15,6 @@ It returns class names and CSS custom properties as an object based on the given
 
 ```bash
 npm install @fringeworks/style-layouts
-# or
-pnpm add @fringeworks/style-layouts
 ```
 
 ## Usage
@@ -548,26 +546,27 @@ Constants that list the option values. A type with the same name (the union of t
 
 ### Types
 
-| Type                   | Description                                          |
-| ---------------------- | ---------------------------------------------------- |
-| `LayoutStyle`          | Return value of the layout functions                 |
-| `CreateLayoutStyle<O>` | Type of a layout function whose options are optional |
-| `StackLayoutOptions`   | Options of `stack`                                   |
-| `FlowLayoutOptions`    | Options of `flow`                                    |
-| `TileLayoutOptions`    | Options of `tile`                                    |
-| `MatrixLayoutOptions`  | Options of `matrix`                                  |
-| `CenterLayoutOptions`  | Options of `center`                                  |
-| `PackLayoutOptions`    | Options of `pack`                                    |
-| `BalanceLayoutOptions` | Options of `balance`                                 |
-| `LayerLayoutOptions`   | Options of `layer`                                   |
-| `PinLayoutOptions`     | Options of `pin`                                     |
-| `StackItemOptions`     | Options of `stackItem`                               |
-| `FlowItemOptions`      | Options of `flowItem`                                |
-| `CenterItemOptions`    | Options of `centerItem`                              |
-| `LayerItemOptions`     | Options of `layerItem`                               |
-| `PinItemOptions`       | Options of `pinItem`                                 |
-| `PinAlignX`            | Values of `alignX` for `pin` / `pinItem`             |
-| `PinAlignY`            | Values of `alignY` for `pin` / `pinItem`             |
+| Type                   | Description                                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LayoutStyle`          | Return value of the layout functions                                                                                                                                |
+| `CreateLayoutStyle<O>` | Type of a layout function whose options are optional                                                                                                                |
+| `CSSCustomProperties`  | An object of CSS variables (keys start with `--`, values are `string \| undefined`). The type of `style` in the return value (a type of `@fringeworks/style-utils`) |
+| `StackLayoutOptions`   | Options of `stack`                                                                                                                                                  |
+| `FlowLayoutOptions`    | Options of `flow`                                                                                                                                                   |
+| `TileLayoutOptions`    | Options of `tile`                                                                                                                                                   |
+| `MatrixLayoutOptions`  | Options of `matrix`                                                                                                                                                 |
+| `CenterLayoutOptions`  | Options of `center`                                                                                                                                                 |
+| `PackLayoutOptions`    | Options of `pack`                                                                                                                                                   |
+| `BalanceLayoutOptions` | Options of `balance`                                                                                                                                                |
+| `LayerLayoutOptions`   | Options of `layer`                                                                                                                                                  |
+| `PinLayoutOptions`     | Options of `pin`                                                                                                                                                    |
+| `StackItemOptions`     | Options of `stackItem`                                                                                                                                              |
+| `FlowItemOptions`      | Options of `flowItem`                                                                                                                                               |
+| `CenterItemOptions`    | Options of `centerItem`                                                                                                                                             |
+| `LayerItemOptions`     | Options of `layerItem`                                                                                                                                              |
+| `PinItemOptions`       | Options of `pinItem`                                                                                                                                                |
+| `PinAlignX`            | Values of `alignX` for `pin` / `pinItem`                                                                                                                            |
+| `PinAlignY`            | Values of `alignY` for `pin` / `pinItem`                                                                                                                            |
 
 ```ts
 type LayoutStyle = {

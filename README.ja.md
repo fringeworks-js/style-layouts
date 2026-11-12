@@ -15,8 +15,6 @@
 
 ```bash
 npm install @fringeworks/style-layouts
-# または
-pnpm add @fringeworks/style-layouts
 ```
 
 ## 使い方
@@ -548,26 +546,27 @@ const { className, style } = stack(layoutOptions);
 
 ### 型
 
-| 型                     | 説明                                     |
-| ---------------------- | ---------------------------------------- |
-| `LayoutStyle`          | レイアウト関数の戻り値                   |
-| `CreateLayoutStyle<O>` | オプションを省略できるレイアウト関数の型 |
-| `StackLayoutOptions`   | `stack` のオプション                     |
-| `FlowLayoutOptions`    | `flow` のオプション                      |
-| `TileLayoutOptions`    | `tile` のオプション                      |
-| `MatrixLayoutOptions`  | `matrix` のオプション                    |
-| `CenterLayoutOptions`  | `center` のオプション                    |
-| `PackLayoutOptions`    | `pack` のオプション                      |
-| `BalanceLayoutOptions` | `balance` のオプション                   |
-| `LayerLayoutOptions`   | `layer` のオプション                     |
-| `PinLayoutOptions`     | `pin` のオプション                       |
-| `StackItemOptions`     | `stackItem` のオプション                 |
-| `FlowItemOptions`      | `flowItem` のオプション                  |
-| `CenterItemOptions`    | `centerItem` のオプション                |
-| `LayerItemOptions`     | `layerItem` のオプション                 |
-| `PinItemOptions`       | `pinItem` のオプション                   |
-| `PinAlignX`            | `pin`・`pinItem` の `alignX` の値        |
-| `PinAlignY`            | `pin`・`pinItem` の `alignY` の値        |
+| 型                     | 説明                                                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `LayoutStyle`          | レイアウト関数の戻り値                                                                                                               |
+| `CreateLayoutStyle<O>` | オプションを省略できるレイアウト関数の型                                                                                             |
+| `CSSCustomProperties`  | CSS 変数のオブジェクト（キーが `--` で始まり、値が `string \| undefined`）。戻り値の `style` の型（`@fringeworks/style-utils` の型） |
+| `StackLayoutOptions`   | `stack` のオプション                                                                                                                 |
+| `FlowLayoutOptions`    | `flow` のオプション                                                                                                                  |
+| `TileLayoutOptions`    | `tile` のオプション                                                                                                                  |
+| `MatrixLayoutOptions`  | `matrix` のオプション                                                                                                                |
+| `CenterLayoutOptions`  | `center` のオプション                                                                                                                |
+| `PackLayoutOptions`    | `pack` のオプション                                                                                                                  |
+| `BalanceLayoutOptions` | `balance` のオプション                                                                                                               |
+| `LayerLayoutOptions`   | `layer` のオプション                                                                                                                 |
+| `PinLayoutOptions`     | `pin` のオプション                                                                                                                   |
+| `StackItemOptions`     | `stackItem` のオプション                                                                                                             |
+| `FlowItemOptions`      | `flowItem` のオプション                                                                                                              |
+| `CenterItemOptions`    | `centerItem` のオプション                                                                                                            |
+| `LayerItemOptions`     | `layerItem` のオプション                                                                                                             |
+| `PinItemOptions`       | `pinItem` のオプション                                                                                                               |
+| `PinAlignX`            | `pin`・`pinItem` の `alignX` の値                                                                                                    |
+| `PinAlignY`            | `pin`・`pinItem` の `alignY` の値                                                                                                    |
 
 ```ts
 type LayoutStyle = {
