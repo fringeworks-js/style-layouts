@@ -1,6 +1,6 @@
 {
   "name": "@fringeworks/style-layouts",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "private": true,
   "keywords": [
     "css",
@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.6.0",
-    "@fringeworks/dev": "^0.13.4",
+    "@fringeworks/dev": "^0.14.0",
     "@playwright/test": "^1.65.0",
     "@storybook/addon-a11y": "^10.6.7",
     "@storybook/addon-docs": "^10.6.7",
