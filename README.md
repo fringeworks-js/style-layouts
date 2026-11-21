@@ -372,28 +372,28 @@ Returns the class names and CSS custom properties to apply to the container elem
 
 #### Options Reference
 
-| Option          | Type                       | Description                                                                         |
-| --------------- | -------------------------- | ----------------------------------------------------------------------------------- |
-| `direction?`    | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                                                |
-| `alignX?`       | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)                                |
-| `alignY?`       | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)                                   |
-| `adjustX?`      | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`)                          |
-| `adjustY?`      | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)                            |
-| `gap?`          | `number`                   | Gap between children in px, both axes (default: `0`)                                |
-| `gapX?`         | `number`                   | Gap between children in px, horizontal (default: `gap`)                             |
-| `gapY?`         | `number`                   | Gap between children in px, vertical (default: `gap`)                               |
-| `itemSizeX?`    | `number`                   | Width of child elements in px (if omitted, the child's own width)                   |
-| `itemSizeY?`    | `number`                   | Height of child elements in px (if omitted, the child's own height)                 |
-| `itemRatioX?`   | `number`                   | Horizontal ratio of child elements (`1` if only `itemRatioY` is specified)          |
-| `itemRatioY?`   | `number`                   | Vertical ratio of child elements (`1` if only `itemRatioX` is specified)            |
-| `itemCountX?`   | `number`                   | Number of children horizontally (required by `matrix` unless `tracksX` is given)    |
-| `itemCountY?`   | `number`                   | Number of children vertically (required by `matrix` unless `tracksY` is given)      |
-| `tracksX?`      | `(string \| number)[]`     | Individual sizes of children horizontally (`matrix`, instead of `itemCountX`)       |
-| `tracksY?`      | `(string \| number)[]`     | Individual sizes of children vertically (`matrix`, instead of `itemCountY`)         |
-| `itemOffsetX?`  | `number \| string`         | Horizontal offset of children (distance from the `alignX` edge; numbers are px)     |
-| `itemOffsetY?`  | `number \| string`         | Vertical offset of children (distance from the `alignY` edge; numbers are px)       |
-| `itemOffsetZ?`  | `number`                   | Stacking order of children (`z-index`)                                              |
-| `limitToItems?` | `boolean`                  | Applies the child styles only to children with `*Item()` applied (default: `false`) |
+| Option          | Type                            | Description                                                                         |
+| --------------- | ------------------------------- | ----------------------------------------------------------------------------------- |
+| `direction?`    | `'x' \| 'y'`                    | Main axis direction (default: `'x'`)                                                |
+| `alignX?`       | [`AlignX`](#alignx-values)      | Horizontal alignment of children (default: `'left'`)                                |
+| `alignY?`       | [`AlignY`](#aligny-values)      | Vertical alignment of children (default: `'top'`)                                   |
+| `adjustX?`      | [`Adjust`](#adjust-values)      | Horizontal size adjustment of children (default: `'none'`)                          |
+| `adjustY?`      | [`Adjust`](#adjust-values)      | Vertical size adjustment of children (default: `'none'`)                            |
+| `gap?`          | `number`                        | Gap between children in px, both axes (default: `0`)                                |
+| `gapX?`         | `number`                        | Gap between children in px, horizontal (default: `gap`)                             |
+| `gapY?`         | `number`                        | Gap between children in px, vertical (default: `gap`)                               |
+| `itemSizeX?`    | `number`                        | Width of child elements in px (if omitted, the child's own width)                   |
+| `itemSizeY?`    | `number`                        | Height of child elements in px (if omitted, the child's own height)                 |
+| `itemRatioX?`   | `number`                        | Horizontal ratio of child elements (`1` if only `itemRatioY` is specified)          |
+| `itemRatioY?`   | `number`                        | Vertical ratio of child elements (`1` if only `itemRatioX` is specified)            |
+| `itemCountX?`   | `number`                        | Number of children horizontally (required by `matrix` unless `tracksX` is given)    |
+| `itemCountY?`   | `number`                        | Number of children vertically (required by `matrix` unless `tracksY` is given)      |
+| `tracksX?`      | `readonly (string \| number)[]` | Individual sizes of children horizontally (`matrix`, instead of `itemCountX`)       |
+| `tracksY?`      | `readonly (string \| number)[]` | Individual sizes of children vertically (`matrix`, instead of `itemCountY`)         |
+| `itemOffsetX?`  | `number \| string`              | Horizontal offset of children (distance from the `alignX` edge; numbers are px)     |
+| `itemOffsetY?`  | `number \| string`              | Vertical offset of children (distance from the `alignY` edge; numbers are px)       |
+| `itemOffsetZ?`  | `number`                        | Stacking order of children (`z-index`)                                              |
+| `limitToItems?` | `boolean`                       | Applies the child styles only to children with `*Item()` applied (default: `false`) |
 
 Combinations not allowed for a given `direction` are type errors (omitting `direction` is treated as `'x'`).
 
@@ -565,6 +565,7 @@ Constants that list the option values. A type with the same name (the union of t
 | `CenterItemOptions`    | Options of `centerItem`                                                                                                                                             |
 | `LayerItemOptions`     | Options of `layerItem`                                                                                                                                              |
 | `PinItemOptions`       | Options of `pinItem`                                                                                                                                                |
+| `PinAlignOptions`      | Options for the reference edges shared by `pin` / `pinItem` (`alignX` and `alignY`)                                                                                 |
 | `PinAlignX`            | Values of `alignX` for `pin` / `pinItem`                                                                                                                            |
 | `PinAlignY`            | Values of `alignY` for `pin` / `pinItem`                                                                                                                            |
 

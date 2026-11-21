@@ -124,13 +124,13 @@ export type TracksOptions = {
    * 横方向の設定
    * このプロパティが設定されている場合、itemCountX,itemSizeXは無効
    */
-  tracksX?: (string | number)[];
+  tracksX?: readonly (string | number)[];
 
   /**
    * 縦方向の設定
    * このプロパティが設定されている場合、itemCountY,itemSizeYは無効
    */
-  tracksY?: (string | number)[];
+  tracksY?: readonly (string | number)[];
 };
 
 /**

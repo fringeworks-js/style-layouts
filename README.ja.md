@@ -372,28 +372,28 @@ pin(options?: PinLayoutOptions): LayoutStyle
 
 #### オプション一覧
 
-| オプション      | 型                       | 説明                                                                                  |
-| --------------- | ------------------------ | ------------------------------------------------------------------------------------- |
-| `direction?`    | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                                                         |
-| `alignX?`       | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)                                                  |
-| `alignY?`       | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)                                                   |
-| `adjustX?`      | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`)                                      |
-| `adjustY?`      | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`)                                      |
-| `gap?`          | `number`                 | 子要素間の余白 (px,横縦共通。デフォルト `0`)                                          |
-| `gapX?`         | `number`                 | 子要素間の余白 (px,横方向。デフォルト `gap`)                                          |
-| `gapY?`         | `number`                 | 子要素間の余白 (px,縦方向。デフォルト `gap`)                                          |
-| `itemSizeX?`    | `number`                 | 子要素の幅 (px。省略時は子要素自身の幅)                                               |
-| `itemSizeY?`    | `number`                 | 子要素の高さ (px。省略時は子要素自身の高さ)                                           |
-| `itemRatioX?`   | `number`                 | 子要素の幅の比 (`itemRatioY` のみ指定した場合は `1`)                                  |
-| `itemRatioY?`   | `number`                 | 子要素の高さの比 (`itemRatioX` のみ指定した場合は `1`)                                |
-| `itemCountX?`   | `number`                 | 子要素の横方向の数 (`matrix` では `tracksX` を指定しない場合に必須)                   |
-| `itemCountY?`   | `number`                 | 子要素の縦方向の数 (`matrix` では `tracksY` を指定しない場合に必須)                   |
-| `tracksX?`      | `(string \| number)[]`   | 子要素の横方向の個々のサイズ (`matrix` では `itemCountX` の代わりに指定)              |
-| `tracksY?`      | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ (`matrix` では `itemCountY` の代わりに指定)              |
-| `itemOffsetX?`  | `number \| string`       | 子要素の横方向のオフセット (`alignX` の辺からの距離。数値はpx)                        |
-| `itemOffsetY?`  | `number \| string`       | 子要素の縦方向のオフセット (`alignY` の辺からの距離。数値はpx)                        |
-| `itemOffsetZ?`  | `number`                 | 子要素の重なり順 (`z-index`)                                                          |
-| `limitToItems?` | `boolean`                | 子要素に当てるスタイルを、`*Item()` を適用した子要素だけに当てる (デフォルト `false`) |
+| オプション      | 型                              | 説明                                                                                  |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------------------- |
+| `direction?`    | `'x' \| 'y'`                    | 主軸の方向 (デフォルト `'x'`)                                                         |
+| `alignX?`       | [`AlignX`](#alignx-の値)        | 子要素の横位置 (デフォルト `'left'`)                                                  |
+| `alignY?`       | [`AlignY`](#aligny-の値)        | 子要素の縦位置 (デフォルト `'top'`)                                                   |
+| `adjustX?`      | [`Adjust`](#adjust-の値)        | 子要素の横方向のサイズ調整 (デフォルト `'none'`)                                      |
+| `adjustY?`      | [`Adjust`](#adjust-の値)        | 子要素の縦方向のサイズ調整 (デフォルト `'none'`)                                      |
+| `gap?`          | `number`                        | 子要素間の余白 (px,横縦共通。デフォルト `0`)                                          |
+| `gapX?`         | `number`                        | 子要素間の余白 (px,横方向。デフォルト `gap`)                                          |
+| `gapY?`         | `number`                        | 子要素間の余白 (px,縦方向。デフォルト `gap`)                                          |
+| `itemSizeX?`    | `number`                        | 子要素の幅 (px。省略時は子要素自身の幅)                                               |
+| `itemSizeY?`    | `number`                        | 子要素の高さ (px。省略時は子要素自身の高さ)                                           |
+| `itemRatioX?`   | `number`                        | 子要素の幅の比 (`itemRatioY` のみ指定した場合は `1`)                                  |
+| `itemRatioY?`   | `number`                        | 子要素の高さの比 (`itemRatioX` のみ指定した場合は `1`)                                |
+| `itemCountX?`   | `number`                        | 子要素の横方向の数 (`matrix` では `tracksX` を指定しない場合に必須)                   |
+| `itemCountY?`   | `number`                        | 子要素の縦方向の数 (`matrix` では `tracksY` を指定しない場合に必須)                   |
+| `tracksX?`      | `readonly (string \| number)[]` | 子要素の横方向の個々のサイズ (`matrix` では `itemCountX` の代わりに指定)              |
+| `tracksY?`      | `readonly (string \| number)[]` | 子要素の縦方向の個々のサイズ (`matrix` では `itemCountY` の代わりに指定)              |
+| `itemOffsetX?`  | `number \| string`              | 子要素の横方向のオフセット (`alignX` の辺からの距離。数値はpx)                        |
+| `itemOffsetY?`  | `number \| string`              | 子要素の縦方向のオフセット (`alignY` の辺からの距離。数値はpx)                        |
+| `itemOffsetZ?`  | `number`                        | 子要素の重なり順 (`z-index`)                                                          |
+| `limitToItems?` | `boolean`                       | 子要素に当てるスタイルを、`*Item()` を適用した子要素だけに当てる (デフォルト `false`) |
 
 `direction` によって指定できない組み合わせは型でエラーになります（`direction` を省略した場合は `'x'` と同じ扱い）。
 
@@ -565,6 +565,7 @@ const { className, style } = stack(layoutOptions);
 | `CenterItemOptions`    | `centerItem` のオプション                                                                                                            |
 | `LayerItemOptions`     | `layerItem` のオプション                                                                                                             |
 | `PinItemOptions`       | `pinItem` のオプション                                                                                                               |
+| `PinAlignOptions`      | `pin`・`pinItem` に共通の、位置の基準のオプション（`alignX`・`alignY`）                                                              |
 | `PinAlignX`            | `pin`・`pinItem` の `alignX` の値                                                                                                    |
 | `PinAlignY`            | `pin`・`pinItem` の `alignY` の値                                                                                                    |
 

@@ -18,6 +18,11 @@ describe('matrix', () => {
     matrix({ itemCountX: 3, tracksX: [100], itemCountY: 2 });
   });
 
+  it('tracks は readonly の配列も受け付ける', () => {
+    const tracks = [100, '1fr'] as const;
+    matrix({ tracksX: tracks, tracksY: tracks });
+  });
+
   it('itemSize は itemCount と組み合わせて使う', () => {
     matrix({ itemCountX: 3, itemSizeX: 100, itemCountY: 2 });
     // @ts-expect-error tracks と itemSize は同時に指定できない

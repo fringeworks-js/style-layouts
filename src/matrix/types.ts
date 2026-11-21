@@ -30,7 +30,7 @@ type MatrixAxisXWithCountOptions = {
 type MatrixAxisXWithTemplateOptions = {
   itemCountX?: never;
   itemSizeX?: never;
-  tracksX: (string | number)[];
+  tracksX: readonly (string | number)[];
 };
 
 /**
@@ -54,7 +54,7 @@ type MatrixAxisYWithCountOptions = {
 type MatrixAxisYWithTemplateOptions = {
   itemCountY?: never;
   itemSizeY?: never;
-  tracksY: (string | number)[];
+  tracksY: readonly (string | number)[];
 };
 
 /**
